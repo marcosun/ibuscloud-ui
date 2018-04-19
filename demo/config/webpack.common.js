@@ -18,7 +18,7 @@ module.exports = {
     rules: [
       {
         test: /(\.js|\.jsx)$/,
-        include: [path.appSrc, path.libraryComponent],
+        include: path.appSrc,
         loader: 'babel-loader'
       },
 
@@ -76,12 +76,6 @@ module.exports = {
           priority: -20
         }
       }
-    }
-  },
-
-  resolve: {
-    alias: {
-      Library: path.libraryComponent
     }
   }
 };
