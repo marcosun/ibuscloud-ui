@@ -17,9 +17,9 @@ export default class Router extends React.Component {
   constructor(props) {
     super(props);
 
-    this.Post = lodable({
+    this.AppFrame = lodable({
       loader: () => {
-        return import('./Post');
+        return import('./AppFrame');
       },
       loading: () => {
         return <div>Loading...</div>;
@@ -34,7 +34,7 @@ export default class Router extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={this.Post} />
+          <Route exact path="/appFrame" component={this.AppFrame} />
         </Switch>
       </BrowserRouter>
     );
