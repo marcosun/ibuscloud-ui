@@ -13,19 +13,6 @@
   "keywords": [],
   "author": "Marco",
   "license": "MIT",
-  "jest": {
-    "transform": {
-      "^.+\\.(js|jsx)$": "babel-jest"
-    },
-    "globals": {
-      "BABEL_ENV": "test",
-      "NODE_ENV": "test"
-    },
-    "unmockedModulePathPatterns": [
-      "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-dom"
-    ]
-  },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "material-ui": "^1.0.0-beta.38",
