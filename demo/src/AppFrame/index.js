@@ -1,6 +1,7 @@
 import React from 'react';
-import {AppFrame} from 'Library';
 import {hot} from 'react-hot-loader';
+
+import {AppFrame} from 'ibuscloud-ui';
 
 @hot(module)
 /**
