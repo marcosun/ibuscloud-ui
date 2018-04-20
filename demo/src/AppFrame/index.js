@@ -13,6 +13,10 @@ export default class AppFramePage extends React.Component {
    * @return {Component}
    */
   render() {
-    return <AppFrame />;
+    return (
+      <AppFrame>
+        <div>123</div>
+      </AppFrame>
+    );
   }
 }
