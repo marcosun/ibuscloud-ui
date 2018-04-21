@@ -17,7 +17,8 @@
   "license": "MIT",
   "peerDependencies": {
     "material-ui": "*",
-    "react": "*"
+    "react": "*",
+    "react-router": "*"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
