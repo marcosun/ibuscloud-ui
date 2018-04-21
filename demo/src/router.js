@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   BrowserRouter,
+  Redirect,
   Route,
   Switch,
 } from 'react-router-dom';
@@ -34,7 +35,8 @@ export default class Router extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/appFrame" component={this.AppFrame} />
+          <Route exact path='/' render={() => (<Redirect to='/appFrame' />)} />
+          <Route exact path='/appFrame' component={this.AppFrame} />
         </Switch>
       </BrowserRouter>
     );
