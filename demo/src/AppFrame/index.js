@@ -3,11 +3,11 @@ import {hot} from 'react-hot-loader';
 
 import {AppFrame} from 'ibuscloud-ui';
 
-@hot(module)
 /**
  * Export AppFrame Page
  */
-export default class AppFramePage extends React.Component {
+@hot(module)
+class AppFramePage extends React.Component {
   /**
    * Render a form sending post data
    * @return {Component}
@@ -20,3 +20,5 @@ export default class AppFramePage extends React.Component {
     );
   }
 }
+
+export default AppFramePage;
