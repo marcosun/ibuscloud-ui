@@ -1,7 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
 
-import {AppFrame} from 'ibuscloud-ui';
+import AppFrame from 'ibuscloud-ui/AppFrame';
 
 /**
  * Export AppFrame Page
