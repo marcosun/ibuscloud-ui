@@ -12,7 +12,7 @@
     "test:watch": "npm test -- --watch",
     "doc": "jsdoc lib -r"
   },
-  "repository": "git@github.com:marcosun/js-component-seed.git",
+  "repository": "git@github.com:marcosun/ibuscloud-ui.git",
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
