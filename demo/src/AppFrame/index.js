@@ -14,7 +14,15 @@ class AppFramePage extends React.Component {
    */
   render() {
     return (
-      <AppFrame>
+      <AppFrame
+        navs={[{
+          text: 'AppFrame',
+          path: '/appFrame',
+        }, {
+          text: '其他组件（暂未开发）',
+          path: '/others',
+        }]}
+      >
         <strong>Start writing your page here. AppFrame has created an AppBar and a Drawer for you.</strong>
         <p>The following area will be filled with a long paragraph to demonstrate scrolling behaviour</p>
         <p>
