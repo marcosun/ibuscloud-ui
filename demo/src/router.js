@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom';
 import lodable from 'react-loadable';
 
+import AppFrame from './AppFrame';
+
 /**
  * Return router
  * @return {Router}
@@ -18,9 +20,18 @@ export default class Router extends React.Component {
   constructor(props) {
     super(props);
 
-    this.AppFrame = lodable({
+    this.ComponentA = lodable({
       loader: () => {
-        return import('./AppFrame');
+        return import('./ComponentA');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
+
+    this.ComponentB = lodable({
+      loader: () => {
+        return import('./ComponentB');
       },
       loading: () => {
         return <div>Loading...</div>;
@@ -35,8 +46,21 @@ export default class Router extends React.Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path='/' render={() => (<Redirect to='/appFrame' />)} />
-          <Route exact path='/appFrame' component={this.AppFrame} />
+          <AppFrame
+            navs={[{
+              text: 'ComponentA',
+              path: '/componentA',
+            }, {
+              text: 'ComponentB',
+              path: '/componentB',
+            }]}
+          >
+            <Route exact path='/' render={() => (
+              <Redirect to='/componentA' />
+            )} />
+            <Route exact path='/componentA' component={this.ComponentA} />
+            <Route exact path='/componentB' component={this.ComponentB} />
+          </AppFrame>
         </Switch>
       </BrowserRouter>
     );
