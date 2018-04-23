@@ -1,4 +1,5 @@
 const execSync = require('child_process').execSync;
+const rimraf = require('rimraf');
 
 const exec = (command, extraEnv) => {
   execSync(command, {
@@ -9,9 +10,9 @@ const exec = (command, extraEnv) => {
 
 console.log('Building CommonJS modules ...');
 
-exec('rm -rf cjs');
-
-exec('babel lib -d cjs --ignore test.js', {
-  BABEL_ENV: 'cjs',
-  NODE_ENV: 'production',
+rimraf('cjs', function() {
+  exec('babel lib -d cjs --ignore test.js', {
+    BABEL_ENV: 'cjs',
+    NODE_ENV: 'production',
+  });
 });
