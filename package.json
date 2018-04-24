@@ -10,7 +10,7 @@
     "prebuild": "rimraf build",
     "build:es2015": "cross-env NODE_ENV=production babel lib -d build --ignore *.test.js",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel lib -d build/es --ignore *.test.js",
-    "build:copy-files": "babel-node ./config/copy-files.js",
+    "build:copy-files": "babel-node ./script/copy-files.js",
     "build": "yarn prebuild && yarn build:es2015 && yarn build:es && yarn build:copy-files",
     "test": "jest",
     "test:watch": "npm test -- --watch",
