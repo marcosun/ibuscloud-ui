@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "description": "React components that implement IBuscloud Design on top of Material-UI.",
   "main": "index.js",
-  "module": "lib/index.js",
+  "module": "es/index.js",
   "scripts": {
-    "start": "nodemon --exec yarn run build:dev",
-    "build:dev": "node ./config/build.dev.js",
-    "build:prod": "node ./config/build.prod.js",
-    "analyse": "webpack --config ./config/webpack.analyse.js",
+    "start": "nodemon --exec yarn run dev",
+    "dev": "cross-env NODE_ENV=production babel lib -d demo/node_modules/ibuscloud-ui --ignore *.test.js",
+    "build:es2015": "cross-env NODE_ENV=production babel lib -d build --ignore *.test.js",
+    "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel lib -d build/es --ignore *.test.js",
+    "build": "rimraf bulid && yarn build:es2015 && yarn build:es",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "doc": "jsdoc lib -r"
