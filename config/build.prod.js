@@ -11,7 +11,7 @@ const exec = (command, extraEnv) => {
 console.log('Building CommonJS modules ...');
 
 rimraf('cjs', function() {
-  exec('babel lib -d cjs --ignore test.js', {
+  exec('babel lib -d build --ignore test.js', {
     BABEL_ENV: 'cjs',
     NODE_ENV: 'production',
   });

@@ -2,6 +2,7 @@
 
 Completed List:
  - AppFrame
+ - ThemeProvider
 
 Todo List:
- - ThemeProvider
+ - Doc
