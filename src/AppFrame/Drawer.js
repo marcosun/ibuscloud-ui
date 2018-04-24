@@ -89,7 +89,7 @@ class Drawer extends React.Component {
    * MuiDrawer paper classes must be overwrited by passing paper css property
    * via classes. Therefore, here I am creating a jss style sheet to
    * dynamically change paper width.
-   * @param  {[type]} props [description]
+   * @param  {Object} props
    */
   constructor(props) {
     super(props);
