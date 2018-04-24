@@ -7,9 +7,11 @@
   "scripts": {
     "start": "nodemon --exec yarn run dev",
     "dev": "cross-env NODE_ENV=production babel lib -d demo/node_modules/ibuscloud-ui --ignore *.test.js",
+    "prebuild": "rimraf build",
     "build:es2015": "cross-env NODE_ENV=production babel lib -d build --ignore *.test.js",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel lib -d build/es --ignore *.test.js",
-    "build": "rimraf bulid && yarn build:es2015 && yarn build:es",
+    "build:copy-files": "babel-node ./config/copy-files.js",
+    "build": "yarn prebuild && yarn build:es2015 && yarn build:es && yarn build:copy-files",
     "test": "jest",
     "test:watch": "npm test -- --watch",
     "doc": "jsdoc lib -r"
@@ -38,13 +40,10 @@
     "eslint": "^4.19.1",
     "eslint-config-google": "^0.9.1",
     "eslint-plugin-react": "^7.7.0",
+    "fs-extra": "^5.0.0",
     "jest": "^22.4.3",
     "jsdoc": "^3.5.5",
     "nodemon": "^1.17.3",
     "rimraf": "^2.6.2"
-  },
-  "files": [
-    "lib",
-    "cjs"
-  ]
+  }
 }
