@@ -20,6 +20,14 @@ export default class Router extends React.Component {
   constructor(props) {
     super(props);
 
+    this.ButtonGroup = lodable({
+      loader: () => {
+        return import('./ButtonGroup');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
   }
 
   /**
@@ -30,9 +38,15 @@ export default class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <AppFrame
-
+            navs={[{
+              text: 'ButtonGroup',
+              path: '/buttonGroup',
+            }]}
           >
-
+            <Route exact path='/' render={() => (
+              <Redirect to='/buttonGroup' />
+            )} />
+            <Route exact path='/buttonGroup' component={this.ButtonGroup} />
           </AppFrame>
         </Switch>
       </BrowserRouter>
