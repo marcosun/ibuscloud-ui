@@ -20,14 +20,6 @@ export default class Router extends React.Component {
   constructor(props) {
     super(props);
 
-    this.ComponentA = lodable({
-      loader: () => {
-        return import('./ComponentA');
-      },
-      loading: () => {
-        return <div>Loading...</div>;
-      },
-    });
   }
 
   /**
@@ -38,15 +30,9 @@ export default class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <AppFrame
-            navs={[{
-              text: 'ComponentA',
-              path: '/componentA',
-            }]}
+
           >
-            <Route exact path='/' render={() => (
-              <Redirect to='/componentA' />
-            )} />
-            <Route exact path='/componentA' component={this.ComponentA} />
+
           </AppFrame>
         </Switch>
       </BrowserRouter>
