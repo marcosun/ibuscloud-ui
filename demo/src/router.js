@@ -28,15 +28,6 @@ export default class Router extends React.Component {
         return <div>Loading...</div>;
       },
     });
-
-    this.ComponentB = lodable({
-      loader: () => {
-        return import('./ComponentB');
-      },
-      loading: () => {
-        return <div>Loading...</div>;
-      },
-    });
   }
 
   /**
@@ -50,16 +41,12 @@ export default class Router extends React.Component {
             navs={[{
               text: 'ComponentA',
               path: '/componentA',
-            }, {
-              text: 'ComponentB',
-              path: '/componentB',
             }]}
           >
             <Route exact path='/' render={() => (
               <Redirect to='/componentA' />
             )} />
             <Route exact path='/componentA' component={this.ComponentA} />
-            <Route exact path='/componentB' component={this.ComponentB} />
           </AppFrame>
         </Switch>
       </BrowserRouter>
