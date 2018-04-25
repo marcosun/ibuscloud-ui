@@ -14,6 +14,7 @@
   "author": "Marco",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
     "babel-polyfill": "^6.26.0",
     "material-ui": "^1.0.0-beta.43",
     "prop-types": "^15.6.1",
