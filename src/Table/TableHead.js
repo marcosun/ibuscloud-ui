@@ -95,7 +95,7 @@ export default class Component extends React.Component {
     } = this.props;
 
     const cellElement = (column) => {
-      if (sortDirection === void 0) {
+      if (sortDirection === void 0 && column.title === void 0) {
         return column.label;
       }
 
