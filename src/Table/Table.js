@@ -39,22 +39,21 @@ const styles = (theme) => ({
 export default class Component extends React.Component {
   static propTypes = {
     classes: object.isRequired,
-    columns: array.isRequired,
-    data: array.isRequired,
     order: string,
     sortDirection: string,
-    currentPage: number.isRequired,
+    data: array.isRequired,
+    columns: array.isRequired,
     rowsPerPageOptions: array,
+    currentPage: number.isRequired,
   };
 
   static defaultProps = {
     currentPage: 0,
-    sortDirection: 'asc',
     rowsPerPageOptions: [5, 7, 10],
-    order: 'name',
   };
 
   /**
+   * Init state
    * @param {Object} props
    */
   constructor(props) {
@@ -75,6 +74,10 @@ export default class Component extends React.Component {
       rowsPerPage: rowsPerPageOptions[0],
       selectedRowsIndex: [],
       data: (() => {
+        if (sortDirection === void 0) {
+          return;
+        }
+
         return sortDirection === 'desc'
           ? data.sort((pre, next) => (next[order] < pre[order] ? -1 : 1))
           : data.sort((pre, next) => (pre[order] < next[order] ? -1 : 1));
@@ -84,7 +87,7 @@ export default class Component extends React.Component {
 
   /**
    * Alarm: The lifecycle methods will continue to work until the version 17 of react
-   * Reset currentPage state if currentPage is updated
+   * Reset currentPage and data state if updated
    * @param {Object} nextProps
    * @return {boolean}
    */
@@ -95,10 +98,21 @@ export default class Component extends React.Component {
         currentPage: nextProps.currentPage,
       });
     }
+
+    if (!isShallowEqual(this.props.data, nextProps.data)) {
+      this.setState({
+        ...this.state,
+        data: nextProps.data,
+        currentPage: 0,
+        selectedRowsIndex: [],
+      });
+    }
+
     return true;
   }
 
   /**
+   * Call onChangePage callback
    * @param  {Object} event
    * @param  {number} currentPage
    */
@@ -110,6 +124,7 @@ export default class Component extends React.Component {
   }
 
   /**
+   * Call onChangeRowsPerPage callback
    * @param  {Object} event
    */
   onChangeRowsPerPage(event) {
@@ -121,7 +136,7 @@ export default class Component extends React.Component {
   }
 
   /**
-   * Call onChange callback
+   * Call onChangeChecked callback
    * @param  {number} dataIndex
    * @param  {Object} event
    */
@@ -193,7 +208,6 @@ export default class Component extends React.Component {
   }
 
   /**
-   * Render Table component
    * @return {Component}
    */
   render() {
@@ -261,10 +275,10 @@ export default class Component extends React.Component {
       <div className={classes.root}>
         <Table>
           <TableHead
+            data={data}
             order={order}
             columns={columns}
             sortDirection={sortDirection}
-            data={data}
             numSelected={selectedRowsIndex.length}
             onSelectAllClick={this.onSelectAllClick.bind(this)}
             onSortLabelClick={this.onSortLabelClick.bind(this)}
@@ -274,9 +288,9 @@ export default class Component extends React.Component {
         <div className={classes.tablePagination}>
           <TablePagination
             component="div"
+            page={currentPage}
             count={data.length}
             rowsPerPage={rowsPerPage}
-            page={currentPage}
             rowsPerPageOptions={rowsPerPageOptions}
             onChangePage={this.onChangePage.bind(this)}
             onChangeRowsPerPage={this.onChangeRowsPerPage.bind(this)}
