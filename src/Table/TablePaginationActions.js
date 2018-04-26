@@ -61,28 +61,28 @@ export default class TablePaginationActions extends React.Component {
 
   /**
    * Click digital button callback
-   * @param {Object} event
    * @param {number} index
+   * @param {Object} event
    */
-  onDigitalButtonClick(event, index) {
+  onDigitalButtonClick(index, event) {
     this.props.onChangePage(event, index);
   }
 
   /**
    * Click previous button callback
-   * @param {Object} event
    * @param {number} currentPage
+   * @param {Object} event
    */
-  onPreButtonClick(event, currentPage) {
+  onPreButtonClick(currentPage, event) {
     this.props.onChangePage(event, currentPage - 1);
   }
 
   /**
    * Click next button callback
-   * @param {Object} event
    * @param {number} currentPage
+   * @param {Object} event
    */
-  onNextButtonClick(event, currentPage) {
+  onNextButtonClick(currentPage, event) {
     this.props.onChangePage(event, currentPage + 1);
   }
 
@@ -100,46 +100,46 @@ export default class TablePaginationActions extends React.Component {
       page: currentPage,
     } = this.props;
 
-    const digitalButtonList = (() => {
-      const totalPageNum = Math.ceil(count / rowsPerPage);
-      return (
-        [...new Array(totalPageNum)].map((item, index) => {
-          if (
-            maxDigitalButtonNum < totalPageNum
-            && index === maxDigitalButtonNum - 1
-          ) {
-            return <div className={classes.ellipsis} key={index}>…</div>;
-          }
+    const totalPageNum = Math.ceil(count / rowsPerPage);
 
-          if (
-            maxDigitalButtonNum < totalPageNum
-            && index > maxDigitalButtonNum - 1
-            && index < totalPageNum - 1
-          ) {
-            return null;
-          }
+    const digitalButtonList = (
+      [...new Array(totalPageNum)].map((item, index) => {
+        if (
+          maxDigitalButtonNum < totalPageNum
+          && index === maxDigitalButtonNum - 1
+        ) {
+          return <div className={classes.ellipsis} key={index}>…</div>;
+        }
 
-          return (
-            <Button
-              key={index}
-              variant="raised"
-              color={currentPage === index ? 'primary' : 'default'}
-              classes={{
-                root: classes.buttonRoot,
-              }}
-              onClick={this.onDigitalButtonClick.bind(this, index)}
-            >
-              {index + 1}
-            </Button>
-          );
-        })
-      );
-    })();
+        if (
+          maxDigitalButtonNum < totalPageNum
+          && index > maxDigitalButtonNum - 1
+          && index < totalPageNum - 1
+        ) {
+          return null;
+        }
+
+        return (
+          <Button
+            key={index}
+            variant="raised"
+            color={currentPage === index ? 'primary' : 'default'}
+            classes={{
+              root: classes.buttonRoot,
+            }}
+            onClick={this.onDigitalButtonClick.bind(this, index)}
+          >
+            {index + 1}
+          </Button>
+        );
+      })
+    );
 
     return (
       <div className={classes.root}>
         <Button
           variant="raised"
+          disabled={currentPage === 0}
           classes={{
             root: classes.buttonRoot,
           }}
@@ -150,6 +150,7 @@ export default class TablePaginationActions extends React.Component {
         {digitalButtonList}
         <Button
           variant="raised"
+          disabled={currentPage === totalPageNum - 1}
           classes={{
             root: classes.buttonRoot,
           }}

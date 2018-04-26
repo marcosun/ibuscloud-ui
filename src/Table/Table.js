@@ -178,7 +178,7 @@ export default class Component extends React.Component {
             rowsPerPage={rowsPerPage}
             page={currentPage}
             rowsPerPageOptions={rowsPerPageOptions}
-            onChangePage={this.onChangePage.bind(this, currentPage)}
+            onChangePage={this.onChangePage.bind(this)}
             onChangeRowsPerPage={this.onChangeRowsPerPage.bind(this)}
             Actions={TablePaginationActions}
           />
