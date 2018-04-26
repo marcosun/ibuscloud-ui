@@ -78,12 +78,12 @@ export default class Component extends React.Component {
       selectedRowsIndex: [],
       data: (() => {
         if (sortDirection === void 0) {
-          return data;
+          return [...data];
         }
 
         return sortDirection === 'desc'
-          ? data.sort((pre, next) => (next[order] < pre[order] ? -1 : 1))
-          : data.sort((pre, next) => (pre[order] < next[order] ? -1 : 1));
+          ? [...data].sort((pre, next) => (next[order] < pre[order] ? -1 : 1))
+          : [...data].sort((pre, next) => (pre[order] < next[order] ? -1 : 1));
       })(),
     };
   }
@@ -105,7 +105,7 @@ export default class Component extends React.Component {
     if (!isShallowEqual(this.props.data, nextProps.data)) {
       this.setState({
         ...this.state,
-        data: nextProps.data,
+        data: [...nextProps.data],
         currentPage: 0,
         selectedRowsIndex: [],
       });
@@ -219,8 +219,8 @@ export default class Component extends React.Component {
         const order = sortDirection === 'asc' ? 'desc' : 'asc';
 
         return order === 'desc'
-          ? data.sort((pre, next) => (next[columnId] < pre[columnId] ? -1 : 1))
-          : data.sort((pre, next) => (pre[columnId] < next[columnId] ? -1 : 1));
+          ? [...data].sort((pre, next) => (next[columnId] < pre[columnId] ? -1 : 1))
+          : [...data].sort((pre, next) => (pre[columnId] < next[columnId] ? -1 : 1));
       })(),
     });
   }
