@@ -40,9 +40,9 @@ const styles = (theme) => ({
 export default class TablePaginationActions extends React.Component {
   static propTypes = {
     classes: object.isRequired,
+    page: number.isRequired,
     count: number.isRequired,
     rowsPerPage: number.isRequired,
-    page: number.isRequired,
     onChangePage: func.isRequired,
   };
 
@@ -53,6 +53,7 @@ export default class TablePaginationActions extends React.Component {
     super(props);
     this.props = props;
 
+    // Todo: expose maxDigitalButtonNum prop
     this.maxDigitalButtonNum = 6;
   }
 
@@ -84,7 +85,6 @@ export default class TablePaginationActions extends React.Component {
   }
 
   /**
-   * Render TablePaginationActions component
    * @return {Component}
    */
   render() {
@@ -99,17 +99,32 @@ export default class TablePaginationActions extends React.Component {
 
     // Todo: add transition animation when switching buttons
     const digitalButtonList = (() => {
+      // If the number of pages are less than maxDigitalButtonNum,
+      // we will create a 1D array with consecutive numbers.
+      // If the number of pages are more than maxDigitalButtonNum,
+      // we will create a 2D array with consecutive numbers.
+      // We will be render button according numbers and
+      // insert ellipsis in the middle of the 2D array.
       const digitalList = (() => {
         if (this.maxDigitalButtonNum < totalPageNum) {
           if (currentPage < 2) {
-            return [[0, 1, 2, 3, 4], [totalPageNum - 1]];
+            return [
+              [0, 1, 2, 3, 4],
+              [totalPageNum - 1],
+            ];
           }
 
           if (currentPage >= 2 && currentPage <= totalPageNum - 5) {
-            return [[currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2], [totalPageNum - 1]];
+            return [
+              [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2],
+              [totalPageNum - 1],
+            ];
           }
 
-          return [[0], [totalPageNum - 5, totalPageNum - 4, totalPageNum - 3, totalPageNum - 2, totalPageNum - 1]];
+          return [
+            [0],
+            [totalPageNum - 5, totalPageNum - 4, totalPageNum - 3, totalPageNum - 2, totalPageNum - 1],
+          ];
         }
 
         return [[...new Array(totalPageNum)].map((item, index) => {
