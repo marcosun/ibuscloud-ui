@@ -10,11 +10,6 @@ import {
 
 // Set root font size to 10px to simplify rem calculation.
 const styles = (theme) => ({
-  '@global': {
-    html: {
-      fontSize: '10px',
-    },
-  },
 });
 
 /**
@@ -47,9 +42,6 @@ class ThemeProvider extends React.Component {
         'none',
         ...new Array(24).fill('0px 2px 6px rgba(0, 0, 0, 0.04)'),
       ],
-      typography: {
-        htmlFontSize: 10,
-      },
     });
 
     return (
