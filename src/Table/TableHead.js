@@ -83,7 +83,6 @@ export default class Component extends React.Component {
   }
 
   /**
-   * Render tableHead component
    * @return {Component}
    */
   render() {
