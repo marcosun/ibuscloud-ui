@@ -3,11 +3,15 @@
  */
 import React from 'react';
 import {
-  object,
+  func,
+  bool,
   array,
+  object,
   number,
   string,
-  func,
+  oneOf,
+  shape,
+  arrayOf,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Table, {
@@ -36,14 +40,34 @@ const styles = (theme) => ({
 })
 /**
  * Exports Table component
+ * @class
+ * @param {Object} classes
+ * @param {string} order - Column id that need to order
+ * @param {Array} data - Every cloumns.prop value
+ * @param {Object[]} columns
+ * @param {string} columns[].id - Unique id
+ * @param {string} columns[].label - Display column name
+ * @param {boolean} columns[].numeric - If true, content will align to the right.
+ * False or undefined align to left
+ * @param {string} columns[].title - Tooltip
+ * @param {string} sortDirection - Asc or desc
+ * @param {Array} rowsPerPageOptions - The number of rows per page.
+ * @param {number} currentPage - The zero-based index of the current page.
+ * @param {function} onCheckedChange
+ * @param {function} onAllCheckedChange
  */
 export default class Component extends React.Component {
   static propTypes = {
     classes: object.isRequired,
     order: string,
-    sortDirection: string,
     data: array.isRequired,
-    columns: array.isRequired,
+    columns: arrayOf(shape({
+      id: string.isRequired,
+      label: string.isRequired,
+      numeric: bool,
+      title: string,
+    })).isRequired,
+    sortDirection: oneOf(['asc', 'desc']),
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
     onCheckedChange: func,
