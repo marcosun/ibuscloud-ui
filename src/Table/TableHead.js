@@ -41,14 +41,11 @@ export default class Component extends React.Component {
       title: string, // tooltip
     })).isRequired,
     data: array.isRequired,
-    orders: string,
+    order: string,
     numSelected: number,
     sortDirection: oneOf(['asc', 'desc']),
     onSelectAllClick: func,
-  };
-
-  static defaultProps = {
-    orders: 'calories',
+    onSortLabelClick: func,
   };
 
   /**
@@ -69,13 +66,30 @@ export default class Component extends React.Component {
   }
 
   /**
+   * Expose onSortLabelClick api
+   * @param {Object} Param
+   * @param {numner} Param.columnId - The id of clicked columns
+   * @param {string} Param.sortDirection
+   */
+  onSortLabelClick({columnId, sortDirection}) {
+    if (sortDirection === void 0) {
+      return;
+    }
+
+    this.props.onSortLabelClick && this.props.onSortLabelClick({
+      columnId,
+      sortDirection,
+    });
+  }
+
+  /**
    * Render tableHead component
    * @return {Component}
    */
   render() {
     const {
       data,
-      orders,
+      order,
       columns,
       numSelected,
       sortDirection,
@@ -88,8 +102,12 @@ export default class Component extends React.Component {
 
       const sortLabelElement = (
         <TableSortLabel
-          active={orders !== void 0 && orders === column.id}
+          active={order !== void 0 && order === column.id}
           direction={sortDirection}
+          onClick={this.onSortLabelClick.bind(this, {
+            columnId: column.id,
+            sortDirection,
+          })}
         >
           {column.label}
         </TableSortLabel>
@@ -127,7 +145,7 @@ export default class Component extends React.Component {
                   key={column.id}
                   numeric={column.numeric !== void 0 ? column.numeric : false}
                   sortDirection={
-                    orders !== void 0 && orders === column.id ? sortDirection : false
+                    order !== void 0 && order === column.id ? sortDirection : false
                   }
                 >
                   {cellElement(column)}
