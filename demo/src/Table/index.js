@@ -42,6 +42,20 @@ export default class table extends React.Component {
 
     this.data = [
       {
+        name: '1',
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3,
+      },
+      {
+        name: 'cupcake',
+        calories: 305,
+        fat: 3.7,
+        carbs: 67,
+        protein: 4.3,
+      },
+      {
         name: 'Cupcake',
         calories: 305,
         fat: 3.7,
@@ -49,6 +63,13 @@ export default class table extends React.Component {
         protein: 4.3,
       },
       {
+        name: 'Gingerbread',
+        calories: 356,
+        fat: 16.0,
+        carbs: 49,
+        protein: 3.9,
+      },
+            {
         name: 'Donut',
         calories: 452,
         fat: 25.0,
@@ -68,146 +89,6 @@ export default class table extends React.Component {
         fat: 6.0,
         carbs: 24,
         protein: 4.0,
-      },
-      {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-      },
-      {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-      },
-      {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-      },
-      {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 24,
-        protein: 6.0,
-      },
-      {
-        name: 'Frozen yoghurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-      },
-      {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-      },
-      {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-      },
-      {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-      },
-      {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 24,
-        protein: 6.0,
-      },
-      {
-        name: 'Frozen yoghurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-      },
-      {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
-      },
-      {
-        name: 'Cupcake',
-        calories: 305,
-        fat: 3.7,
-        carbs: 67,
-        protein: 4.3,
-      },
-      {
-        name: 'Donut',
-        calories: 452,
-        fat: 25.0,
-        carbs: 51,
-        protein: 4.9,
-      },
-      {
-        name: 'Eclair',
-        calories: 262,
-        fat: 16.0,
-        carbs: 24,
-        protein: 6.0,
-      },
-      {
-        name: 'Frozen yoghurt',
-        calories: 159,
-        fat: 6.0,
-        carbs: 24,
-        protein: 4.0,
-      },
-      {
-        name: 'Gingerbread',
-        calories: 356,
-        fat: 16.0,
-        carbs: 49,
-        protein: 3.9,
-      },
-      {
-        name: 'Honeycomb',
-        calories: 408,
-        fat: 3.2,
-        carbs: 87,
-        protein: 6.5,
       },
     ];
   }
@@ -217,12 +98,21 @@ export default class table extends React.Component {
    * @return {Component}
    */
   render() {
-
     return (
-      <Table
-        columns={this.columns}
-        data={this.data}
-      />
+      <div>
+        <h1>Selecting</h1>
+        <Table
+          columns={this.columns}
+          data={this.data}
+        />
+        <h1>Sorting & Selecting</h1>
+        <Table
+          order={'name'}
+          sortDirection={'asc'}
+          columns={this.columns}
+          data={this.data}
+        />
+      </div>
     );
   }
 }
