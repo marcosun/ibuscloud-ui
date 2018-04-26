@@ -7,6 +7,7 @@ import {
   array,
   number,
   string,
+  func,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Table, {
@@ -45,6 +46,8 @@ export default class Component extends React.Component {
     columns: array.isRequired,
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
+    onCheckedChange: func,
+    onAllCheckedChange: func,
   };
 
   static defaultProps = {
@@ -136,27 +139,40 @@ export default class Component extends React.Component {
   }
 
   /**
-   * Call onChangeChecked callback
+   * Call onCheckedChange callback
    * @param  {number} dataIndex
    * @param  {Object} event
    */
-  onChangeChecked(dataIndex, event) {
+  onCheckedChange(dataIndex, event) {
     const {
+      data,
       selectedRowsIndex,
     } = this.state;
 
+    const selectedRowsIndexData = (() => {
+      if (event.target.checked === false) {
+        return selectedRowsIndex.filter((rowIndex) => {
+          return rowIndex !== dataIndex;
+        });
+      } else {
+        return selectedRowsIndex.concat([dataIndex]);
+      }
+    })();
+
+    const currentRow = data.filter((item, index) => {
+      return index === dataIndex;
+    });
+
+    const checkedRows = data.filter((item, index) => {
+      return selectedRowsIndexData.includes(index);
+    });
+
     this.setState({
       ...this.state,
-      selectedRowsIndex: (() => {
-        if (event.target.checked === false) {
-          return selectedRowsIndex.filter((rowIndex) => {
-            return rowIndex !== dataIndex;
-          });
-        } else {
-          return selectedRowsIndex.concat([dataIndex]);
-        }
-      })(),
+      selectedRowsIndex: selectedRowsIndexData,
     });
+
+    this.props.onCheckedChange && this.props.onCheckedChange(currentRow, checkedRows);
   }
 
   /**
@@ -180,6 +196,8 @@ export default class Component extends React.Component {
         }
       })(),
     });
+
+    this.props.onAllCheckedChange && this.props.onAllCheckedChange(event);
   }
 
   /**
@@ -240,7 +258,7 @@ export default class Component extends React.Component {
                     <Checkbox
                       color='primary'
                       checked={selectedRowsIndex.includes(dataIndex)}
-                      onChange={this.onChangeChecked.bind(this, dataIndex)}
+                      onChange={this.onCheckedChange.bind(this, dataIndex)}
                     />
                   </TableCell>
                   {
