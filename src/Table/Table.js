@@ -75,7 +75,7 @@ export default class Component extends React.Component {
       selectedRowsIndex: [],
       data: (() => {
         if (sortDirection === void 0) {
-          return;
+          return data;
         }
 
         return sortDirection === 'desc'
