@@ -47,10 +47,10 @@ export default class Component extends React.Component {
   static propTypes = {
     classes: object.isRequired,
     columns: arrayOf(shape({
-      id: string.isRequired, // Unique id
-      label: string.isRequired, // Display column name
-      numeric: bool, // 默认左对齐 If true, content will align to the right. false align to left
-      title: string, // tooltip
+      id: string.isRequired,
+      label: string.isRequired,
+      numeric: bool,
+      title: string,
     })).isRequired,
     data: array.isRequired,
     order: string,
