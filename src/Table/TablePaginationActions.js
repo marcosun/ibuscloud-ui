@@ -36,6 +36,12 @@ const styles = (theme) => ({
 @withStyles(styles)
 /**
  * Exports TablePaginationActions component
+ * @class
+ * @param {Object} classes
+ * @param {number} page - The zero-based index of the current page.
+ * @param {number} count -  The total number of rows.
+ * @param {number} rowsPerPage - The number of rows per page.
+ * @param {function} onChangePage - Callback fired when the page is changed.
  */
 export default class TablePaginationActions extends React.Component {
   static propTypes = {
