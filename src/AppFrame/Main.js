@@ -21,6 +21,23 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+  '@media (min-width: 0px)': {
+    content: {
+      width: 1106, // Screen width minus drawer width, 1366 - 260
+    },
+  },
+  '@media (min-width: 1366px)': {
+    content: { // Fixed margin with flexible width
+      width: 'auto',
+      margin: '0 75px',
+    },
+  },
+  '@media (min-width: 1600px)': {
+    content: {
+      width: 1190, // Screen width minus drawer width minus margin, 1600 - 260 - 75 * 2
+      margin: '0 auto',
+    },
+  },
   toolbar: {
     ...theme.mixins.toolbar,
   },
@@ -65,8 +82,10 @@ class Main extends React.Component {
         })}
         style={{marginLeft}}
       >
-        <div className={classes.toolbar}></div>
-        {children}
+        <div className={classes.content}>
+          <div className={classes.toolbar}></div>
+          {children}
+        </div>
       </main>
     );
   }
