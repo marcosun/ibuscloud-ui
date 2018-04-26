@@ -69,7 +69,7 @@ export default class table extends React.Component {
         carbs: 49,
         protein: 3.9,
       },
-            {
+      {
         name: 'Donut',
         calories: 452,
         fat: 25.0,
@@ -91,19 +91,57 @@ export default class table extends React.Component {
         protein: 4.0,
       },
     ];
+
+    this.state = {
+      isAllChecked: false,
+      currentRow: {},
+      checkedRows: [],
+    };
   }
 
   /**
-   * Render table component
+   * @param  {Object} currentRow
+   * @param  {Array} checkedRows
+   */
+  onCheckedChange(currentRow, checkedRows) {
+    this.setState({
+      ...this.state,
+      currentRow,
+      checkedRows,
+    });
+  }
+
+  /**
+   * @param  {Object} event
+   */
+  onAllCheckedChange(event) {
+    this.setState({
+      ...this.state,
+      isAllChecked: event.target.checked,
+    });
+  }
+
+  /**
    * @return {Component}
    */
   render() {
+    const {
+      isAllChecked,
+      currentRow,
+      checkedRows,
+    } = this.state;
+
     return (
-      <div>
+      <div style={{fontSize: '16px'}}>
         <h1>Selecting</h1>
+        <div>isAllChecked: {`${isAllChecked}`}</div>
+        <div>currentRow: {JSON.stringify(currentRow)}</div>
+        <div>checkedRows: {JSON.stringify(checkedRows)}</div>
         <Table
           columns={this.columns}
           data={this.data}
+          onCheckedChange={this.onCheckedChange.bind(this)}
+          onAllCheckedChange={this.onAllCheckedChange.bind(this)}
         />
         <h1>Sorting & Selecting</h1>
         <Table
