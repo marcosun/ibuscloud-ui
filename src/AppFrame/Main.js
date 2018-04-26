@@ -40,6 +40,7 @@ const styles = (theme) => ({
   },
   toolbar: {
     ...theme.mixins.toolbar,
+    marginBottom: 30,
   },
 });
 
