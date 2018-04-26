@@ -30,6 +30,18 @@ const styles = (theme) => ({});
 })
 /**
  * Exports TableHead component
+ * @class
+ * @param {Object[]} columns
+ * @param {string} columns[].id - Unique id
+ * @param {string} columns[].label - Display column name
+ * @param {boolean} columns[].numeric - If true, content will align to the right. false or undefined align to left
+ * @param {string} columns[].title - Tooltip
+ * @param {Array} data
+ * @param {string} order - Column id that need to order
+ * @param {number} numSelected - Selected rows
+ * @param {string} sortDirection - Asc or desc
+ * @param {function} onSelectAllClick
+ * @param {function} onSortLabelClick
  */
 export default class Component extends React.Component {
   static propTypes = {
