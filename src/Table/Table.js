@@ -45,7 +45,7 @@ export default class Component extends React.Component {
   };
 
   static defaultProps = {
-    currentPage: 1,
+    currentPage: 0,
     rowsPerPageOptions: [5, 7, 10],
   };
 
@@ -63,6 +63,7 @@ export default class Component extends React.Component {
     this.state = {
       rowsPerPage: rowsPerPageOptions[0],
       currentPage,
+      selectedRowsIndex: [],
     };
   }
 
@@ -105,6 +106,53 @@ export default class Component extends React.Component {
   }
 
   /**
+   * Call onChange callback
+   * @param  {number} dataIndex
+   * @param  {Object} event
+   */
+  onChangeChecked(dataIndex, event) {
+    const {
+      selectedRowsIndex,
+    } = this.state;
+
+    this.setState({
+      ...this.state,
+      selectedRowsIndex: (() => {
+        if (event.target.checked === false) {
+          return selectedRowsIndex.filter((rowIndex) => {
+            return rowIndex !== dataIndex;
+          });
+        } else {
+          return selectedRowsIndex.concat([dataIndex]);
+        }
+      })(),
+    });
+  }
+
+  /**
+   * Call onSelectAllClick callback
+   * @param  {Object} event
+   */
+  onSelectAllClick(event) {
+    const {
+      data,
+    } = this.props;
+
+    this.setState({
+      ...this.state,
+      selectedRowsIndex: (() => {
+        if (event.target.checked === false) {
+          return [];
+        } else {
+          return [...new Array(data.length)].map((item, index) => {
+            return index;
+          });
+        }
+      })(),
+    });
+  }
+
+  /**
    * Render Table component
    * @return {Component}
    */
@@ -119,6 +167,7 @@ export default class Component extends React.Component {
     const {
       rowsPerPage,
       currentPage,
+      selectedRowsIndex,
     } = this.state;
 
     const bodyElement = (() => {
@@ -128,11 +177,14 @@ export default class Component extends React.Component {
           <TableBody>
           {
             data.slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage).map((item, index) => {
+              const dataIndex = currentPage * rowsPerPage + index;
               return (
                 <TableRow key={index}>
                   <TableCell>
                     <Checkbox
                       color='primary'
+                      checked={selectedRowsIndex.includes(dataIndex)}
+                      onChange={this.onChangeChecked.bind(this, dataIndex)}
                     />
                   </TableCell>
                   {
@@ -168,6 +220,9 @@ export default class Component extends React.Component {
         <Table>
           <TableHead
             columns={columns}
+            data={data}
+            numSelected={selectedRowsIndex.length}
+            onSelectAllClick={this.onSelectAllClick.bind(this)}
           />
           {bodyElement}
         </Table>
