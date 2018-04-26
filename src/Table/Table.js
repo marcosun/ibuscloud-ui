@@ -154,7 +154,7 @@ export default class Component extends React.Component {
           {
             emptyRows > 0
             && (
-              <TableRow style={{height: 49 * emptyRows}}>
+              <TableRow style={{height: 57 * emptyRows}}>
                 <TableCell colSpan={columns.length + 1} />
               </TableRow>
             )
