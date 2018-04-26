@@ -5,10 +5,13 @@ import React from 'react';
 import {
   object,
   bool,
+  array,
+  number,
   string,
   shape,
   oneOf,
   arrayOf,
+  func,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {
@@ -37,12 +40,14 @@ export default class Component extends React.Component {
       numeric: bool, // 默认左对齐 If true, content will align to the right. false align to left
       title: string, // tooltip
     })).isRequired,
+    data: array.isRequired,
     orders: string,
+    numSelected: number,
     sortDirection: oneOf(['asc', 'desc']),
+    onSelectAllClick: func,
   };
 
   static defaultProps = {
-    columns: [],
     orders: 'calories',
   };
 
@@ -55,13 +60,24 @@ export default class Component extends React.Component {
   }
 
   /**
+   * Expose onSelectAllClick api.
+   * Call the funcion once the checked value of the switch changed
+   * @param {Object} event
+   */
+  onChange(event) {
+    this.props.onSelectAllClick && this.props.onSelectAllClick(event);
+  }
+
+  /**
    * Render tableHead component
    * @return {Component}
    */
   render() {
     const {
-      columns,
+      data,
       orders,
+      columns,
+      numSelected,
       sortDirection,
     } = this.props;
 
@@ -99,6 +115,9 @@ export default class Component extends React.Component {
           <TableCell>
             <Checkbox
               color='primary'
+              checked={numSelected === data.length}
+              indeterminate={numSelected > 0 && numSelected < data.length}
+              onChange={this.onChange.bind(this)}
             />
           </TableCell>
           {
