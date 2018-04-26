@@ -28,6 +28,15 @@ export default class Router extends React.Component {
         return <div>Loading...</div>;
       },
     });
+
+    this.Chip = lodable({
+      loader: () => {
+        return import('./Chip');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
   }
 
   /**
@@ -41,12 +50,16 @@ export default class Router extends React.Component {
             navs={[{
               text: 'ButtonGroup',
               path: '/buttonGroup',
+            }, {
+              text: 'Chip',
+              path: '/chip',
             }]}
           >
             <Route exact path='/' render={() => (
               <Redirect to='/buttonGroup' />
             )} />
             <Route exact path='/buttonGroup' component={this.ButtonGroup} />
+            <Route exact path='/chip' component={this.Chip} />
           </AppFrame>
         </Switch>
       </BrowserRouter>
