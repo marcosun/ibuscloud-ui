@@ -43,12 +43,7 @@ export default class TablePaginationActions extends React.Component {
     count: number.isRequired,
     rowsPerPage: number.isRequired,
     page: number.isRequired,
-    maxDigitalButtonNum: number.isRequired,
     onChangePage: func.isRequired,
-  };
-
-  static defaultProps = {
-    maxDigitalButtonNum: 3,
   };
 
   /**
@@ -57,6 +52,8 @@ export default class TablePaginationActions extends React.Component {
   constructor(props) {
     super(props);
     this.props = props;
+
+    this.maxDigitalButtonNum = 6;
   }
 
   /**
@@ -86,7 +83,6 @@ export default class TablePaginationActions extends React.Component {
     this.props.onChangePage(event, currentPage + 1);
   }
 
-
   /**
    * Render TablePaginationActions component
    * @return {Component}
@@ -95,45 +91,77 @@ export default class TablePaginationActions extends React.Component {
     const {
       classes,
       count,
-      maxDigitalButtonNum,
       rowsPerPage,
       page: currentPage,
     } = this.props;
 
     const totalPageNum = Math.ceil(count / rowsPerPage);
 
-    const digitalButtonList = (
-      [...new Array(totalPageNum)].map((item, index) => {
-        if (
-          maxDigitalButtonNum < totalPageNum
-          && index === maxDigitalButtonNum - 1
-        ) {
-          return <div className={classes.ellipsis} key={index}>…</div>;
+    // Todo: add transition animation when switching buttons
+    const digitalButtonList = (() => {
+      const digitalList = (() => {
+        if (this.maxDigitalButtonNum < totalPageNum) {
+          if (currentPage < 2) {
+            return [[0, 1, 2, 3, 4], [totalPageNum - 1]];
+          }
+
+          if (currentPage >= 2 && currentPage <= totalPageNum - 5) {
+            return [[currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2], [totalPageNum - 1]];
+          }
+
+          return [[0], [totalPageNum - 5, totalPageNum - 4, totalPageNum - 3, totalPageNum - 2, totalPageNum - 1]];
         }
 
-        if (
-          maxDigitalButtonNum < totalPageNum
-          && index > maxDigitalButtonNum - 1
-          && index < totalPageNum - 1
-        ) {
-          return null;
-        }
+        return [[...new Array(totalPageNum)].map((item, index) => {
+          return index;
+        })];
+      })();
 
-        return (
-          <Button
-            key={index}
-            variant="raised"
-            color={currentPage === index ? 'primary' : 'default'}
-            classes={{
-              root: classes.buttonRoot,
-            }}
-            onClick={this.onDigitalButtonClick.bind(this, index)}
-          >
-            {index + 1}
-          </Button>
+      const getDigitalButtonElement = (type, digital) => {
+        switch (type) {
+          case 'ellipsis':
+            return <div className={classes.ellipsis} key={type}>…</div>;
+          case 'button':
+            return (() => {
+              return (
+                <Button
+                  key={digital}
+                  variant="raised"
+                  color={currentPage === digital ? 'primary' : 'default'}
+                  classes={{
+                    root: classes.buttonRoot,
+                  }}
+                  onClick={this.onDigitalButtonClick.bind(this, digital)}
+                >
+                  {digital + 1}
+                </Button>
+              );
+            })();
+          default:
+            return null;
+        }
+      };
+
+      if (digitalList[1] === void 0) {
+        return digitalList[0].map((digital) => {
+          return getDigitalButtonElement('button', digital);
+        });
+      } else {
+        const preButtonList = digitalList[0].map((digital) => {
+          return getDigitalButtonElement('button', digital);
+        });
+
+        const nextButtonList = digitalList[1].map((digital) => {
+          return getDigitalButtonElement('button', digital);
+        });
+
+        return [].concat(
+          preButtonList,
+          getDigitalButtonElement('ellipsis'),
+          nextButtonList
         );
-      })
-    );
+      }
+    })();
 
     return (
       <div className={classes.root}>
