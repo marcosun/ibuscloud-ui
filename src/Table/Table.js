@@ -6,6 +6,7 @@ import {
   object,
   array,
   number,
+  string,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import Table, {
@@ -40,13 +41,17 @@ export default class Component extends React.Component {
     classes: object.isRequired,
     columns: array.isRequired,
     data: array.isRequired,
+    order: string,
+    sortDirection: string,
     currentPage: number.isRequired,
     rowsPerPageOptions: array,
   };
 
   static defaultProps = {
     currentPage: 0,
+    sortDirection: 'asc',
     rowsPerPageOptions: [5, 7, 10],
+    order: 'name',
   };
 
   /**
@@ -56,14 +61,24 @@ export default class Component extends React.Component {
     super(props);
 
     const {
-      rowsPerPageOptions,
+      data,
+      order,
       currentPage,
+      sortDirection,
+      rowsPerPageOptions,
     } = this.props;
 
     this.state = {
-      rowsPerPage: rowsPerPageOptions[0],
+      order,
       currentPage,
+      sortDirection,
+      rowsPerPage: rowsPerPageOptions[0],
       selectedRowsIndex: [],
+      data: (() => {
+        return sortDirection === 'desc'
+          ? data.sort((pre, next) => (next[order] < pre[order] ? -1 : 1))
+          : data.sort((pre, next) => (pre[order] < next[order] ? -1 : 1));
+      })(),
     };
   }
 
@@ -136,7 +151,7 @@ export default class Component extends React.Component {
   onSelectAllClick(event) {
     const {
       data,
-    } = this.props;
+    } = this.state;
 
     this.setState({
       ...this.state,
@@ -153,6 +168,31 @@ export default class Component extends React.Component {
   }
 
   /**
+   * Call onSortLabelClick callback
+   * @param {Object} ExposedParam
+   * @param {number} ExposedParam.columnId
+   * @param {string} ExposedParam.sortDirection
+   */
+  onSortLabelClick({columnId, sortDirection}) {
+    this.setState({
+      ...this.state,
+      order: columnId,
+      sortDirection: this.state.sortDirection === 'asc' ? 'desc' : 'asc',
+      data: (() => {
+        const {
+          data,
+        } = this.state;
+
+        const order = sortDirection === 'asc' ? 'desc' : 'asc';
+
+        return order === 'desc'
+          ? data.sort((pre, next) => (next[columnId] < pre[columnId] ? -1 : 1))
+          : data.sort((pre, next) => (pre[columnId] < next[columnId] ? -1 : 1));
+      })(),
+    });
+  }
+
+  /**
    * Render Table component
    * @return {Component}
    */
@@ -160,13 +200,15 @@ export default class Component extends React.Component {
     const {
       classes,
       columns,
-      data,
       rowsPerPageOptions,
     } = this.props;
 
     const {
+      data,
+      order,
       rowsPerPage,
       currentPage,
+      sortDirection,
       selectedRowsIndex,
     } = this.state;
 
@@ -219,10 +261,13 @@ export default class Component extends React.Component {
       <div className={classes.root}>
         <Table>
           <TableHead
+            order={order}
             columns={columns}
+            sortDirection={sortDirection}
             data={data}
             numSelected={selectedRowsIndex.length}
             onSelectAllClick={this.onSelectAllClick.bind(this)}
+            onSortLabelClick={this.onSortLabelClick.bind(this)}
           />
           {bodyElement}
         </Table>
