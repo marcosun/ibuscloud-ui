@@ -23,7 +23,7 @@ const styles = (theme) => ({
   buttonSizeSmall: {
     minHeight: 30,
     padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit}px`,
-    fontSize: theme.typography.pxToRem(15),
+    fontSize: theme.typography.body1.fontSize,
   },
 });
 
