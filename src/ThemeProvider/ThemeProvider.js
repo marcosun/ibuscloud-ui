@@ -43,18 +43,18 @@ class ThemeProvider extends React.Component {
         ...new Array(24).fill('0px 2px 6px rgba(0, 0, 0, 0.04)'),
       ],
       typography: {
-        headline: {
+        display1: {
           fontSize: 35,
-          fontWeight: 400,
+          fontWeight: 800,
           color: '#43425D',
         },
-        title: {
+        headline: {
           fontSize: 28,
           fontWeight: 400,
           color: '#43425D',
         },
-        subheading: {
-          fontSize: 25,
+        title: {
+          fontSize: 18,
           fontWeight: 400,
           color: '#4D4F5C',
         },
