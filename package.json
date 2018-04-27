@@ -21,6 +21,7 @@
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
+    "@material-ui/icons": "^1.0.0-beta.43",
     "material-ui": ">1.0.0-beta.39",
     "react": ">16.0.0",
     "react-router-dom": "*"
