@@ -38,7 +38,7 @@ export default class Router extends React.Component {
       },
     });
 
-    this.table = lodable({
+    this.Table = lodable({
       loader: () => {
         return import('./Table');
       },
@@ -62,6 +62,9 @@ export default class Router extends React.Component {
             }, {
               text: 'Chip',
               path: '/chip',
+            }, {
+              text: 'Table',
+              path: '/table',
             }]}
           >
             <Route exact path='/' render={() => (
@@ -69,7 +72,7 @@ export default class Router extends React.Component {
             )} />
             <Route exact path='/buttonGroup' component={this.ButtonGroup} />
             <Route exact path='/chip' component={this.Chip} />
-            <Route exact path="/table" component={this.table}></Route>
+            <Route exact path="/table" component={this.Table}></Route>
           </AppFrame>
         </Switch>
       </BrowserRouter>
