@@ -1,6 +1,6 @@
 {
   "name": "ibuscloud-ui",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "React components that implement IBuscloud Design on top of Material-UI.",
   "main": "index.js",
   "module": "es/index.js",
