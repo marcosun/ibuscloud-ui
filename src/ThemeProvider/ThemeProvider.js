@@ -42,6 +42,33 @@ class ThemeProvider extends React.Component {
         'none',
         ...new Array(24).fill('0px 2px 6px rgba(0, 0, 0, 0.04)'),
       ],
+      typography: {
+        headline: {
+          fontSize: 35,
+          fontWeight: 400,
+          color: '#43425D',
+        },
+        title: {
+          fontSize: 28,
+          fontWeight: 400,
+          color: '#43425D',
+        },
+        subheading: {
+          fontSize: 25,
+          fontWeight: 400,
+          color: '#4D4F5C',
+        },
+        body1: {
+          fontSize: 15,
+          fontWeight: 400,
+          color: '#43425D',
+        },
+        body2: {
+          fontSize: 13,
+          fontWeight: 400,
+          color: '#4D4F5C',
+        },
+      },
     });
 
     return (
