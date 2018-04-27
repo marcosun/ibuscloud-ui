@@ -10,8 +10,6 @@ import {
 import {withStyles} from 'material-ui/styles';
 import Button from 'material-ui/Button';
 
-// import {Defer} from '../Util';
-
 const styles = (theme) => ({
   root: {
     padding: `${theme.spacing.unit}px 0`,
@@ -183,10 +181,6 @@ class ButtonGroup extends React.Component {
           isActive: true,
         };
       }),
-      // buttons: buttons.map((button) => ({
-      //   ...button,
-      //   isActive: target.id === button.id ? true : false,
-      // })),
     });
   }
 
@@ -241,12 +235,6 @@ class ButtonGroup extends React.Component {
             isActive: !button.isActive,
           };
         }),
-        // buttons: buttons.map((button) => ({
-        //   ...button,
-        //   isActive: target.id === button.id
-        //     ? !button.isActive
-        //     : button.isActive,
-        // })),
       };
 
       if (this.isButtonAllFunctioning() === true) {
