@@ -81,9 +81,9 @@ class NavLink extends React.Component {
       >
       <ListItemText
         classes={{
-          primary: classes.navLinkText,
+          secondary: classes.navLinkText,
         }}
-        primary={text}
+        secondary={text}
       />
       </ListItem>
     );
