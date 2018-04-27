@@ -34,7 +34,7 @@ class ButtonGroup extends React.Component {
   render() {
     return (
       <div>
-        <Typography variant='headline'>
+        <Typography variant='title'>
           Single Select 单选
         </Typography>
         <IBusUiButtonGroup
@@ -47,7 +47,7 @@ class ButtonGroup extends React.Component {
           }]}
         />
         <br />
-        <Typography variant='headline'>
+        <Typography variant='title'>
           Multiple Select 多选
         </Typography>
         <IBusUiButtonGroup
@@ -61,7 +61,7 @@ class ButtonGroup extends React.Component {
           }]}
         />
         <br />
-        <Typography variant='headline'>
+        <Typography variant='title'>
           Multiple Select With Button ALL 多选带全选
         </Typography>
         <IBusUiButtonGroup
@@ -77,7 +77,7 @@ class ButtonGroup extends React.Component {
           }}
         />
         <br />
-        <Typography variant='headline'>
+        <Typography variant='title'>
           Select Callback 选中回调
         </Typography>
         <IBusUiButtonGroup
