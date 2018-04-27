@@ -13,6 +13,7 @@ const styles = (theme) => {
   return { // The following css styles overites same name properties in MuiChip
     root: {
       height: 21,
+      fontSize: theme.typography.body2.fontSize,
       color: color,
       backgroundColor: 'transparent',
       border: `1px solid ${color}`,
