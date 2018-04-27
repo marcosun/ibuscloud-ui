@@ -46,6 +46,15 @@ export default class Router extends React.Component {
         return <div>Loading...</div>;
       },
     });
+
+    this.Theme = lodable({
+      loader: () => {
+        return import('./Theme');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
   }
 
   /**
@@ -65,6 +74,9 @@ export default class Router extends React.Component {
             }, {
               text: 'Table',
               path: '/table',
+            }, {
+              text: 'Theme',
+              path: '/theme',
             }]}
           >
             <Route exact path='/' render={() => (
@@ -73,6 +85,7 @@ export default class Router extends React.Component {
             <Route exact path='/buttonGroup' component={this.ButtonGroup} />
             <Route exact path='/chip' component={this.Chip} />
             <Route exact path="/table" component={this.Table}></Route>
+            <Route exact path="/theme" component={this.Theme}></Route>
           </AppFrame>
         </Switch>
       </BrowserRouter>
