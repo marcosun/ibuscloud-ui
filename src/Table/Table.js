@@ -42,7 +42,7 @@ const styles = (theme) => ({
  * Exports Table component
  * @class
  * @param {Object} classes
- * @param {string} order - Column id that need to order
+ * @param {string} order - Column id. The label will have the active styling.
  * @param {Array} data - Every cloumns.prop value
  * @param {Object[]} columns
  * @param {string} columns[].id - Unique id
