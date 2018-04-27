@@ -20,7 +20,7 @@ export default class Router extends React.Component {
   constructor(props) {
     super(props);
 
-    this.table = lodable({
+    this.Table = lodable({
       loader: () => {
         return import('./Table');
       },
@@ -38,9 +38,12 @@ export default class Router extends React.Component {
       <BrowserRouter>
         <Switch>
           <AppFrame
-
+            navs={[{
+              text: 'Table',
+              path: '/table',
+            }]}
           >
-            <Route exact path="/table" component={this.table}></Route>
+            <Route exact path="/table" component={this.Table}></Route>
           </AppFrame>
         </Switch>
       </BrowserRouter>
