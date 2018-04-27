@@ -44,6 +44,7 @@ const styles = (theme) => ({
     flex: '1 1 50%', // Expand to take all spaces
     overflow: 'hidden',
     whiteSpace: 'nowrap',
+    fontWeight: 800,
     color: theme.palette.common.white,
   },
 });
@@ -141,7 +142,7 @@ class Drawer extends React.Component {
           }}>
             {logo.icon}
           </Icon>
-          <Typography className={classes.logoText} variant='subheading'>
+          <Typography className={classes.logoText} variant='body1'>
             {logo.text}
           </Typography>
         </ListItem>
