@@ -64,20 +64,19 @@ class ButtonGroup extends React.Component {
   }
 
   /**
-   * @param {Object} props
+   * Synchronise inner button status with new props
+   * @param  {Object} nextProps
+   * @param  {Object} prevState
+   * @return {Object} - New state
    */
-  constructor(props) {
-    super(props);
-
-    this.props = props;
-
+  static getDerivedStateFromProps(nextProps, prevState) {
     const {
       isMultiple,
       buttons,
       buttonAll,
-    } = this.props;
+    } = nextProps;
 
-    this.state = {
+    const state = {
       // Deep copy to isolate props from mutation
       isMultiple: isMultiple,
       buttons: buttons.map((button) => {
@@ -101,10 +100,12 @@ class ButtonGroup extends React.Component {
     };
 
     // If buttonAll is functioning, must open multiple select feature
-    if (this.isButtonAllFunctioning() === true) this.state.isMultiple = true;
+    if (state.buttonAll.isFunctioning === true) state.isMultiple = true;
 
-    // this.defer = new Defer(2000);
+    return state;
   }
+
+  state = {};
 
   /**
    * Handle button click
