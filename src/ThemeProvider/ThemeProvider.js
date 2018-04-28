@@ -8,6 +8,8 @@ import {
   createMuiTheme,
 } from 'material-ui/styles';
 
+import '../iconfont';
+
 // Set root font size to 10px to simplify rem calculation.
 const styles = (theme) => ({
 });
