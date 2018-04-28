@@ -7,23 +7,8 @@ import {
   arrayOf,
   object,
 } from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-import Button from 'material-ui/Button';
 
-const styles = (theme) => ({
-  root: {
-    padding: `${theme.spacing.unit}px 0`,
-  },
-  buttonRoot: {
-    margin: `0 ${theme.spacing.unit}px`,
-    borderRadius: 15,
-  },
-  buttonSizeSmall: {
-    minHeight: 30,
-    padding: `${theme.spacing.unit / 2}px ${theme.spacing.unit}px`,
-    fontSize: theme.typography.body1.fontSize,
-  },
-});
+import ButtonGroupDummy from '../ButtonGroupDummy';
 
 /**
  * @param {Object} props
@@ -38,7 +23,6 @@ const styles = (theme) => ({
  * @param {boolean} [props.buttonAll.isActive] - Whether to highlight button 'all'
  * @param {function} [props.onSelect] - Select callback
  */
-@withStyles(styles, {name: 'IBusUiButtonGroup'})
 class ButtonGroup extends React.Component {
   static propTypes = {
     classes: object,
@@ -62,19 +46,18 @@ class ButtonGroup extends React.Component {
   }
 
   /**
-   * Synchronise inner button status with new props
-   * @param  {Object} nextProps
-   * @param  {Object} prevState
-   * @return {Object} - New state
+   * @param  {Object} props
    */
-  static getDerivedStateFromProps(nextProps, prevState) {
+  constructor(props) {
+    super(props);
+
     const {
       isMultiple,
       buttons,
       buttonAll,
-    } = nextProps;
+    } = props;
 
-    const state = {
+    this.state = {
       // Deep copy to isolate props from mutation
       isMultiple: isMultiple,
       buttons: buttons.map((button) => {
@@ -98,18 +81,16 @@ class ButtonGroup extends React.Component {
     };
 
     // If buttonAll is functioning, must open multiple select feature
-    if (state.buttonAll.isFunctioning === true) state.isMultiple = true;
-
-    return state;
+    if (this.state.buttonAll.isFunctioning === true) {
+      this.state.isMultiple = true;
+    }
   }
 
-  state = {};
-
   /**
-   * Handle button click
+   * Handle button select
    * @param  {Object} button - Button object
    */
-  handleClick(button) {
+  handleSelect(button) {
     const {
       isMultiple,
     } = this.state;
@@ -293,57 +274,20 @@ class ButtonGroup extends React.Component {
   }
 
   /**
-   * Render ButtonGroup component
    * @return {Component}
    */
   render() {
-    const {
-      classes,
-    } = this.props;
-
     const {
       buttons,
       buttonAll,
     } = this.state;
 
-    const buttonAllElement = (
-      <Button
-        classes={{
-          root: classes.buttonRoot,
-          sizeSmall: classes.buttonSizeSmall,
-        }}
-        variant={buttonAll.isActive === true ? 'raised' : 'flat'}
-        size='small'
-        color='default'
-        onClick={this.handleClick.bind(this, buttonAll)}
-      >
-        {buttonAll.name}
-      </Button>
-    );
-
     return (
-      <div className={classes.root}>
-        {
-          this.isButtonAllFunctioning() === true && buttonAllElement
-        }
-        {
-          buttons.map((button) => (
-            <Button
-              classes={{
-                root: classes.buttonRoot,
-                sizeSmall: classes.buttonSizeSmall,
-              }}
-              key={button.id}
-              variant={button.isActive === true ? 'raised' : 'flat'}
-              size='small'
-              color='default'
-              onClick={this.handleClick.bind(this, button)}
-            >
-              {button.name}
-            </Button>
-          ))
-        }
-      </div>
+      <ButtonGroupDummy
+        buttons={buttons}
+        buttonAll={buttonAll}
+        onSelect={this.handleSelect.bind(this)}
+      />
     );
   }
 }
