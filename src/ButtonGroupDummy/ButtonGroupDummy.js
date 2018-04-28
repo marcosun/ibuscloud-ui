@@ -26,7 +26,9 @@ const styles = (theme) => ({
 });
 
 /**
- * Presentational component for ButtonGroup
+ * Presentational component for ButtonGroup.
+ * Use this module only if ButtonGroup logics does not satisfy your requirements
+ * or other modules need to change button group states.
  * @param {Object} props
  * @param {Object[]} [props.buttons] - Button list
  * @param {string} [props.buttons[].id=name] - Button id
@@ -38,7 +40,7 @@ const styles = (theme) => ({
  * @param {boolean} [props.buttonAll.isActive] - Whether to highlight button 'all'
  * @param {function} [props.onSelect] - Select callback
  */
-@withStyles(styles, {name: 'IBusUiButtonGroup'})
+@withStyles(styles, {name: 'IBusUiButtonGroupDummy'})
 class ButtonGroupDummy extends React.Component {
   static propTypes = {
     classes: object,
