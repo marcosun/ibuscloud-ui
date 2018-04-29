@@ -52,8 +52,8 @@ const styles = (theme) => ({
  * Drawer expands or shrinks according to isOpen and width
  * @param {number} [width=0] - Drawer width
  * @param {boolean} [props.isOpen=true] - Drawer open status
- * @param {Object[]} props.navs - Structured array of objects represents NavList,
- * please refer to NavList for details
+ * @param {Object[]} props.navs - Structured array of objects represents NavList.
+ * See {@link NavList}
  * @param {Object} [props.logo] - Contains logo icon and logo text
  * @param {string} [props.logo.text=公交云平台] - Logo text
  * @param {Element} [props.logo.icon=公交云logo] - Svg logo icon
