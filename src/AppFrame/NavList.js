@@ -12,9 +12,9 @@ import {withRouter} from 'react-router';
 import NavLink from './NavLink';
 
 /**
- * NavList manages a bunch of NavLinks.
+ * NavList manages a bunch of {@link NavLink}.
  * NavList tests router path against current location to highlight NavLink.
- * Click on NavLink will redirect to path specified by navs.
+ * Click on NavLink will redirect to the corresponding address.
  * @param {Object[]} [props.navs=[]] - Structured array of objects represents NavList
  * @param {string} props.navs[].text - NavList text content
  * @param {Element} props.navs[].icon - Svg icon

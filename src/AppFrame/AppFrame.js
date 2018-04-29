@@ -10,8 +10,10 @@ import Drawer from './Drawer';
 import Main from './Main';
 
 /**
- * AppFrame controls Drawer, AppBar and Main open status
- * by toggling isOpen property.
+ * AppFrame provides an AppBar on the top, a navigational sidebar on the left,
+ * and an area for the page to display.
+ * Sidebar can be toggled to be expanded or shrinked by clicking an icon on the
+ * AppBar.
  * @param {Component} [props.children] - Node that will be placed on the
  * main screen area
  */

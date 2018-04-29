@@ -49,7 +49,8 @@ const styles = (theme) => ({
 });
 
 /**
- * Drawer expands or shrinks according to isOpen and width
+ * Drawer can be toggled between expanded and shrinked status changing two
+ * properties: isOpen and width
  * @param {number} [width=0] - Drawer width
  * @param {boolean} [props.isOpen=true] - Drawer open status
  * @param {Object[]} props.navs - Structured array of objects represents NavList.

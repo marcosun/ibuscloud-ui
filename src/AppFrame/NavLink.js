@@ -37,9 +37,9 @@ const styles = (theme) => ({
 });
 
 /**
- * Selected NavLink has a 5px wide left border with colour primary.
- * Selected NavLink and hovered NavLink have background colour primary
- * with 10% transparency.
+ * NavLink provides a navigational link for {@link NavList} with an icon
+ * followed by the link text.
+ * NavLink can be highlighted by toggling isActive.
  * @param {Element} props.icon - Svg icon
  * @param {string} props.text - Text content to show as a NavLink
  * @param {boolean} [props.isActive=false] - If NavLink should be highlighted

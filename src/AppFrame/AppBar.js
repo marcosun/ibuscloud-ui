@@ -46,10 +46,10 @@ const styles = (theme) => ({
 });
 
 /**
- * AppBar provides a fixed svg icon to toggle expand status.
+ * AppBar provides a clickable icon to toggle expand status.
  * AppBar expands or shrinks according to isExpanded and expandedOffsetWidth.
- * @param {Number} [expandedOffsetWidth=0] - Expanded offset width in pixel.
- * @param {Number} [shrinkedOffsetWidth=0] - Shrinked offset width in pixel.
+ * @param {Number} [props.expandedOffsetWidth=0] - Expanded offset width in pixel.
+ * @param {Number} [props.shrinkedOffsetWidth=0] - Shrinked offset width in pixel.
  * @param {Boolean} [props.isExpanded=true] - Expand status
  * @param {Function} [props.onExpandToggle] - Expand status change callback
  */

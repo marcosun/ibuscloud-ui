@@ -45,10 +45,9 @@ const styles = (theme) => ({
 });
 
 /**
- * Render page content.
- * This area expands and shrinks according to isExpanded and marginLeft.
- * @param {Number} [marginLeft=0] - Margin left
- * @param {Boolean} [isExpanded=false] - Expand status
+ * This component provides an area for the page to display.
+ * @param {Number} [props.marginLeft=0] - Margin left
+ * @param {Boolean} [props.isExpanded=false] - Expand status
  * @param {Component} [props.children] - Child node
  */
 @withStyles(styles, {name: 'IBusUiMain'})
