@@ -3,11 +3,13 @@ import {
   bool,
   string,
   object,
+  element,
   func,
 } from 'prop-types';
 import classNames from 'classnames';
 import {withStyles} from 'material-ui/styles';
 import {ListItem, ListItemText} from 'material-ui/List';
+import SvgIcon from 'material-ui/SvgIcon';
 import color from 'color';
 
 const styles = (theme) => ({
@@ -22,6 +24,11 @@ const styles = (theme) => ({
     borderLeft: `${theme.typography.pxToRem(5)} solid ${theme.palette.primary.main}`,
     backgroundColor: `${color(theme.palette.primary.main).alpha(0.1)}`,
   },
+  icon: {
+    width: 14,
+    height: 14,
+    fontSize: 14,
+  },
   navLinkText: {
     overflow: 'hidden',
     color: theme.palette.common.white,
@@ -33,21 +40,22 @@ const styles = (theme) => ({
  * Selected NavLink has a 5px wide left border with colour primary.
  * Selected NavLink and hovered NavLink have background colour primary
  * with 10% transparency.
- * @param {String} [props.text=''] - Text content to show as a NavLink
- * @param {Boolean} [props.isActive=false] - If NavLink should be highlighted
+ * @param {Element} props.icon - Svg icon
+ * @param {string} props.text - Text content to show as a NavLink
+ * @param {boolean} [props.isActive=false] - If NavLink should be highlighted
  * @param {Function} [props.onClick] - NavLink click callback
  */
 @withStyles(styles, {name: 'IBusUiNavLink'})
 class NavLink extends React.Component {
   static propTypes = {
     classes: object,
-    text: string,
+    icon: element.isRequired,
+    text: string.isRequired,
     isActive: bool,
     onClick: func,
   };
 
   static defaultProps = {
-    text: '',
     isActive: false,
   };
 
@@ -66,6 +74,7 @@ class NavLink extends React.Component {
     const {
       classes,
       text,
+      icon,
       isActive,
     } = this.props;
 
@@ -79,12 +88,17 @@ class NavLink extends React.Component {
         button
         onClick={this.handleClick.bind(this)}
       >
-      <ListItemText
-        classes={{
-          secondary: classes.navLinkText,
-        }}
-        secondary={text}
-      />
+        <SvgIcon classes={{
+          root: classes.icon,
+        }}>
+          {icon}
+        </SvgIcon>
+        <ListItemText
+          classes={{
+            secondary: classes.navLinkText,
+          }}
+          secondary={text}
+        />
       </ListItem>
     );
   }

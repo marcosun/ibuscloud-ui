@@ -2,6 +2,7 @@ import React from 'react';
 import {
   string,
   object,
+  element,
   shape,
   arrayOf,
 } from 'prop-types';
@@ -15,8 +16,9 @@ import NavLink from './NavLink';
  * NavList tests router path against current location to highlight NavLink.
  * Click on NavLink will redirect to path specified by navs.
  * @param {Object[]} [props.navs=[]] - Structured array of objects represents NavList
- * @param {String} props.navs[].text - NavList text content
- * @param {String} props.navs[].path - NavList path address
+ * @param {string} props.navs[].text - NavList text content
+ * @param {Element} props.navs[].icon - Svg icon
+ * @param {string} props.navs[].path - NavList path address
  */
 @withRouter
 class NavList extends React.Component {
@@ -25,6 +27,7 @@ class NavList extends React.Component {
     history: object,
     navs: arrayOf(shape({
       text: string,
+      icon: element,
       path: string,
     })),
   };
@@ -65,6 +68,7 @@ class NavList extends React.Component {
             <NavLink
               key={nav.text}
               text={nav.text}
+              icon={nav.icon}
               isActive={
                 RegExp(nav.path).test(location.pathname) ? true : false
               }
