@@ -24,24 +24,24 @@ const styles = (theme) => ({});
 
 /**
  * Exports TableHead component
- * @param {Object[]} columns
- * @param {string} columns[].id - Unique id
- * @param {string} columns[].label - Display column name
- * @param {boolean} columns[].numeric - If true, content will align to the right. false or undefined align to left
- * @param {string} columns[].title - Tooltip
- * @param {Array} data
- * @param {string} order - Column id that need to order
- * @param {number} numSelected - Selected rows
- * @param {string} sortDirection - Asc or desc
- * @param {function} onSelectAllClick
- * @param {function} onSortLabelClick
+ * @param {Object[]} props.columns
+ * @param {string} props.columns[].id - Unique id
+ * @param {string} props.columns[].label - Display column name
+ * @param {boolean} props.columns[].numeric - If true, content will align to the right. false or undefined align to left
+ * @param {string} props.columns[].title - Tooltip
+ * @param {Array} props.data
+ * @param {string} props.order - Column id that need to order
+ * @param {number} props.numSelected - Selected rows
+ * @param {string} props.sortDirection - Asc or desc
+ * @param {function} props.onSelectAllClick
+ * @param {function} props.onSortLabelClick
  */
 @withStyles(styles, {
   name: 'IBusUiTableHead',
 })
 class TableHead extends React.Component {
   static propTypes = {
-    classes: object.isRequired,
+    classes: object,
     columns: arrayOf(shape({
       id: string.isRequired,
       label: string.isRequired,

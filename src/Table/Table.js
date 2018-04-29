@@ -35,27 +35,26 @@ const styles = (theme) => ({
 
 /**
  * Exports Table component
- * @param {Object} classes
- * @param {string} order - Column id. The label will have the active styling.
- * @param {Array} data - Every cloumns.prop value
- * @param {Object[]} columns
- * @param {string} columns[].id - Unique id
- * @param {string} columns[].label - Display column name
- * @param {boolean} columns[].numeric - If true, content will align to the right.
+ * @param {string} props.order - Column id. The label will have the active styling.
+ * @param {Array} props.data - Every cloumns.prop value
+ * @param {Object[]} props.columns
+ * @param {string} props.columns[].id - Unique id
+ * @param {string} props.columns[].label - Display column name
+ * @param {boolean} props.columns[].numeric - If true, content will align to the right.
  * False or undefined align to left
- * @param {string} columns[].title - Tooltip
- * @param {string} sortDirection - Asc or desc
- * @param {Array} rowsPerPageOptions - The number of rows per page.
- * @param {number} currentPage - The zero-based index of the current page.
- * @param {function} onCheckedChange
- * @param {function} onAllCheckedChange
+ * @param {string} props.columns[].title - Tooltip
+ * @param {string} props.sortDirection - Asc or desc
+ * @param {Array} props.rowsPerPageOptions - The number of rows per page.
+ * @param {number} props.currentPage - The zero-based index of the current page.
+ * @param {function} props.onCheckedChange
+ * @param {function} props.onAllCheckedChange
  */
 @withStyles(styles, {
   name: 'IBusUiTable',
 })
 class Table extends React.Component {
   static propTypes = {
-    classes: object.isRequired,
+    classes: object,
     order: string,
     data: array.isRequired,
     columns: arrayOf(shape({
