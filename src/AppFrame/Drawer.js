@@ -57,7 +57,7 @@ const styles = (theme) => ({
  * See {@link NavList}
  * @param {Object} [props.logo] - Contains logo icon and logo text
  * @param {string} [props.logo.text=公交云平台] - Logo text
- * @param {Element} [props.logo.icon=公交云logo] - Svg logo icon
+ * @param {Element} [props.logo.icon=ibuscloud logo] - Svg logo icon
  */
 @withStyles(styles, {name: 'IBusUiDrawer'})
 class Drawer extends React.Component {
