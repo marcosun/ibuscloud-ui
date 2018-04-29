@@ -4,7 +4,7 @@ import {
   bool,
   string,
   object,
-  node,
+  element,
   array,
   shape,
 } from 'prop-types';
@@ -12,9 +12,7 @@ import classNames from 'classnames';
 import jss from 'jss';
 import {withStyles} from 'material-ui/styles';
 import {default as MuiDrawer} from 'material-ui/Drawer';
-import {ListItem} from 'material-ui/List';
-import Typography from 'material-ui/Typography';
-import Icon from 'material-ui/Icon';
+import {ListItem, ListItemText} from 'material-ui/List';
 import SvgIcon from 'material-ui/SvgIcon';
 
 import NavList from './NavList';
@@ -38,21 +36,27 @@ const styles = (theme) => ({
     ...theme.mixins.toolbar,
   },
   logoIcon: {
-    flex: 'none', // Does not expand
+    width: 22,
+    height: 22,
+    fontSize: 22,
   },
   logoText: {
-    flex: '1 1 50%', // Expand to take all spaces
     overflow: 'hidden',
-    whiteSpace: 'nowrap',
     fontWeight: 800,
     color: theme.palette.common.white,
+    whiteSpace: 'nowrap',
   },
 });
 
 /**
  * Drawer expands or shrinks according to isOpen and width
- * @param {Number} [width=0] - Drawer width
- * @param {Boolean} [props.isOpen=true] - Drawer open status
+ * @param {number} [width=0] - Drawer width
+ * @param {boolean} [props.isOpen=true] - Drawer open status
+ * @param {Object[]} props.navs - Structured array of objects represents NavList,
+ * please refer to NavList for details
+ * @param {Object} [props.logo] - Contains logo icon and logo text
+ * @param {string} [props.logo.text=公交云平台] - Logo text
+ * @param {Element} [props.logo.icon=公交云logo] - Svg logo icon
  */
 @withStyles(styles, {name: 'IBusUiDrawer'})
 class Drawer extends React.Component {
@@ -63,7 +67,7 @@ class Drawer extends React.Component {
     navs: array,
     logo: shape({
       text: string,
-      icon: node,
+      icon: element,
     }),
   };
 
@@ -72,17 +76,7 @@ class Drawer extends React.Component {
     isOpen: true,
     logo: {
       text: '公交云平台',
-      icon: (
-        <SvgIcon viewBox='-3 -3 24 24'>
-          <g transform="translate(-0.035 0)">
-            <path style={{fill: '#fff'}} d="M7.728,35.764a.186.186,0,0,1-.056-.2c.028-.112.112-.2.224-.168,3.982,1.458,8.3.28,12.057-1.234.393-.14.757-.308,1.15-.477s.813-.365,1.206-.561c.421-.2.813-.393,1.206-.617s.813-.421,1.206-.673c.393-.224.757-.449,1.122-.7.224-.14.421-.308.617-.449.14-.112.252-.2.393-.308.056-.056.14-.112.2-.168.056-.028.14-.084.2-.112h.028a.027.027,0,0,1,.028.028c0,.028,0,.056-.028.056a3.731,3.731,0,0,1-.393.533,22.743,22.743,0,0,1-8.552,6.029,14.2,14.2,0,0,1-6.617,1.15A6.57,6.57,0,0,1,7.728,35.764Z" transform="translate(-5.487 -21.66)"/>
-            <g transform="translate(0.035 0)">
-              <path style={{fill: '#fff'}} d="M5.886,10.935h0a7.853,7.853,0,0,1-.393-1.262A11.343,11.343,0,0,1,5.381,8.3,6.108,6.108,0,0,1,6.39,5.047l-.224-.056a.527.527,0,0,1-.308-.841A2.154,2.154,0,0,1,6.5,3.533a.712.712,0,0,1,.533-.056l.5.168a6.511,6.511,0,0,1,.841-.617,1.323,1.323,0,0,1,1.206-.14,4.39,4.39,0,0,1,.785.336c.112.056.168.252.028.308a6.974,6.974,0,0,0-1.009.7L21.7,8.159h.056c.028,0,.028-.056,0-.084C15.111,1.542,8.1-1.374,3.923.617,1.035,2.019-.9,6.925.5,10.178c.757,1.738,3.028,2.327,4.739,2.524a14.694,14.694,0,0,0,1.57.056A11.09,11.09,0,0,1,5.886,10.935Z" transform="translate(-0.035 0)"/>
-              <path style={{fill: '#fff'}} d="M40.66,22.376c.056,0,.084.112,0,.14-.336.14-.7.28-1.066.421A75.736,75.736,0,0,1,29.22,26.273c-.5.112-1.037.224-1.542.336a7.754,7.754,0,0,1-.925-1.57,6.027,6.027,0,0,1,.477-5.44l13.347,2.748Z" transform="translate(-18.939 -14.104)"/>
-            </g>
-          </g>
-        </SvgIcon>
-      ),
+      icon: <use href="#icon-logo_gjy"></use>,
     },
   };
 
@@ -137,14 +131,16 @@ class Drawer extends React.Component {
           className={classes.logo}
           component='div'
         >
-          <Icon classes={{
+          <SvgIcon classes={{
             root: classes.logoIcon,
           }}>
             {logo.icon}
-          </Icon>
-          <Typography className={classes.logoText} variant='body1'>
-            {logo.text}
-          </Typography>
+          </SvgIcon>
+          <ListItemText classes={{
+              secondary: classes.logoText,
+            }}
+            secondary={logo.text}
+          />
         </ListItem>
         <NavList navs={navs} />
       </MuiDrawer>
