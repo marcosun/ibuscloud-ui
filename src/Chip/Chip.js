@@ -32,16 +32,19 @@ const styles = (theme) => {
       },
     },
     deleteIcon: {
+      width: 18,
+      height: 18,
+      margin: '0 4px 0 -12px',
+      padding: 6,
+      fontSize: 6,
       '&:hover': {
-
       },
     },
   };
 };
 
 /**
- * Disable customising deleteIcon.
- * @param {Object} props
+ * @param {Element} [props.deleteIcon=svg delete icon] - Svg delete icon
  */
 @withStyles(styles, {name: 'IBusUiChip'})
 class Chip extends React.Component {
@@ -50,27 +53,28 @@ class Chip extends React.Component {
     deleteIcon: element,
   };
 
+  static defaultProps = {
+    deleteIcon: <use href="#icon-icon_close"></use>,
+  };
+
   /**
    * @return {Component}
    */
   render() {
     const {
       classes,
-      deleteIcon: deleteIconProp, // Will customise deleteIcon
+      deleteIcon,
       ...others
     } = this.props;
-
-    const deleteIcon = (
-      <SvgIcon viewBox='-1000 -1000 3000 3000'>
-        <path d="M109.714286 0l914.213864 914.213865-109.642436 109.714285L0 109.714286z" fill="#BCBCCB"></path><path d="M1024 109.714286L109.786135 1023.92815 0 914.285714 914.285714 0z" fill="#BCBCCB"></path>
-      </SvgIcon>
-    );
 
     return (
       <MuiChip
         classes={{...classes}}
         {...others}
-        deleteIcon={typeof others.onDelete === 'function' && deleteIcon}
+        deleteIcon={
+          typeof others.onDelete === 'function' &&
+            <SvgIcon>{deleteIcon}</SvgIcon>
+        }
       />
     );
   }
