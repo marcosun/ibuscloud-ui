@@ -7,7 +7,7 @@ import {
   arrayOf,
 } from 'prop-types';
 import List from 'material-ui/List';
-import {withRouter} from 'react-router';
+import {withRouter, matchPath} from 'react-router';
 
 import NavLink from './NavLink';
 
@@ -70,7 +70,10 @@ class NavList extends React.Component {
               text={nav.text}
               icon={nav.icon}
               isActive={
-                RegExp(nav.path).test(location.pathname) ? true : false
+                matchPath(location.pathname, {
+                  path: nav.path,
+                  exact: true,
+                }) !== null
               }
               onClick={this.handleClick.bind(this, nav)}
             />
