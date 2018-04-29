@@ -1,6 +1,3 @@
-/**
- * @module TableHead
- */
 import React from 'react';
 import {
   object,
@@ -15,7 +12,7 @@ import {
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {
-  TableHead,
+  TableHead as MuiTableHead,
   TableRow,
   TableCell,
   TableSortLabel,
@@ -25,12 +22,8 @@ import Tooltip from 'material-ui/Tooltip';
 
 const styles = (theme) => ({});
 
-@withStyles(styles, {
-  name: 'IBusUiTableHead',
-})
 /**
  * Exports TableHead component
- * @class
  * @param {Object[]} columns
  * @param {string} columns[].id - Unique id
  * @param {string} columns[].label - Display column name
@@ -43,7 +36,10 @@ const styles = (theme) => ({});
  * @param {function} onSelectAllClick
  * @param {function} onSortLabelClick
  */
-export default class Component extends React.Component {
+@withStyles(styles, {
+  name: 'IBusUiTableHead',
+})
+class TableHead extends React.Component {
   static propTypes = {
     classes: object.isRequired,
     columns: arrayOf(shape({
@@ -139,7 +135,7 @@ export default class Component extends React.Component {
     };
 
     return (
-      <TableHead>
+      <MuiTableHead>
         <TableRow>
           <TableCell>
             <Checkbox
@@ -165,7 +161,9 @@ export default class Component extends React.Component {
             })
           }
         </TableRow>
-      </TableHead>
+      </MuiTableHead>
     );
   }
 }
+
+export default TableHead;

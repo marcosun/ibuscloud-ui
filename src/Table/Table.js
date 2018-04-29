@@ -1,6 +1,3 @@
-/**
- * @module Table
- */
 import React from 'react';
 import {
   func,
@@ -14,7 +11,8 @@ import {
   arrayOf,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
-import Table, {
+import {
+  default as MuiTable,
   TableBody,
   TableRow,
   TableCell,
@@ -35,12 +33,8 @@ const styles = (theme) => ({
   },
 });
 
-@withStyles(styles, {
-  name: 'IBusUiTable',
-})
 /**
  * Exports Table component
- * @class
  * @param {Object} classes
  * @param {string} order - Column id. The label will have the active styling.
  * @param {Array} data - Every cloumns.prop value
@@ -56,7 +50,10 @@ const styles = (theme) => ({
  * @param {function} onCheckedChange
  * @param {function} onAllCheckedChange
  */
-export default class Component extends React.Component {
+@withStyles(styles, {
+  name: 'IBusUiTable',
+})
+class Table extends React.Component {
   static propTypes = {
     classes: object.isRequired,
     order: string,
@@ -315,7 +312,7 @@ export default class Component extends React.Component {
 
     return (
       <div className={classes.root}>
-        <Table>
+        <MuiTable>
           <TableHead
             data={data}
             order={order}
@@ -326,7 +323,7 @@ export default class Component extends React.Component {
             onSortLabelClick={this.onSortLabelClick.bind(this)}
           />
           {bodyElement}
-        </Table>
+        </MuiTable>
         <div className={classes.tablePagination}>
           <TablePagination
             component="div"
@@ -343,3 +340,5 @@ export default class Component extends React.Component {
     );
   }
 }
+
+export default Table;
