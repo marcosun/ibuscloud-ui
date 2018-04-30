@@ -30,10 +30,12 @@ const styles = (theme) => ({});
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right
  * @param {string} [props.columns[].tooltip] - Tooltip
+ * @param {Object} [props.order] - Describes how table column should be ordered.
+ * @param {string} props.order.columnId - Column id.
+ * The label will have the active styling.
+ * @param {string|boolean} props.order.orderBy - One of asc, desc and false.
  * @param {Array} props.data
- * @param {string} props.order - Column id that need to order
  * @param {number} props.numSelected - Selected rows
- * @param {string} props.sortDirection - Asc or desc
  * @param {function} props.onSelectAllClick
  * @param {function} props.onSortLabelClick
  */
@@ -49,10 +51,12 @@ class TableHead extends React.Component {
       isNumeric: bool,
       tooltip: string,
     })).isRequired,
+    order: shape({
+      columnId: string.isRequired,
+      orderBy: oneOf(['asc', 'desc', false]).isRequired,
+    }),
     data: array.isRequired,
-    order: string,
     numSelected: number,
-    sortDirection: oneOf(['asc', 'desc']),
     onSelectAllClick: func,
     onSortLabelClick: func,
   };
@@ -98,23 +102,24 @@ class TableHead extends React.Component {
     const {
       columns,
       data,
-      order,
       numSelected,
-      sortDirection,
+      order,
     } = this.props;
 
     const cellElement = (column) => {
-      if (sortDirection === void 0 && column.tooltip === void 0) {
+      if (order !== Object(order) && column.tooltip === void 0) {
         return column.label;
       }
 
       const sortLabelElement = (
         <TableSortLabel
-          active={order !== void 0 && order === column.id}
-          direction={sortDirection}
+          active={order === Object(order) && order.columnId === column.id}
+          direction={
+            order === Object(order) && order.orderBy === 'asc' ? 'asc' : 'desc'
+          }
           onClick={this.onSortLabelClick.bind(this, {
             columnId: column.id,
-            sortDirection,
+            orderBy: order === Object(order) && order.orderBy,
           })}
         >
           {column.label}
@@ -153,7 +158,9 @@ class TableHead extends React.Component {
                   key={column.id}
                   numeric={column.isNumeric === true}
                   sortDirection={
-                    order !== void 0 && order === column.id ? sortDirection : false
+                    order === Object(order) &&
+                    order.columnId === column.id &&
+                    order.orderBy
                   }
                 >
                   {cellElement(column)}

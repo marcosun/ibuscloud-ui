@@ -35,7 +35,6 @@ const styles = (theme) => ({
 
 /**
  * Exports Table component
- * @param {string} props.order - Column id. The label will have the active styling.
  * @param {Array} props.data - Every cloumns.prop value
  * @param {Object[]} props.columns. See {@link TableHead}
  * @param {string} props.columns[].id - Unique id
@@ -43,7 +42,11 @@ const styles = (theme) => ({
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
  * @param {string} [props.columns[].tooltip] - Tooltip
- * @param {string} props.sortDirection - Asc or desc
+ * @param {Object} [props.order] - Describes how table column should be ordered.
+ * See {@link TableHead}
+ * @param {string} props.order.columnId - Column id.
+ * The label will have the active styling.
+ * @param {string|boolean} props.order.orderBy - One of asc, desc and false.
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
  * @param {number} props.currentPage - The zero-based index of the current page.
  * @param {function} props.onCheckedChange
@@ -61,9 +64,11 @@ class Table extends React.Component {
       isNumeric: bool,
       tooltip: string,
     })).isRequired,
-    order: string,
+    order: shape({
+      columnId: string.isRequired,
+      orderBy: oneOf(['asc', 'desc', false]).isRequired,
+    }),
     data: array.isRequired,
-    sortDirection: oneOf(['asc', 'desc']),
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
     onCheckedChange: func,
@@ -83,28 +88,18 @@ class Table extends React.Component {
     super(props);
 
     const {
+      currentPage,
       data,
       order,
-      currentPage,
-      sortDirection,
       rowsPerPageOptions,
     } = this.props;
 
     this.state = {
-      order,
       currentPage,
-      sortDirection,
+      data,
+      order,
       rowsPerPage: rowsPerPageOptions[0],
       selectedRowsIndex: [],
-      data: (() => {
-        if (sortDirection === void 0) {
-          return [...data];
-        }
-
-        return sortDirection === 'desc'
-          ? [...data].sort((pre, next) => (next[order] < pre[order] ? -1 : 1))
-          : [...data].sort((pre, next) => (pre[order] < next[order] ? -1 : 1));
-      })(),
     };
   }
 
@@ -257,10 +252,9 @@ class Table extends React.Component {
 
     const {
       data,
+      currentPage,
       order,
       rowsPerPage,
-      currentPage,
-      sortDirection,
       selectedRowsIndex,
     } = this.state;
 
@@ -316,7 +310,6 @@ class Table extends React.Component {
             data={data}
             order={order}
             columns={columns}
-            sortDirection={sortDirection}
             numSelected={selectedRowsIndex.length}
             onSelectAllClick={this.onSelectAllClick.bind(this)}
             onSortLabelClick={this.onSortLabelClick.bind(this)}
