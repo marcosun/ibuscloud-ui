@@ -18,17 +18,17 @@ export default class table extends React.Component {
       {
         id: 'name',
         label: 'Dessert (100g serving)',
-        title: '第一列',
+        tooltip: '第一列',
       },
       {
         id: 'calories',
         label: 'Calories',
-        numeric: true,
+        isNumeric: true,
       },
       {
         id: 'fat',
         label: 'Fat (g)',
-        numeric: false,
+        isNumeric: false,
       },
       {
         id: 'carbs',
