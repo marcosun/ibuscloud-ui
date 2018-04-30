@@ -145,10 +145,12 @@ export default class table extends React.Component {
         />
         <h1>Sorting & Selecting</h1>
         <Table
-          order={'name'}
-          sortDirection={'asc'}
           columns={this.columns}
           data={this.data}
+          order={{
+            columnId: 'name',
+            orderBy: 'desc',
+          }}
         />
       </div>
     );
