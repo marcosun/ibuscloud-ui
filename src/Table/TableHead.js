@@ -27,8 +27,9 @@ const styles = (theme) => ({});
  * @param {Object[]} props.columns
  * @param {string} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
- * @param {boolean} props.columns[].numeric - If true, content will align to the right. false or undefined align to left
- * @param {string} props.columns[].title - Tooltip
+ * @param {boolean} [props.columns[].isNumeric=false] - If true,
+ * content will align to the right
+ * @param {string} [props.columns[].tooltip] - Tooltip
  * @param {Array} props.data
  * @param {string} props.order - Column id that need to order
  * @param {number} props.numSelected - Selected rows
@@ -45,8 +46,8 @@ class TableHead extends React.Component {
     columns: arrayOf(shape({
       id: string.isRequired,
       label: string.isRequired,
-      numeric: bool,
-      title: string,
+      isNumeric: bool,
+      tooltip: string,
     })).isRequired,
     data: array.isRequired,
     order: string,
@@ -95,15 +96,15 @@ class TableHead extends React.Component {
    */
   render() {
     const {
+      columns,
       data,
       order,
-      columns,
       numSelected,
       sortDirection,
     } = this.props;
 
     const cellElement = (column) => {
-      if (sortDirection === void 0 && column.title === void 0) {
+      if (sortDirection === void 0 && column.tooltip === void 0) {
         return column.label;
       }
 
@@ -120,14 +121,14 @@ class TableHead extends React.Component {
         </TableSortLabel>
       );
 
-      if (column.title === void 0) {
+      if (column.tooltip === void 0) {
         return sortLabelElement;
       }
 
       return (
         <Tooltip
-          title={column.title}
-          placement={column.numeric === true ? 'bottom-end' : 'bottom-start'}
+          title={column.tooltip}
+          placement={column.isNumeric === true ? 'bottom-end' : 'bottom-start'}
         >
           {sortLabelElement}
         </Tooltip>
@@ -150,7 +151,7 @@ class TableHead extends React.Component {
               return (
                 <TableCell
                   key={column.id}
-                  numeric={column.numeric !== void 0 ? column.numeric : false}
+                  numeric={column.isNumeric === true}
                   sortDirection={
                     order !== void 0 && order === column.id ? sortDirection : false
                   }

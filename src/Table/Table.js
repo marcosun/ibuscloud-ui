@@ -37,12 +37,12 @@ const styles = (theme) => ({
  * Exports Table component
  * @param {string} props.order - Column id. The label will have the active styling.
  * @param {Array} props.data - Every cloumns.prop value
- * @param {Object[]} props.columns
+ * @param {Object[]} props.columns. See {@link TableHead}
  * @param {string} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
- * @param {boolean} props.columns[].numeric - If true, content will align to the right.
- * False or undefined align to left
- * @param {string} props.columns[].title - Tooltip
+ * @param {boolean} [props.columns[].isNumeric=false] - If true,
+ * content will align to the right.
+ * @param {string} [props.columns[].tooltip] - Tooltip
  * @param {string} props.sortDirection - Asc or desc
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
  * @param {number} props.currentPage - The zero-based index of the current page.
@@ -55,14 +55,14 @@ const styles = (theme) => ({
 class Table extends React.Component {
   static propTypes = {
     classes: object,
-    order: string,
-    data: array.isRequired,
     columns: arrayOf(shape({
       id: string.isRequired,
       label: string.isRequired,
-      numeric: bool,
-      title: string,
+      isNumeric: bool,
+      tooltip: string,
     })).isRequired,
+    order: string,
+    data: array.isRequired,
     sortDirection: oneOf(['asc', 'desc']),
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
@@ -286,7 +286,7 @@ class Table extends React.Component {
                       return (
                         <TableCell
                           key={`${index}${column.id}`}
-                          numeric={column.numeric !== void 0 ? column.numeric : false}
+                          numeric={column.isNumeric === true}
                         >
                           {item[column.id]}
                         </TableCell>
