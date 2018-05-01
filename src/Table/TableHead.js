@@ -1,14 +1,14 @@
 import React from 'react';
 import {
-  object,
   bool,
-  array,
   number,
   string,
+  array,
+  object,
+  func,
   shape,
   oneOf,
   arrayOf,
-  func,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {
@@ -43,7 +43,7 @@ const styles = (theme) => ({});
 @withStyles(styles, {
   name: 'IBusUiTableHead',
 })
-class TableHead extends React.Component {
+class TableHead extends React.PureComponent {
   static propTypes = {
     classes: object,
     columns: arrayOf(shape({
@@ -61,14 +61,6 @@ class TableHead extends React.Component {
     onOrderChange: func,
     onSelectAllClick: func,
   };
-
-  /**
-   * @param {Object} props
-   */
-  constructor(props) {
-    super(props);
-    this.props = props;
-  }
 
   /**
    * Callback fired when select all checkbox is clicked.
