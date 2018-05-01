@@ -85,11 +85,9 @@ class TableHead extends React.Component {
    * @param {string} order.orderBy
    */
   handleOrderChange({columnId, orderBy}) {
-    if (orderBy === void 0) {
-      return;
-    }
+    const {onOrderChange} = this.props;
 
-    typeof this.props.onOrderChange === 'function' && this.props.onOrderChange({
+    typeof onOrderChange === 'function' && onOrderChange({
       columnId,
       orderBy,
     });
