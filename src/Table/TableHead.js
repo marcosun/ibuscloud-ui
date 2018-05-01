@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   bool,
-  number,
   string,
-  array,
   object,
   func,
   shape,
@@ -17,13 +15,27 @@ import {
   TableCell,
   TableSortLabel,
 } from 'material-ui/Table';
-import Checkbox from 'material-ui/Checkbox';
 import Tooltip from 'material-ui/Tooltip';
 
 const styles = (theme) => ({});
 
 /**
- * Exports TableHead component
+ * Attention: Select/Unselect all rows by clicking a checkbox on TableHead
+ * has since been deprecated. Think about this scenario:
+ * 1. Click on some table rows will attach an array, say include: [4,5,6],
+ * which contains ids that are included in this batch action.
+ * 2. Now reset table to its origianl status. Click 'Select All' checkbox is
+ * straight forward to understand. Since we only have a subset of the entire
+ * table (table rows are fetched to the website with paginated apis),
+ * a key-value pair, say isAllSelected: true, representing all selected rows
+ * will be attach to some action requests whether it is batch delete or update.
+ * 2. Now, our user click a bunch of checkboxes of some table rows since
+ * after. In the next batch action request, we have no choice but attach the
+ * isAllSelected: true along with another array, say exclude: [1,2,3],
+ * which contains ids that are excluded from this batch action.
+ * This introduces at least three variables and sophisticated logics. If
+ * someone satisfy the logic above or somehow found another way to simplify
+ * the logics, feel free to have it a go.
  * @param {Object[]} props.columns
  * @param {string} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
@@ -34,11 +46,7 @@ const styles = (theme) => ({});
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
- * @param {Array} props.data
- * @param {number} props.numSelected - Selected rows
  * @param {function} props.onOrderChange - Callback fired when order changes.
- * @param {function} props.onSelectAllClick - Callback fired when
- * select all checkbox is clicked.
  */
 @withStyles(styles, {
   name: 'IBusUiTableHead',
@@ -56,21 +64,8 @@ class TableHead extends React.PureComponent {
       columnId: string.isRequired,
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
-    data: array.isRequired,
-    numSelected: number,
     onOrderChange: func,
-    onSelectAllClick: func,
   };
-
-  /**
-   * Callback fired when select all checkbox is clicked.
-   * @param {Array} params - Whatever passed by MuiCheckBox onChange event
-   */
-  handleSelectAllChange(...params) {
-    const {onSelectAllClick} = this.props;
-
-    typeof onSelectAllClick === 'function' && onSelectAllClick(...params);
-  }
 
   /**
    * Handle sort label click
@@ -93,8 +88,6 @@ class TableHead extends React.PureComponent {
   render() {
     const {
       columns,
-      data,
-      numSelected,
       order,
     } = this.props;
 
@@ -145,14 +138,7 @@ class TableHead extends React.PureComponent {
     return (
       <MuiTableHead>
         <TableRow>
-          <TableCell>
-            <Checkbox
-              color='primary'
-              checked={numSelected === data.length}
-              indeterminate={numSelected > 0 && numSelected < data.length}
-              onChange={this.handleSelectAllChange.bind(this)}
-            />
-          </TableCell>
+          <TableCell></TableCell>
           {
             columns.map((column) => {
               return (

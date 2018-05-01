@@ -54,7 +54,6 @@ const styles = (theme) => ({
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
  * @param {number} props.currentPage - The zero-based index of the current page.
- * @param {function} props.onAllCheckedChange
  * @param {function} props.onOrderChange - Callback fired when order changes.
  * @param {function} props.onRowSelect - Callback fired when row checkbox
  * is clicked.
@@ -84,7 +83,6 @@ class Table extends React.Component {
     }),
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
-    onAllCheckedChange: func,
     onOrderChange: func,
     onRowSelect: func,
   };
@@ -200,16 +198,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Call onSelectAllClick callback
-   * @param {Array} params - Whatever passed by MuiCheckBox onChange event
-   */
-  handleSelectAllClick(...params) {
-    const {onAllCheckedChange} = this.props;
-
-    typeof onAllCheckedChange === 'function' && onAllCheckedChange(params);
-  }
-
-  /**
    * Table handles internal status of order(columnId and orderBy) and expose
    * order event by calling onOrderChange with order object.
    * Change orderBy in the following order: asc, desc, false
@@ -308,11 +296,9 @@ class Table extends React.Component {
       <div className={classes.root}>
         <MuiTable>
           <TableHead
-            data={rows}
             order={order}
             columns={columns}
             numSelected={selectedRowIds.length}
-            onSelectAllClick={this.handleSelectAllClick.bind(this)}
             onOrderChange={this.handleOrderChange.bind(this)}
           />
           {bodyElement}
