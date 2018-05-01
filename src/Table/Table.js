@@ -37,9 +37,8 @@ const styles = (theme) => ({
 /**
  * Table handles internal status of order(columnId and orderBy) and expose
  * order event by calling onOrderChange with order object.
- * @param {Array} props.data - Every cloumns.prop value
- * @param {Object[]} props.columns. See {@link TableHead}
- * @param {string} props.columns[].id - Unique id
+ * @param {Object[]} props.columns - See {@link TableHead}
+ * @param {string|number} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
@@ -65,7 +64,7 @@ class Table extends React.Component {
   static propTypes = {
     classes: object,
     columns: arrayOf(shape({
-      id: string.isRequired,
+      id: oneOfType([string, number]).isRequired,
       label: string.isRequired,
       isNumeric: bool,
       tooltip: string,
