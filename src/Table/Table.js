@@ -194,9 +194,13 @@ class Table extends React.Component {
 
   /**
    * Call onSelectAllClick callback
-   * @param  {Object} event
+   * @param {Array} params - Whatever passed by MuiCheckBox onChange event
    */
-  onSelectAllClick(event) {
+  handleSelectAllClick(...params) {
+    const {event} = params;
+
+    const {onAllCheckedChange} = this.props;
+
     const {
       data,
     } = this.state;
@@ -214,7 +218,7 @@ class Table extends React.Component {
       })(),
     });
 
-    this.props.onAllCheckedChange && this.props.onAllCheckedChange(event);
+    typeof onAllCheckedChange === 'function' && onAllCheckedChange(params);
   }
 
   /**
@@ -321,7 +325,7 @@ class Table extends React.Component {
             order={order}
             columns={columns}
             numSelected={selectedRowsIndex.length}
-            onSelectAllClick={this.onSelectAllClick.bind(this)}
+            onSelectAllClick={this.handleSelectAllClick.bind(this)}
             onOrderChange={this.handleOrderChange.bind(this)}
           />
           {bodyElement}
