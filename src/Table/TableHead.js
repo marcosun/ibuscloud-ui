@@ -113,9 +113,15 @@ class TableHead extends React.Component {
 
       const sortLabelElement = (
         <TableSortLabel
-          active={order === Object(order) && order.columnId === column.id}
+          active={
+            order === Object(order) &&
+            order.columnId === column.id &&
+            order.orderBy !== false
+          }
           direction={
-            order === Object(order) && order.orderBy === 'asc' ? 'asc' : 'desc'
+            order === Object(order) &&
+            order.columnId === column.id &&
+            order.orderBy === 'asc' ? 'asc' : 'desc'
           }
           onClick={this.onSortLabelClick.bind(this, {
             columnId: column.id,
