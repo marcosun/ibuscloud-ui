@@ -54,8 +54,14 @@ const styles = (theme) => ({
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
  * @param {number} props.currentPage - The zero-based index of the current page.
- * @param {function} props.onCheckedChange
  * @param {function} props.onAllCheckedChange
+ * @param {function} props.onOrderChange - Callback fired when order changes.
+ * @param {function} props.onRowSelect - Callback fired when row checkbox
+ * is clicked.
+ * Signature:
+ * function(rowId, selectedRowIds, event, isChecked)
+ * rowId: Clicked row id.
+ * selectedRowIds: An array of selected row ids.
  */
 @withStyles(styles, {
   name: 'IBusUiTable',
@@ -78,9 +84,9 @@ class Table extends React.Component {
     }),
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
-    onCheckedChange: func,
     onAllCheckedChange: func,
     onOrderChange: func,
+    onRowSelect: func,
   };
 
   static defaultProps = {
@@ -106,7 +112,7 @@ class Table extends React.Component {
       currentPage,
       order,
       rowsPerPage: rowsPerPageOptions[0],
-      selectedRowsIndex: [],
+      selectedRowIds: [],
     };
   }
 
@@ -152,40 +158,45 @@ class Table extends React.Component {
   }
 
   /**
-   * Call onCheckedChange callback
-   * @param  {number} dataIndex
-   * @param  {Object} event
+   * Add selected row index into nextSelectedRowIds if isChecked === true.
+   * Delete selected row index from nextSelectedRowIds if isChecked === false.
+   * Call props.onRowSelect with selected row id, all selected row ids, event
+   * and isChecked.
+   * @param {Object} row - Table row
+   * @param {string|number} row.id - Table row id
+   * @param {Object} event - Passed by MuiCheckBox
+   * @param {boolean} isChecked - Passed by MuiCheckBox
    */
-  onCheckedChange(dataIndex, event) {
+  handleRowSelect(row, event, isChecked) {
+    const {onRowSelect} = this.props;
+
     const {
-      data,
-      selectedRowsIndex,
+      selectedRowIds,
     } = this.state;
 
-    const selectedRowsIndexData = (() => {
-      if (event.target.checked === false) {
-        return selectedRowsIndex.filter((rowIndex) => {
-          return rowIndex !== dataIndex;
-        });
-      } else {
-        return selectedRowsIndex.concat([dataIndex]);
-      }
-    })();
+    let nextSelectedRowIds;
 
-    const currentRow = data.filter((item, index) => {
-      return index === dataIndex;
-    });
-
-    const checkedRows = data.filter((item, index) => {
-      return selectedRowsIndexData.includes(index);
-    });
+    if (isChecked === true) {
+      // Add selected row index into nextSelectedRowIds
+      nextSelectedRowIds = [...selectedRowIds, row.id];
+    } else {
+      // Delete selected row index from nextSelectedRowIds
+      const deleteIndex = selectedRowIds.findIndex((rowId) => {
+        return rowId === row.id;
+      });
+      nextSelectedRowIds = [
+        ...selectedRowIds.slice(0, deleteIndex),
+        ...selectedRowIds.slice(deleteIndex + selectedRowIds.length),
+      ];
+    }
 
     this.setState({
       ...this.state,
-      selectedRowsIndex: selectedRowsIndexData,
+      selectedRowIds: nextSelectedRowIds,
     });
 
-    this.props.onCheckedChange && this.props.onCheckedChange(currentRow, checkedRows);
+    onRowSelect === 'function' &&
+    onRowSelect(row.id, nextSelectedRowIds, event, isChecked);
   }
 
   /**
@@ -246,7 +257,7 @@ class Table extends React.Component {
       currentPage,
       order,
       rowsPerPage,
-      selectedRowsIndex,
+      selectedRowIds,
     } = this.state;
 
     const bodyElement = (() => {
@@ -261,8 +272,8 @@ class Table extends React.Component {
                   <TableCell>
                     <Checkbox
                       color='primary'
-                      // checked={selectedRowsIndex.includes(dataIndex)}
-                      // onChange={this.onCheckedChange.bind(this, dataIndex)}
+                      // checked={selectedRowIds.includes(dataIndex)}
+                      onChange={this.handleRowSelect.bind(this, row)}
                     />
                   </TableCell>
                   {
@@ -300,7 +311,7 @@ class Table extends React.Component {
             data={rows}
             order={order}
             columns={columns}
-            numSelected={selectedRowsIndex.length}
+            numSelected={selectedRowIds.length}
             onSelectAllClick={this.handleSelectAllClick.bind(this)}
             onOrderChange={this.handleOrderChange.bind(this)}
           />
