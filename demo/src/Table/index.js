@@ -42,6 +42,7 @@ export default class table extends React.Component {
 
     this.data = [
       {
+        id: 1,
         name: '1',
         calories: 305,
         fat: 3.7,
@@ -49,6 +50,7 @@ export default class table extends React.Component {
         protein: 4.3,
       },
       {
+        id: 2,
         name: 'cupcake',
         calories: 305,
         fat: 3.7,
@@ -56,6 +58,7 @@ export default class table extends React.Component {
         protein: 4.3,
       },
       {
+        id: 3,
         name: 'Cupcake',
         calories: 305,
         fat: 3.7,
@@ -63,6 +66,7 @@ export default class table extends React.Component {
         protein: 4.3,
       },
       {
+        id: 4,
         name: 'Gingerbread',
         calories: 356,
         fat: 16.0,
@@ -70,6 +74,7 @@ export default class table extends React.Component {
         protein: 3.9,
       },
       {
+        id: 5,
         name: 'Donut',
         calories: 452,
         fat: 25.0,
@@ -77,6 +82,7 @@ export default class table extends React.Component {
         protein: 4.9,
       },
       {
+        id: 6,
         name: 'Eclair',
         calories: 262,
         fat: 16.0,
@@ -84,6 +90,7 @@ export default class table extends React.Component {
         protein: 6.0,
       },
       {
+        id: 7,
         name: 'Frozen yoghurt',
         calories: 159,
         fat: 6.0,
@@ -139,14 +146,14 @@ export default class table extends React.Component {
         <div>checkedRows: {JSON.stringify(checkedRows)}</div>
         <Table
           columns={this.columns}
-          data={this.data}
+          rows={this.data}
           onCheckedChange={this.onCheckedChange.bind(this)}
           onAllCheckedChange={this.onAllCheckedChange.bind(this)}
         />
         <h1>Sorting & Selecting</h1>
         <Table
           columns={this.columns}
-          data={this.data}
+          rows={this.data}
           order={{
             columnId: 'name',
             orderBy: 'desc',
