@@ -37,7 +37,8 @@ const styles = (theme) => ({});
  * @param {Array} props.data
  * @param {number} props.numSelected - Selected rows
  * @param {function} props.onOrderChange - Callback fired when order changes.
- * @param {function} props.onSelectAllClick
+ * @param {function} props.onSelectAllClick - Callback fired when
+ * select all checkbox is clicked.
  */
 @withStyles(styles, {
   name: 'IBusUiTableHead',
@@ -70,12 +71,13 @@ class TableHead extends React.Component {
   }
 
   /**
-   * Expose onSelectAllClick api.
-   * Call the funcion once the checked value of the switch changed
-   * @param {Object} event
+   * Callback fired when select all checkbox is clicked.
+   * @param {Array} params - Whatever passed by MuiCheckBox onChange event
    */
-  onChange(event) {
-    this.props.onSelectAllClick && this.props.onSelectAllClick(event);
+  handleSelectAllChange(...params) {
+    const {onSelectAllClick} = this.props;
+
+    typeof onSelectAllClick === 'function' && onSelectAllClick(...params);
   }
 
   /**
@@ -156,7 +158,7 @@ class TableHead extends React.Component {
               color='primary'
               checked={numSelected === data.length}
               indeterminate={numSelected > 0 && numSelected < data.length}
-              onChange={this.onChange.bind(this)}
+              onChange={this.handleSelectAllChange.bind(this)}
             />
           </TableCell>
           {
