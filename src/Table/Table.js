@@ -7,6 +7,7 @@ import {
   number,
   string,
   oneOf,
+  oneOfType,
   shape,
   arrayOf,
 } from 'prop-types';
@@ -43,6 +44,10 @@ const styles = (theme) => ({
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
  * @param {string} [props.columns[].tooltip] - Tooltip
+ * @param {Object[]} [props.rows] - Represents rows of the current page in
+ * the table body. Property names defined in props.columns will be looked for
+ * and values will be displayed on the corresponding column.
+ * @param {string|number} props.rows[].id - Unique id
  * @param {Object} [props.order] - Describes how table column should be ordered.
  * See {@link TableHead}
  * @param {string} props.order.columnId - Column id.
@@ -65,11 +70,13 @@ class Table extends React.Component {
       isNumeric: bool,
       tooltip: string,
     })).isRequired,
+    rows: arrayOf(shape({
+      id: oneOfType([string, number]).isRequired,
+    })),
     order: shape({
       columnId: string.isRequired,
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
-    data: array.isRequired,
     rowsPerPageOptions: array,
     currentPage: number.isRequired,
     onCheckedChange: func,
@@ -79,6 +86,7 @@ class Table extends React.Component {
 
   static defaultProps = {
     currentPage: 0,
+    rows: [],
     rowsPerPageOptions: [5, 7, 10],
   };
 
@@ -91,14 +99,12 @@ class Table extends React.Component {
 
     const {
       currentPage,
-      data,
       order,
       rowsPerPageOptions,
     } = this.props;
 
     this.state = {
       currentPage,
-      data,
       order,
       rowsPerPage: rowsPerPageOptions[0],
       selectedRowsIndex: [],
@@ -107,7 +113,7 @@ class Table extends React.Component {
 
   /**
    * Alarm: The lifecycle methods will continue to work until the version 17 of react
-   * Reset currentPage and data state if updated
+   * Reset currentPage if updated
    * @param {Object} nextProps
    * @return {boolean}
    */
@@ -116,15 +122,6 @@ class Table extends React.Component {
       this.setState({
         ...this.state,
         currentPage: nextProps.currentPage,
-      });
-    }
-
-    if (!isShallowEqual(this.props.data, nextProps.data)) {
-      this.setState({
-        ...this.state,
-        data: [...nextProps.data],
-        currentPage: 0,
-        selectedRowsIndex: [],
       });
     }
 
@@ -197,26 +194,7 @@ class Table extends React.Component {
    * @param {Array} params - Whatever passed by MuiCheckBox onChange event
    */
   handleSelectAllClick(...params) {
-    const {event} = params;
-
     const {onAllCheckedChange} = this.props;
-
-    const {
-      data,
-    } = this.state;
-
-    this.setState({
-      ...this.state,
-      selectedRowsIndex: (() => {
-        if (event.target.checked === false) {
-          return [];
-        } else {
-          return [...new Array(data.length)].map((item, index) => {
-            return index;
-          });
-        }
-      })(),
-    });
 
     typeof onAllCheckedChange === 'function' && onAllCheckedChange(params);
   }
@@ -261,11 +239,11 @@ class Table extends React.Component {
     const {
       classes,
       columns,
+      rows,
       rowsPerPageOptions,
     } = this.props;
 
     const {
-      data,
       currentPage,
       order,
       rowsPerPage,
@@ -273,30 +251,29 @@ class Table extends React.Component {
     } = this.state;
 
     const bodyElement = (() => {
-      const emptyRows = rowsPerPage - Math.min(rowsPerPage, data.length - currentPage * rowsPerPage);
+      const emptyRows = rowsPerPage - rows.length;
 
       return (
           <TableBody>
           {
-            data.slice(currentPage * rowsPerPage, currentPage * rowsPerPage + rowsPerPage).map((item, index) => {
-              const dataIndex = currentPage * rowsPerPage + index;
+            rows.map((row) => {
               return (
-                <TableRow key={index}>
+                <TableRow key={row.id}>
                   <TableCell>
                     <Checkbox
                       color='primary'
-                      checked={selectedRowsIndex.includes(dataIndex)}
-                      onChange={this.onCheckedChange.bind(this, dataIndex)}
+                      // checked={selectedRowsIndex.includes(dataIndex)}
+                      // onChange={this.onCheckedChange.bind(this, dataIndex)}
                     />
                   </TableCell>
                   {
                     columns.map((column) => {
                       return (
                         <TableCell
-                          key={`${index}${column.id}`}
+                          key={`${row.id}${column.id}`}
                           numeric={column.isNumeric === true}
                         >
-                          {item[column.id]}
+                          {row[column.id]}
                         </TableCell>
                       );
                     })
@@ -321,7 +298,7 @@ class Table extends React.Component {
       <div className={classes.root}>
         <MuiTable>
           <TableHead
-            data={data}
+            data={rows}
             order={order}
             columns={columns}
             numSelected={selectedRowsIndex.length}
@@ -334,7 +311,7 @@ class Table extends React.Component {
           <TablePagination
             component="div"
             page={currentPage}
-            count={data.length}
+            count={rows.length}
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={rowsPerPageOptions}
             onChangePage={this.onChangePage.bind(this)}
