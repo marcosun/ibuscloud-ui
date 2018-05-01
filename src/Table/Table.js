@@ -34,7 +34,8 @@ const styles = (theme) => ({
 });
 
 /**
- * Exports Table component
+ * Table handles internal status of order(columnId and orderBy) and expose
+ * order event by calling onOrderChange with order object.
  * @param {Array} props.data - Every cloumns.prop value
  * @param {Object[]} props.columns. See {@link TableHead}
  * @param {string} props.columns[].id - Unique id
@@ -73,6 +74,7 @@ class Table extends React.Component {
     currentPage: number.isRequired,
     onCheckedChange: func,
     onAllCheckedChange: func,
+    onOrderChange: func,
   };
 
   static defaultProps = {
@@ -216,28 +218,36 @@ class Table extends React.Component {
   }
 
   /**
-   * Call onSortLabelClick callback
-   * @param {Object} ExposedParam
-   * @param {number} ExposedParam.columnId
-   * @param {string} ExposedParam.sortDirection
+   * Table handles internal status of order(columnId and orderBy) and expose
+   * order event by calling onOrderChange with order object.
+   * Change orderBy in the following order: asc, desc, false
+   * @param {Object} order
+   * @param {number} order.columnId
+   * @param {string} order.orderBy
    */
-  onSortLabelClick({columnId, sortDirection}) {
+  handleOrderChange({columnId, orderBy}) {
+    const {onOrderChange} = this.props;
+
+    const order = {
+      columnId,
+      orderBy: (() => {
+        switch (orderBy) {
+          case false:
+            return 'asc';
+          case 'asc':
+            return 'desc';
+          case 'desc':
+            return false;
+        }
+      })(),
+    };
+
     this.setState({
       ...this.state,
-      order: columnId,
-      sortDirection: this.state.sortDirection === 'asc' ? 'desc' : 'asc',
-      data: (() => {
-        const {
-          data,
-        } = this.state;
-
-        const order = sortDirection === 'asc' ? 'desc' : 'asc';
-
-        return order === 'desc'
-          ? [...data].sort((pre, next) => (next[columnId] < pre[columnId] ? -1 : 1))
-          : [...data].sort((pre, next) => (pre[columnId] < next[columnId] ? -1 : 1));
-      })(),
+      order,
     });
+
+    typeof onOrderChange === 'function' && onOrderChange(order);
   }
 
   /**
@@ -312,7 +322,7 @@ class Table extends React.Component {
             columns={columns}
             numSelected={selectedRowsIndex.length}
             onSelectAllClick={this.onSelectAllClick.bind(this)}
-            onSortLabelClick={this.onSortLabelClick.bind(this)}
+            onOrderChange={this.handleOrderChange.bind(this)}
           />
           {bodyElement}
         </MuiTable>

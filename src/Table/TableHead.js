@@ -36,8 +36,8 @@ const styles = (theme) => ({});
  * @param {string|boolean} props.order.orderBy - One of asc, desc and false.
  * @param {Array} props.data
  * @param {number} props.numSelected - Selected rows
+ * @param {function} props.onOrderChange - Callback fired when order changes.
  * @param {function} props.onSelectAllClick
- * @param {function} props.onSortLabelClick
  */
 @withStyles(styles, {
   name: 'IBusUiTableHead',
@@ -57,8 +57,8 @@ class TableHead extends React.Component {
     }),
     data: array.isRequired,
     numSelected: number,
+    onOrderChange: func,
     onSelectAllClick: func,
-    onSortLabelClick: func,
   };
 
   /**
@@ -79,19 +79,19 @@ class TableHead extends React.Component {
   }
 
   /**
-   * Expose onSortLabelClick api
-   * @param {Object} Param
-   * @param {numner} Param.columnId - The id of clicked columns
-   * @param {string} Param.sortDirection
+   * Handle sort label click
+   * @param {Object} order
+   * @param {numner} order.columnId - The id of clicked columns
+   * @param {string} order.orderBy
    */
-  onSortLabelClick({columnId, sortDirection}) {
-    if (sortDirection === void 0) {
+  handleOrderChange({columnId, orderBy}) {
+    if (orderBy === void 0) {
       return;
     }
 
-    this.props.onSortLabelClick && this.props.onSortLabelClick({
+    typeof this.props.onOrderChange === 'function' && this.props.onOrderChange({
       columnId,
-      sortDirection,
+      orderBy,
     });
   }
 
@@ -123,10 +123,14 @@ class TableHead extends React.Component {
             order.columnId === column.id &&
             order.orderBy === 'asc' ? 'asc' : 'desc'
           }
-          onClick={this.onSortLabelClick.bind(this, {
-            columnId: column.id,
-            orderBy: order === Object(order) && order.orderBy,
-          })}
+          onClick={
+            this.handleOrderChange.bind(this, {
+              columnId: column.id,
+              orderBy: order === Object(order) &&
+                order.columnId === column.id &&
+                order.orderBy,
+            }
+          )}
         >
           {column.label}
         </TableSortLabel>
