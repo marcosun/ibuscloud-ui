@@ -47,7 +47,7 @@ const styles = (theme) => ({
  * See {@link TableHead}
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
- * @param {string|boolean} props.order.orderBy - One of asc, desc and false.
+ * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
  * @param {number} props.currentPage - The zero-based index of the current page.
  * @param {function} props.onCheckedChange
@@ -222,8 +222,8 @@ class Table extends React.Component {
    * order event by calling onOrderChange with order object.
    * Change orderBy in the following order: asc, desc, false
    * @param {Object} order
-   * @param {number} order.columnId
-   * @param {string} order.orderBy
+   * @param {string} order.columnId
+   * @param {string|boolean} order.orderBy - Enum: 'asc', 'desc', false
    */
   handleOrderChange({columnId, orderBy}) {
     const {onOrderChange} = this.props;

@@ -33,7 +33,7 @@ const styles = (theme) => ({});
  * @param {Object} [props.order] - Describes how table column should be ordered.
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
- * @param {string|boolean} props.order.orderBy - One of asc, desc and false.
+ * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {Array} props.data
  * @param {number} props.numSelected - Selected rows
  * @param {function} props.onOrderChange - Callback fired when order changes.
@@ -82,7 +82,7 @@ class TableHead extends React.Component {
    * Handle sort label click
    * @param {Object} order
    * @param {numner} order.columnId - The id of clicked columns
-   * @param {string} order.orderBy
+   * @param {string} order.orderBy - Enum: 'asc', 'desc', false
    */
   handleOrderChange({columnId, orderBy}) {
     const {onOrderChange} = this.props;
