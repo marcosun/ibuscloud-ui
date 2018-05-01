@@ -36,6 +36,7 @@ const styles = (theme) => ({});
  * This introduces at least three variables and sophisticated logics. If
  * someone satisfy the logic above or somehow found another way to simplify
  * the logics, feel free to have it a go.
+ * Relevant code has been deleted since commit b19d710
  * @param {Object[]} props.columns
  * @param {string} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
