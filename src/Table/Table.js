@@ -298,7 +298,6 @@ class Table extends React.Component {
           <TableHead
             order={order}
             columns={columns}
-            numSelected={selectedRowIds.length}
             onOrderChange={this.handleOrderChange.bind(this)}
           />
           {bodyElement}
