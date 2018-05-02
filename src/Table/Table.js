@@ -260,7 +260,7 @@ class Table extends React.Component {
                   <TableCell>
                     <Checkbox
                       color='primary'
-                      // checked={selectedRowIds.includes(dataIndex)}
+                      checked={selectedRowIds.includes(row.id)}
                       onChange={this.handleRowSelect.bind(this, row)}
                     />
                   </TableCell>
