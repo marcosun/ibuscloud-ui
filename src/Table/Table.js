@@ -55,6 +55,11 @@ const styles = (theme) => ({
  * The label will have the active styling.
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
+ * @param {function} props.onChangePage - Callback fired when the page changes.
+ * Signature:
+ * function(event: object, page: number) => void
+ * event: The event source of the callback
+ * page: The page selected
  * @param {function} props.onOrderChange - Callback fired when order changes.
  * @param {function} props.onRowSelect - Callback fired when row checkbox
  * is clicked.
@@ -83,6 +88,7 @@ class Table extends React.Component {
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
     rowsPerPageOptions: array,
+    onChangePage: func,
     onOrderChange: func,
     onRowSelect: func,
   };
@@ -117,14 +123,19 @@ class Table extends React.Component {
 
   /**
    * Call onChangePage callback
-   * @param  {Object} event
-   * @param  {number} currentPage
+   * @param  {Array} params - Two parameters as defined in MuiTablePagination
    */
-  onChangePage(event, currentPage) {
+  handlePageChange(...params) {
+    const currentPage = params[1];
+
+    const {onChangePage} = this.props;
+
     this.setState({
       ...this.state,
       currentPage,
     });
+
+    typeof onChangePage === 'function' && onChangePage(...params);
   }
 
   /**
@@ -293,7 +304,7 @@ class Table extends React.Component {
             count={rows.length}
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={rowsPerPageOptions}
-            onChangePage={this.onChangePage.bind(this)}
+            onChangePage={this.handlePageChange.bind(this)}
             onChangeRowsPerPage={this.onChangeRowsPerPage.bind(this)}
             Actions={TablePaginationActions}
           />
