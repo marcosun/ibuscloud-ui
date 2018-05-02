@@ -35,8 +35,10 @@ const styles = (theme) => ({
 });
 
 /**
- * Table handles internal status of order(columnId and orderBy) and expose
- * order event by calling onOrderChange with order object.
+ * Table component accepts order at the initialisation process,
+ * and Table maintains its status (columnId and orderBy) since after.
+ * CurrentPage is set to 0 at the initialisation process and
+ * Table maintains its status since after.
  * @param {Object[]} props.columns - See {@link TableHead}
  * @param {string|number} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
@@ -53,7 +55,6 @@ const styles = (theme) => ({
  * The label will have the active styling.
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {Array} props.rowsPerPageOptions - The number of rows per page.
- * @param {number} props.currentPage - The zero-based index of the current page.
  * @param {function} props.onOrderChange - Callback fired when order changes.
  * @param {function} props.onRowSelect - Callback fired when row checkbox
  * is clicked.
@@ -82,53 +83,36 @@ class Table extends React.Component {
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
     rowsPerPageOptions: array,
-    currentPage: number.isRequired,
     onOrderChange: func,
     onRowSelect: func,
   };
 
   static defaultProps = {
-    currentPage: 0,
     rows: [],
     rowsPerPageOptions: [5, 7, 10],
   };
 
   /**
-   * Init state
+   * Table component accepts order at the initialisation process,
+   * and Table maintains its status since after.
+   * CurrentPage is set to 0 at the initialisation process,
+   * and Table maintains its status since after.
    * @param {Object} props
    */
   constructor(props) {
     super(props);
 
     const {
-      currentPage,
       order,
       rowsPerPageOptions,
     } = this.props;
 
     this.state = {
-      currentPage,
+      currentPage: 0, // Set initial page number as page 0
       order,
       rowsPerPage: rowsPerPageOptions[0],
       selectedRowIds: [],
     };
-  }
-
-  /**
-   * Alarm: The lifecycle methods will continue to work until the version 17 of react
-   * Reset currentPage if updated
-   * @param {Object} nextProps
-   * @return {boolean}
-   */
-  componentWillReceiveProps(nextProps) {
-    if (!isShallowEqual(this.props.currentPage, nextProps.currentPage)) {
-      this.setState({
-        ...this.state,
-        currentPage: nextProps.currentPage,
-      });
-    }
-
-    return true;
   }
 
   /**
