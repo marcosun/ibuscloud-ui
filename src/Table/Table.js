@@ -2,7 +2,6 @@ import React from 'react';
 import {
   func,
   bool,
-  array,
   object,
   number,
   string,
@@ -35,10 +34,10 @@ const styles = (theme) => ({
 });
 
 /**
- * Table component accepts order at the initialisation process,
- * and Table maintains its status (columnId and orderBy) since after.
- * CurrentPage is set to 0 at the initialisation process and
+ * currentPage is set to 0 at the initialisation process and
  * Table maintains its status since after.
+ * rowsPerPage is set to the first value in the props.rowsPerPageOptions
+ * at the initialisation process and Table maintains its status since after.
  * @param {Object[]} props.columns - See {@link TableHead}
  * @param {string|number} props.columns[].id - Unique id
  * @param {string} props.columns[].label - Display column name
@@ -50,11 +49,14 @@ const styles = (theme) => ({
  * and values will be displayed on the corresponding column.
  * @param {string|number} props.rows[].id - Unique id
  * @param {Object} [props.order] - Describes how table column should be ordered.
+ * Table component accepts order at the initialisation process,
+ * and Table maintains its status (columnId and orderBy) since after.
  * See {@link TableHead}
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
- * @param {Array} props.rowsPerPageOptions - The number of rows per page.
+ * @param {number[]} [props.rowsPerPageOptions=[5, 7, 10]] - The number of rows
+ * per page.
  * @param {function} props.onChangePage - Callback fired when the page changes.
  * Signature:
  * function(event: object, page: number) => void
@@ -87,7 +89,7 @@ class Table extends React.Component {
       columnId: string.isRequired,
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
-    rowsPerPageOptions: array,
+    rowsPerPageOptions: arrayOf(number),
     onChangePage: func,
     onOrderChange: func,
     onRowSelect: func,
@@ -101,7 +103,7 @@ class Table extends React.Component {
   /**
    * Table component accepts order at the initialisation process,
    * and Table maintains its status since after.
-   * CurrentPage is set to 0 at the initialisation process,
+   * currentPage is set to 0 at the initialisation process,
    * and Table maintains its status since after.
    * @param {Object} props
    */
