@@ -62,6 +62,11 @@ const styles = (theme) => ({
  * function(event: object, page: number) => void
  * event: The event source of the callback
  * page: The page selected
+ * @param {function} props.onChangeRowsPerPage - Callback fired when the number
+ * of rows per page is changed.
+ * Signature:
+ * function(event: object) => void
+ * event: The event source of the callback
  * @param {function} props.onOrderChange - Callback fired when order changes.
  * @param {function} props.onRowSelect - Callback fired when row checkbox
  * is clicked.
@@ -91,6 +96,7 @@ class Table extends React.Component {
     }),
     rowsPerPageOptions: arrayOf(number),
     onChangePage: func,
+    onChangeRowsPerPage: func,
     onOrderChange: func,
     onRowSelect: func,
   };
@@ -125,7 +131,7 @@ class Table extends React.Component {
 
   /**
    * Call onChangePage callback
-   * @param  {Array} params - Two parameters as defined in MuiTablePagination
+   * @param  {Array} params - Two parameters defined in MuiTablePagination
    */
   handlePageChange(...params) {
     const currentPage = params[1];
@@ -142,14 +148,20 @@ class Table extends React.Component {
 
   /**
    * Call onChangeRowsPerPage callback
-   * @param  {Object} event
+   * @param  {Object} event - Parameter defined in MuiTablePagination
    */
-  onChangeRowsPerPage(event) {
+  handleRowsPerPageChange(event) {
+    const {onChangeRowsPerPage} = this.props;
+
     this.setState({
       ...this.state,
       rowsPerPage: event.target.value,
-      currentPage: 0,
+      currentPage: 0, // This might be unappropriate, feel free to modify
+      // how currentPage behave in the future if your logic satisfy general
+      // requriments.
     });
+
+    typeof onChangeRowsPerPage === 'function' && onChangeRowsPerPage(event);
   }
 
   /**
@@ -307,7 +319,7 @@ class Table extends React.Component {
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={rowsPerPageOptions}
             onChangePage={this.handlePageChange.bind(this)}
-            onChangeRowsPerPage={this.onChangeRowsPerPage.bind(this)}
+            onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
             Actions={TablePaginationActions}
           />
         </div>
