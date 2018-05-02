@@ -22,7 +22,6 @@ import Checkbox from 'material-ui/Checkbox';
 
 import TableHead from './TableHead';
 import TablePaginationActions from './TablePaginationActions';
-import isShallowEqual from '../Util/isShallowEqual';
 
 const styles = (theme) => ({
   root: {
@@ -68,17 +67,21 @@ const styles = (theme) => ({
  * function(event: object) => void
  * event: The event source of the callback
  * @param {function} props.onOrderChange - Callback fired when order changes.
+ * Signature:
+ * function({columnId, orderBy}) => void
+ * columnId: Sort column id.
+ * orderBy: Order by 'asc' or 'desc' or false.
  * @param {function} props.onRowSelect - Callback fired when row checkbox
  * is clicked.
  * Signature:
- * function(rowId, selectedRowIds, event, isChecked)
+ * function(rowId, selectedRowIds, event, isChecked) => void
  * rowId: Clicked row id.
  * selectedRowIds: An array of selected row ids.
  */
 @withStyles(styles, {
   name: 'IBusUiTable',
 })
-class Table extends React.Component {
+class Table extends React.PureComponent {
   static propTypes = {
     classes: object,
     columns: arrayOf(shape({
@@ -171,10 +174,11 @@ class Table extends React.Component {
    * and isChecked.
    * @param {Object} row - Table row
    * @param {string|number} row.id - Table row id
-   * @param {Object} event - Passed by MuiCheckBox
-   * @param {boolean} isChecked - Passed by MuiCheckBox
+   * @param {Array} params - Two parameters defined in MuiCheckBox
    */
-  handleRowSelect(row, event, isChecked) {
+  handleRowSelect(row, ...params) {
+    const isChecked = params[1];
+
     const {onRowSelect} = this.props;
 
     const {
@@ -203,7 +207,7 @@ class Table extends React.Component {
     });
 
     onRowSelect === 'function' &&
-    onRowSelect(row.id, nextSelectedRowIds, event, isChecked);
+    onRowSelect(row.id, nextSelectedRowIds, ...params);
   }
 
   /**
@@ -305,22 +309,22 @@ class Table extends React.Component {
       <div className={classes.root}>
         <MuiTable>
           <TableHead
-            order={order}
             columns={columns}
+            order={order}
             onOrderChange={this.handleOrderChange.bind(this)}
           />
           {bodyElement}
         </MuiTable>
         <div className={classes.tablePagination}>
           <TablePagination
+            Actions={TablePaginationActions}
             component="div"
-            page={currentPage}
             count={rows.length}
+            page={currentPage}
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={rowsPerPageOptions}
             onChangePage={this.handlePageChange.bind(this)}
             onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
-            Actions={TablePaginationActions}
           />
         </div>
       </div>
