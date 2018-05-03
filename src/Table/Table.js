@@ -27,6 +27,12 @@ const styles = (theme) => ({
   root: {
     width: '100%',
   },
+  tableCellRoot: {
+    ...theme.typography.body2,
+    background: theme.palette.background.paper,
+    padding: '0px',
+    borderBottom: '1px solid #F1F1F3',
+  },
   tablePagination: {
     paddingTop: '40px',
   },
@@ -274,7 +280,11 @@ class Table extends React.PureComponent {
             rows.map((row) => {
               return (
                 <TableRow key={row.id}>
-                  <TableCell>
+                  <TableCell
+                    classes={{
+                      root: classes.tableCellRoot,
+                    }}
+                  >
                     <Checkbox
                       color='primary'
                       checked={selectedRowIds.includes(row.id)}
@@ -287,6 +297,9 @@ class Table extends React.PureComponent {
                         <TableCell
                           key={`${row.id}${column.id}`}
                           numeric={column.isNumeric === true}
+                          classes={{
+                            root: classes.tableCellRoot,
+                          }}
                         >
                           {row[column.id]}
                         </TableCell>
