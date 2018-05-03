@@ -26,13 +26,14 @@ export default class table extends React.Component {
     this.columns = [
       {
         id: 'name',
+        isOrderable: true,
         label: 'Dessert (100g serving)',
         tooltip: 'name',
       },
       {
         id: 'calories',
-        label: 'Calories',
         isNumeric: true,
+        label: 'Calories',
         tooltip: 'calories',
       },
       {
