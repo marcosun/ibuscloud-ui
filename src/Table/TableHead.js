@@ -17,7 +17,19 @@ import {
 } from 'material-ui/Table';
 import Tooltip from 'material-ui/Tooltip';
 
-const styles = (theme) => ({});
+const styles = (theme) => ({
+   tableCellRoot: {
+    fontSize: '12px',
+    color: '#A3A6B4',
+    fontWeight: 400,
+    background: '#F5F6FA',
+    padding: '0px',
+    borderBottom: '1px solid #F5F6FA',
+  },
+  sortLabelActive: {
+    color: '#A3A6B4',
+  },
+});
 
 /**
  * Attention: Select/Unselect all rows by clicking a checkbox on TableHead
@@ -90,6 +102,7 @@ class TableHead extends React.PureComponent {
    */
   render() {
     const {
+      classes,
       columns,
       order,
     } = this.props;
@@ -119,6 +132,9 @@ class TableHead extends React.PureComponent {
             order.columnId === column.id &&
             order.orderBy !== false
           }
+          classes={{
+            active: classes.sortLabelActive,
+          }}
           direction={
             order === Object(order) &&
             order.columnId === column.id &&
@@ -154,11 +170,18 @@ class TableHead extends React.PureComponent {
     return (
       <MuiTableHead>
         <TableRow>
-          <TableCell></TableCell>
+          <TableCell
+            classes={{
+              root: classes.tableCellRoot,
+            }}
+          />
           {
             columns.map((column) => {
               return (
                 <TableCell
+                  classes={{
+                    root: classes.tableCellRoot,
+                  }}
                   key={column.id}
                   numeric={column.isNumeric === true}
                   sortDirection={
