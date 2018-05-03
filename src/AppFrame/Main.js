@@ -27,6 +27,11 @@ const styles = (theme) => ({
     },
   },
   '@media (min-width: 1366px)': {
+    content: { // Fixed width with flexible margin
+      margin: '0 auto',
+    },
+  },
+  '@media (min-width: 1516px)': {
     content: { // Fixed margin with flexible width
       width: 'auto',
       margin: '0 75px',
