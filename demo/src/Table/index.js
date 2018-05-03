@@ -32,7 +32,7 @@ export default class table extends React.Component {
       },
       {
         id: 'calories',
-        isNumeric: true,
+        isNumeric: false,
         label: 'Calories',
         tooltip: 'calories',
       },
