@@ -4,6 +4,7 @@ import {
   node,
   shape,
   arrayOf,
+  element,
 } from 'prop-types';
 import {hot} from 'react-hot-loader';
 
@@ -16,7 +17,8 @@ import {default as IBusUiAppFrame} from 'ibuscloud-ui/AppFrame';
 class AppFrame extends React.Component {
   static propTypes = {
     navs: arrayOf(shape({
-      text: string,
+      text: string.isRequired,
+      icon: element.isRequired,
       path: string,
     })),
     children: node,
