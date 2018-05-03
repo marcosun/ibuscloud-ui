@@ -39,9 +39,10 @@ const styles = (theme) => ({
  * at the initialisation process and Table maintains its status since after.
  * @param {Object[]} props.columns - See {@link TableHead}
  * @param {string|number} props.columns[].id - Unique id
- * @param {string} props.columns[].label - Display column name
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
+ * @param {boolean} props.columns[].isOrderable - Enable or disable ordering on this column.
+ * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
  * @param {Object[]} [props.rows] - Represents rows of the current page in
  * the table body. Property names defined in props.columns will be looked for
@@ -87,8 +88,9 @@ class Table extends React.PureComponent {
     total: number.isRequired,
     columns: arrayOf(shape({
       id: oneOfType([string, number]).isRequired,
-      label: string.isRequired,
       isNumeric: bool,
+      isOrderable: bool,
+      label: string.isRequired,
       tooltip: string,
     })).isRequired,
     rows: arrayOf(shape({

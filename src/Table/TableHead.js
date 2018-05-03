@@ -39,9 +39,10 @@ const styles = (theme) => ({});
  * Relevant code has been deleted since commit b19d710
  * @param {Object[]} props.columns
  * @param {string} props.columns[].id - Unique id
- * @param {string} props.columns[].label - Display column name
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right
+ * @param {boolean} props.columns[].isOrderable - Enable or disable ordering on this column.
+ * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
  * @param {Object} [props.order] - Describes how table column should be ordered.
  * @param {string} props.order.columnId - Column id.
@@ -57,8 +58,9 @@ class TableHead extends React.PureComponent {
     classes: object,
     columns: arrayOf(shape({
       id: string.isRequired,
-      label: string.isRequired,
       isNumeric: bool,
+      isOrderable: bool,
+      label: string.isRequired,
       tooltip: string,
     })).isRequired,
     order: shape({
@@ -93,8 +95,21 @@ class TableHead extends React.PureComponent {
     } = this.props;
 
     const cellElement = (column) => {
-      if (order !== Object(order) && column.tooltip === void 0) {
+      if (column.isOrderable !== true && column.tooltip === void 0) {
         return column.label;
+      }
+
+      if (column.isOrderable !== true && column.tooltip !== void 0) {
+        return (
+          <Tooltip
+            title={column.tooltip}
+            placement={column.isNumeric === true ? 'bottom-end' : 'bottom-start'}
+          >
+            <div>
+              {column.label}
+            </div>
+          </Tooltip>
+        );
       }
 
       const sortLabelElement = (
