@@ -84,6 +84,7 @@ const styles = (theme) => ({
 class Table extends React.PureComponent {
   static propTypes = {
     classes: object,
+    total: number.isRequired,
     columns: arrayOf(shape({
       id: oneOfType([string, number]).isRequired,
       label: string.isRequired,
@@ -206,7 +207,7 @@ class Table extends React.PureComponent {
       selectedRowIds: nextSelectedRowIds,
     });
 
-    onRowSelect === 'function' &&
+    typeof onRowSelect === 'function' &&
     onRowSelect(row.id, nextSelectedRowIds, ...params);
   }
 
@@ -249,6 +250,7 @@ class Table extends React.PureComponent {
   render() {
     const {
       classes,
+      total,
       columns,
       rows,
       rowsPerPageOptions,
@@ -319,7 +321,7 @@ class Table extends React.PureComponent {
           <TablePagination
             Actions={TablePaginationActions}
             component="div"
-            count={rows.length}
+            count={total}
             page={currentPage}
             rowsPerPage={rowsPerPage}
             rowsPerPageOptions={rowsPerPageOptions}
