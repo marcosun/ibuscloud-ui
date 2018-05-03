@@ -1,11 +1,13 @@
 import React from 'react';
 import {
   bool,
-  shape,
-  func,
+  number,
   string,
-  arrayOf,
   object,
+  func,
+  shape,
+  arrayOf,
+  oneof,
 } from 'prop-types';
 
 import ButtonGroupDummy from '../ButtonGroupDummy';
@@ -14,11 +16,11 @@ import ButtonGroupDummy from '../ButtonGroupDummy';
  * @param {Object} props
  * @param {boolean} [props.isMultiple=true] - Whether to enable multiple select
  * @param {Object[]} [props.buttons] - Button list
- * @param {string} [props.buttons[].id=name] - Button id
+ * @param {(string|number)} [props.buttons[].id=name] - Button id
  * @param {string} props.buttons[].name - Button name
  * @param {boolean} [props.buttons[].isActive] - Whether to highlight button
  * @param {Object} [props.buttonAll] - Button 'all'
- * @param {string} [props.buttonAll.id=name] - Button 'all' id
+ * @param {(string|number)} [props.buttonAll.id=name] - Button 'all' id
  * @param {string} props.buttonAll.name - Button 'all' name
  * @param {boolean} [props.buttonAll.isActive] - Whether to highlight button 'all'
  * @param {function} [props.onSelect] - Select callback
@@ -28,12 +30,12 @@ class ButtonGroup extends React.Component {
     classes: object,
     isMultiple: bool,
     buttons: arrayOf(shape({
-      id: string,
+      id: oneof(string, number),
       name: string,
       isActive: bool,
     })),
     buttonAll: shape({
-      id: string,
+      id: oneof(string, number),
       name: string,
       isActive: bool,
     }),
