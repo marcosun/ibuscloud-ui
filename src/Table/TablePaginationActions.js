@@ -40,7 +40,7 @@ const styles = (theme) => ({
  * @param {number} props.rowsPerPage - The number of rows per page.
  * @param {function} props.onChangePage - Callback fired when the page is changed.
  */
-@withStyles(styles)
+@withStyles(styles, {name: 'IBusUiTablePaginationActions'})
 class TablePaginationActions extends React.Component {
   static propTypes = {
     classes: object,
