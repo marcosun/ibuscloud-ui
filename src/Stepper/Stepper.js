@@ -25,7 +25,7 @@ import {
  * @param {boolean} [props.steps.isActive=false] - Is current step
  * @param {boolean} [props.steps.isCompleted=false] - Is this step completed
  * @param {string} props.steps.name - Step name
- * @param {string} props.steps.path - Path to redirect when clicked
+ * @param {string} [props.steps.path] - Path to redirect when clicked
  */
 @withRouter
 class Stepper extends React.PureComponent {
@@ -46,8 +46,8 @@ class Stepper extends React.PureComponent {
   /**
    * If clicked step is not equal to current step,
    * redirect to address specified by path.
-   * @param {boolean} step.isActive - Is current step
-   * @param {string} step.path - Path to redirect
+   * @param {boolean} [step.isActive] - Is current step
+   * @param {string} [step.path] - Path to redirect
    */
   handleStepClick({isActive, path}) {
     const {history} = this.props;
