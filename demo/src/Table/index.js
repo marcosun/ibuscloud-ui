@@ -1,13 +1,10 @@
 import React from 'react';
-import {object} from 'prop-types';
 import Table from 'ibuscloud-ui/Table';
 
 /**
  * Table page
  */
 export default class table extends React.Component {
-  static propTypes = {};
-
   /**
    * @param {Object} props
    */
@@ -87,7 +84,7 @@ export default class table extends React.Component {
    * @param  {string} options.columnId
    * @return {Array}
    */
-  getRows(currentPage , rowsPerPage, {orderBy, columnId}) {
+  getRows(currentPage, rowsPerPage, {orderBy, columnId}) {
     const currentPageRows = this.total - currentPage * rowsPerPage >= rowsPerPage
       ? rowsPerPage
       : this.total - currentPage * rowsPerPage;
@@ -128,7 +125,7 @@ export default class table extends React.Component {
       rowsPerPage: event.target.value,
       rows: this.getRows(0, event.target.value, {...this.order}),
       currentPage: 0,
-    })
+    });
   }
 
   /**
@@ -161,7 +158,7 @@ export default class table extends React.Component {
     this.setState({
       ...this.state,
       rows: this.getRows(this.state.currentPage, this.state.rowsPerPage, {...this.order}),
-    })
+    });
   }
 
   /**
