@@ -334,7 +334,7 @@ class Table extends React.PureComponent {
             emptyRows > 0
             && (
               <TableRow style={{height: 57 * emptyRows}}>
-                <TableCell colSpan={columns.length + 1} />
+                <TableCell colSpan={isSelectable === true ? columns.length + 1 : columns.length} />
               </TableRow>
             )
           }
