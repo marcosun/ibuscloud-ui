@@ -23,7 +23,7 @@ const styles = (theme) => ({
     color: '#A3A6B4',
     fontWeight: 400,
     background: '#F5F6FA',
-    padding: '0px',
+    padding: theme.spacing.unit * 2,
     borderBottom: '1px solid #F5F6FA',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -59,6 +59,8 @@ const styles = (theme) => ({
  * @param {boolean} props.columns[].isOrderable - Enable or disable ordering on this column.
  * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
+ * @param {boolean} [props.isSelectable=false] - Enable
+ * or disable to be selectable
  * @param {Object} [props.order] - Describes how table column should be ordered.
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
@@ -78,6 +80,7 @@ class TableHead extends React.PureComponent {
       label: string.isRequired,
       tooltip: string,
     })).isRequired,
+    isSelectable: bool,
     order: shape({
       columnId: string.isRequired,
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
@@ -107,8 +110,19 @@ class TableHead extends React.PureComponent {
     const {
       classes,
       columns,
+      isSelectable,
       order,
     } = this.props;
+
+    const checkedElement = isSelectable === true
+      ? (
+        <TableCell
+          classes={{
+            root: classes.tableCellRoot,
+          }}
+        />
+      )
+      : null;
 
     const cellElement = (column) => {
       if (column.isOrderable !== true && column.tooltip === void 0) {
@@ -173,11 +187,7 @@ class TableHead extends React.PureComponent {
     return (
       <MuiTableHead>
         <TableRow>
-          <TableCell
-            classes={{
-              root: classes.tableCellRoot,
-            }}
-          />
+          {checkedElement}
           {
             columns.map((column) => {
               return (
