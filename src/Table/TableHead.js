@@ -25,6 +25,9 @@ const styles = (theme) => ({
     background: '#F5F6FA',
     padding: '0px',
     borderBottom: '1px solid #F5F6FA',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   sortLabelActive: {
     color: '#A3A6B4',
