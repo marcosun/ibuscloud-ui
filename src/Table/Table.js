@@ -342,26 +342,19 @@ class Table extends React.PureComponent {
       );
     })();
 
-    const paginationElement = (() => {
-      if (!isPaginable) {
-        return null;
-      }
-
-      return (
-        <div className={classes.tablePagination}>
-          <TablePagination
-            Actions={TablePaginationActions}
-            component="div"
-            count={total}
-            page={currentPage}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
-            onChangePage={this.handlePageChange.bind(this)}
-            onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
-          />
-        </div>
-      );
-    })();
+    const paginationElement = isPaginable === true &&
+      <div className={classes.tablePagination}>
+        <TablePagination
+          Actions={TablePaginationActions}
+          component="div"
+          count={total}
+          page={currentPage}
+          rowsPerPage={rowsPerPage}
+          rowsPerPageOptions={rowsPerPageOptions}
+          onChangePage={this.handlePageChange.bind(this)}
+          onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
+        />
+      </div>;
 
     return (
       <div className={classes.root}>
