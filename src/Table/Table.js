@@ -88,8 +88,8 @@ const styles = (theme) => ({
  * @param {function} props.onRowSelect - Callback fired when row checkbox
  * is clicked.
  * Signature:
- * function(rowId, selectedRowIds, event, isChecked) => void
- * rowId: Clicked row id.
+ * function(row, selectedRowIds, event, isChecked) => void
+ * row: Clicked row data.
  * selectedRowIds: An array of selected row ids.
  */
 @withStyles(styles, {
@@ -223,7 +223,7 @@ class Table extends React.PureComponent {
     });
 
     typeof onRowSelect === 'function' &&
-    onRowSelect(row.id, nextSelectedRowIds, ...params);
+    onRowSelect(row, nextSelectedRowIds, ...params);
   }
 
   /**
