@@ -27,11 +27,17 @@ const styles = (theme) => ({
   root: {
     width: '100%',
   },
+  muiTableRoot: {
+    tableLayout: 'fixed',
+  },
   tableCellRoot: {
     ...theme.typography.body2,
     background: theme.palette.background.paper,
     padding: '0px',
     borderBottom: '1px solid #F1F1F3',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
   },
   tablePagination: {
     paddingTop: '40px',
@@ -47,7 +53,8 @@ const styles = (theme) => ({
  * @param {string|number} props.columns[].id - Unique id
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
- * @param {boolean} props.columns[].isOrderable - Enable or disable ordering on this column.
+ * @param {boolean} props.columns[].isOrderable - Enable
+ * or disable ordering on this column.
  * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
  * @param {Object[]} [props.rows] - Represents rows of the current page in
@@ -324,7 +331,11 @@ class Table extends React.PureComponent {
 
     return (
       <div className={classes.root}>
-        <MuiTable>
+        <MuiTable
+          classes={{
+            root: classes.muiTableRoot,
+          }}
+        >
           <TableHead
             columns={columns}
             order={order}
