@@ -57,6 +57,8 @@ const styles = (theme) => ({
  * or disable ordering on this column.
  * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
+ * @param {boolean} [props.isPaginable=false] - Enable
+ * or disable to be paginable
  * @param {boolean} [props.isSelectable=false] - Enable
  * or disable to be selectable
  * @param {Object} [props.order] - Describes how table column should be ordered.
@@ -108,6 +110,7 @@ class Table extends React.PureComponent {
       label: string.isRequired,
       tooltip: string,
     })).isRequired,
+    isPaginable: bool,
     isSelectable: bool,
     order: shape({
       columnId: string.isRequired,
@@ -124,6 +127,7 @@ class Table extends React.PureComponent {
   };
 
   static defaultProps = {
+    isPaginable: false,
     isSelectable: false,
     rows: [],
     rowsPerPageOptions: [5, 7, 10],
@@ -270,6 +274,7 @@ class Table extends React.PureComponent {
     const {
       classes,
       columns,
+      isPaginable,
       isSelectable,
       rows,
       rowsPerPageOptions,
@@ -337,6 +342,27 @@ class Table extends React.PureComponent {
       );
     })();
 
+    const paginationElement = (() => {
+      if (!isPaginable) {
+        return null;
+      }
+
+      return (
+        <div className={classes.tablePagination}>
+          <TablePagination
+            Actions={TablePaginationActions}
+            component="div"
+            count={total}
+            page={currentPage}
+            rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={rowsPerPageOptions}
+            onChangePage={this.handlePageChange.bind(this)}
+            onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
+          />
+        </div>
+      );
+    })();
+
     return (
       <div className={classes.root}>
         <MuiTable
@@ -352,18 +378,7 @@ class Table extends React.PureComponent {
           />
           {bodyElement}
         </MuiTable>
-        <div className={classes.tablePagination}>
-          <TablePagination
-            Actions={TablePaginationActions}
-            component="div"
-            count={total}
-            page={currentPage}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={rowsPerPageOptions}
-            onChangePage={this.handlePageChange.bind(this)}
-            onChangeRowsPerPage={this.handleRowsPerPageChange.bind(this)}
-          />
-        </div>
+        {paginationElement}
       </div>
     );
   }
