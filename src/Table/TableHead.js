@@ -114,15 +114,12 @@ class TableHead extends React.PureComponent {
       order,
     } = this.props;
 
-    const checkedElement = isSelectable === true
-      ? (
+    const checkBoxElement = isSelectable === true &&
         <TableCell
           classes={{
             root: classes.tableCellRoot,
           }}
-        />
-      )
-      : null;
+        />;
 
     const cellElement = (column) => {
       if (column.isOrderable !== true && column.tooltip === void 0) {
@@ -187,7 +184,7 @@ class TableHead extends React.PureComponent {
     return (
       <MuiTableHead>
         <TableRow>
-          {checkedElement}
+          {checkBoxElement}
           {
             columns.map((column) => {
               return (
