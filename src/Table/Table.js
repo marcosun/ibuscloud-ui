@@ -33,7 +33,7 @@ const styles = (theme) => ({
   tableCellRoot: {
     ...theme.typography.body2,
     background: theme.palette.background.paper,
-    padding: '0px',
+    padding: theme.spacing.unit * 2,
     borderBottom: '1px solid #F1F1F3',
     whiteSpace: 'nowrap',
     overflow: 'hidden',
@@ -57,10 +57,8 @@ const styles = (theme) => ({
  * or disable ordering on this column.
  * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
- * @param {Object[]} [props.rows] - Represents rows of the current page in
- * the table body. Property names defined in props.columns will be looked for
- * and values will be displayed on the corresponding column.
- * @param {string|number} props.rows[].id - Unique id
+ * @param {boolean} [props.isSelectable=false] - Enable
+ * or disable to be selectable
  * @param {Object} [props.order] - Describes how table column should be ordered.
  * Table component accepts order at the initialisation process,
  * and Table maintains its status (columnId and orderBy) since after.
@@ -68,6 +66,10 @@ const styles = (theme) => ({
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
+ * @param {Object[]} [props.rows] - Represents rows of the current page in
+ * the table body. Property names defined in props.columns will be looked for
+ * and values will be displayed on the corresponding column.
+ * @param {string|number} props.rows[].id - Unique id
  * @param {number[]} [props.rowsPerPageOptions=[5, 7, 10]] - The number of rows
  * per page.
  * @param {function} props.onChangePage - Callback fired when the page changes.
@@ -106,13 +108,14 @@ class Table extends React.PureComponent {
       label: string.isRequired,
       tooltip: string,
     })).isRequired,
-    rows: arrayOf(shape({
-      id: oneOfType([string, number]).isRequired,
-    })),
+    isSelectable: bool,
     order: shape({
       columnId: string.isRequired,
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
+    rows: arrayOf(shape({
+      id: oneOfType([string, number]).isRequired,
+    })),
     rowsPerPageOptions: arrayOf(number),
     onChangePage: func,
     onChangeRowsPerPage: func,
@@ -121,6 +124,7 @@ class Table extends React.PureComponent {
   };
 
   static defaultProps = {
+    isSelectable: false,
     rows: [],
     rowsPerPageOptions: [5, 7, 10],
   };
@@ -265,10 +269,11 @@ class Table extends React.PureComponent {
   render() {
     const {
       classes,
-      total,
       columns,
+      isSelectable,
       rows,
       rowsPerPageOptions,
+      total,
     } = this.props;
 
     const {
@@ -285,8 +290,8 @@ class Table extends React.PureComponent {
           <TableBody>
           {
             rows.map((row) => {
-              return (
-                <TableRow key={row.id}>
+              const checkedElement = isSelectable === true
+                ? (
                   <TableCell
                     classes={{
                       root: classes.tableCellRoot,
@@ -298,6 +303,12 @@ class Table extends React.PureComponent {
                       onChange={this.handleRowSelect.bind(this, row)}
                     />
                   </TableCell>
+                )
+                : null;
+
+              return (
+                <TableRow key={row.id}>
+                  {checkedElement}
                   {
                     columns.map((column) => {
                       return (
@@ -338,6 +349,7 @@ class Table extends React.PureComponent {
         >
           <TableHead
             columns={columns}
+            isSelectable={isSelectable}
             order={order}
             onOrderChange={this.handleOrderChange.bind(this)}
           />
