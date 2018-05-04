@@ -179,6 +179,7 @@ export default class table extends React.Component {
         <Table
           total={this.total}
           columns={this.columns}
+          isPaginable={true}
           isSelectable={true}
           rows={rows}
           order={this.order}
