@@ -290,25 +290,22 @@ class Table extends React.PureComponent {
           <TableBody>
           {
             rows.map((row) => {
-              const checkedElement = isSelectable === true
-                ? (
-                  <TableCell
-                    classes={{
-                      root: classes.tableCellRoot,
-                    }}
-                  >
-                    <Checkbox
-                      color='primary'
-                      checked={selectedRowIds.includes(row.id)}
-                      onChange={this.handleRowSelect.bind(this, row)}
-                    />
-                  </TableCell>
-                )
-                : null;
+              const checkBoxElement = isSelectable === true &&
+                <TableCell
+                  classes={{
+                    root: classes.tableCellRoot,
+                  }}
+                >
+                  <Checkbox
+                    color='primary'
+                    checked={selectedRowIds.includes(row.id)}
+                    onChange={this.handleRowSelect.bind(this, row)}
+                  />
+                </TableCell>;
 
               return (
                 <TableRow key={row.id}>
-                  {checkedElement}
+                  {checkBoxElement}
                   {
                     columns.map((column) => {
                       return (
