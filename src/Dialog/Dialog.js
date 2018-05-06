@@ -2,13 +2,13 @@ import React from 'react';
 import {
   string,
   object,
+  node,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {
   default as MuiDialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
@@ -25,12 +25,14 @@ const styles = (theme) => ({
 
 /**
  * Dialog
+ * @param {node} [props.content] - Dialog content
  * @param {string} [props.title=''] - Dialog title
  */
 @withStyles(styles, {name: 'IBusUiDialog'})
 class Dialog extends React.PureComponent {
   static propTypes = {
     classes: object,
+    content: node,
     title: string,
   };
 
@@ -44,6 +46,7 @@ class Dialog extends React.PureComponent {
   render() {
     const {
       classes,
+      content,
       title,
       ...others
     } = this.props;
@@ -66,8 +69,7 @@ class Dialog extends React.PureComponent {
           </Typography>
         </DialogTitle>
         <DialogContent>
-          <DialogContentText>
-          </DialogContentText>
+          {content}
         </DialogContent>
       </MuiDialog>
     );
