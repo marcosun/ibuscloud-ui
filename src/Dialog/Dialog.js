@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from 'material-ui/Dialog';
 import Typography from 'material-ui/Typography';
+import Button from 'material-ui/Button';
 
 const styles = (theme) => ({
   dialog: {
@@ -25,6 +26,8 @@ const styles = (theme) => ({
 
 /**
  * Dialog
+ * @param {string} [props.cancelButtonText='取消'] - Cancel button text
+ * @param {string} [props.confirmButtonText='确定'] - Confirm button text
  * @param {node} [props.content] - Dialog content
  * @param {string} [props.title=''] - Dialog title
  */
@@ -32,11 +35,15 @@ const styles = (theme) => ({
 class Dialog extends React.PureComponent {
   static propTypes = {
     classes: object,
+    cancelButtonText: string,
+    confirmButtonText: string,
     content: node,
     title: string,
   };
 
   static defaultProps = {
+    cancelButtonText: '取消',
+    confirmButtonText: '确定',
     title: '',
   };
 
@@ -46,6 +53,8 @@ class Dialog extends React.PureComponent {
   render() {
     const {
       classes,
+      cancelButtonText,
+      confirmButtonText,
       content,
       title,
       ...others
@@ -71,6 +80,14 @@ class Dialog extends React.PureComponent {
         <DialogContent>
           {content}
         </DialogContent>
+        <DialogActions>
+          <Button color="default">
+            {cancelButtonText}
+          </Button>
+          <Button color="primary">
+            {confirmButtonText}
+          </Button>
+        </DialogActions>
       </MuiDialog>
     );
   }
