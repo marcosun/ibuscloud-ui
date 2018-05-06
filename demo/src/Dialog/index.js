@@ -55,6 +55,7 @@ class Dialog extends React.Component {
         </Button>
         <IBusUiDialog
           open={isOpen}
+          title='Dialog title'
           onClose={this.handleCloseDialog.bind(this)}
         />
       </div>
