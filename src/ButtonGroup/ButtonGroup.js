@@ -30,12 +30,12 @@ class ButtonGroup extends React.Component {
     classes: object,
     isMultiple: bool,
     buttons: arrayOf(shape({
-      id: oneOf(string, number),
+      id: oneOf([string, number]),
       name: string,
       isActive: bool,
     })),
     buttonAll: shape({
-      id: oneOf(string, number),
+      id: oneOf([string, number]),
       name: string,
       isActive: bool,
     }),
