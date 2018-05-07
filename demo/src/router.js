@@ -38,6 +38,15 @@ export default class Router extends React.Component {
       },
     });
 
+    this.Dialog = lodable({
+      loader: () => {
+        return import('./Dialog');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
+
     this.Stepper = lodable({
       loader: () => {
         return import('./Stepper');
@@ -83,6 +92,10 @@ export default class Router extends React.Component {
               icon: <use href="#icon-icon_board"></use>,
               path: '/chip',
             }, {
+              text: 'Dialog',
+              icon: <use href="#icon-icon_board"></use>,
+              path: '/dialog',
+            }, {
               text: 'Stepper',
               icon: <use href="#icon-icon_board"></use>,
               path: '/stepper',
@@ -101,6 +114,7 @@ export default class Router extends React.Component {
             )} />
             <Route exact path='/buttonGroup' component={this.ButtonGroup} />
             <Route exact path='/chip' component={this.Chip} />
+            <Route exact path='/dialog' component={this.Dialog} />
             <Route exact path='/stepper' component={this.Stepper} />
             <Route exact path="/table" component={this.Table}></Route>
             <Route exact path="/theme" component={this.Theme}></Route>
