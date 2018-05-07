@@ -28,9 +28,20 @@ class Dialog extends React.Component {
   }
 
   /**
-   * Close dialog when Dialog fires onCose event
+   * Close dialog when Dialog fires onClose event
    */
-  handleCloseDialog() {
+  handleDialogClose() {
+    this.setState({
+      isOpen: false,
+    });
+  }
+
+  /**
+   * Hook Dialog confirm event
+   */
+  handleDialogConfirm() {
+    alert('Confirm button is clicked');
+
     this.setState({
       isOpen: false,
     });
@@ -57,7 +68,9 @@ class Dialog extends React.Component {
           content='Pass to dialog content'
           open={isOpen}
           title='Dialog title'
-          onClose={this.handleCloseDialog.bind(this)}
+          onClose={this.handleDialogClose.bind(this)}
+          onCancel={this.handleDialogClose.bind(this)}
+          onConfirm={this.handleDialogConfirm.bind(this)}
         />
       </div>
     );
