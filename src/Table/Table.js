@@ -221,7 +221,7 @@ class Table extends React.PureComponent {
       });
       nextSelectedRowIds = [
         ...selectedRowIds.slice(0, deleteIndex),
-        ...selectedRowIds.slice(deleteIndex + selectedRowIds.length),
+        ...selectedRowIds.slice(deleteIndex + 1, selectedRowIds.length),
       ];
     }
 
