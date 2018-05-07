@@ -3,6 +3,7 @@ import {
   string,
   object,
   node,
+  func,
 } from 'prop-types';
 import {withStyles} from 'material-ui/styles';
 import {
@@ -30,6 +31,10 @@ const styles = (theme) => ({
  * @param {string} [props.confirmButtonText='确定'] - Confirm button text
  * @param {node} [props.content] - Dialog content
  * @param {string} [props.title=''] - Dialog title
+ * @param {function} [props.onCancel] - Callback fired when cancel button is
+ * clicked
+ * @param {function} [props.onConfirm] - Callback fired when confirm button is
+ * clicked
  */
 @withStyles(styles, {name: 'IBusUiDialog'})
 class Dialog extends React.PureComponent {
@@ -39,6 +44,8 @@ class Dialog extends React.PureComponent {
     confirmButtonText: string,
     content: node,
     title: string,
+    onCancel: func.isRequired,
+    onConfirm: func.isRequired,
   };
 
   static defaultProps = {
@@ -57,6 +64,8 @@ class Dialog extends React.PureComponent {
       confirmButtonText,
       content,
       title,
+      onCancel,
+      onConfirm,
       ...others
     } = this.props;
 
@@ -81,10 +90,16 @@ class Dialog extends React.PureComponent {
           {content}
         </DialogContent>
         <DialogActions>
-          <Button color="default">
+          <Button
+            color="default"
+            onClick={onCancel}
+          >
             {cancelButtonText}
           </Button>
-          <Button color="primary">
+          <Button
+            color="primary"
+            onClick={onConfirm}
+          >
             {confirmButtonText}
           </Button>
         </DialogActions>
