@@ -26,7 +26,10 @@ const styles = (theme) => ({
 });
 
 /**
- * Dialog
+ * Popup a Dialog which is customised on top of MuiDialog.
+ * It provides a title, cancel and confirm button as well as callbacks.
+ * All other parameters not specified in the following docs will be
+ * passed to MuiDialog directly.
  * @param {string} [props.cancelButtonText='取消'] - Cancel button text
  * @param {string} [props.confirmButtonText='确定'] - Confirm button text
  * @param {node} [props.content] - Dialog content
