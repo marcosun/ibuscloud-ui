@@ -112,7 +112,10 @@ class AppBar extends React.Component {
    * Toggle search input visibility and focus search input
    */
   handleSearchIconClick() {
-    this.setSearchInputVisibility();
+    this.setState({
+      ...this.state,
+      isSearchInputVisible: true,
+    });
     this.searchInputDom.focus();
   }
 
@@ -128,12 +131,13 @@ class AppBar extends React.Component {
   }
 
   /**
-   * Toggle search input visibility
+   * Hide search input and clear input value
    */
-  setSearchInputVisibility() {
+  hideSearchInput() {
     this.setState({
       ...this.state,
-      isSearchInputVisible: !this.state.isSearchInputVisible,
+      isSearchInputVisible: false,
+      searchInputValue: '',
     });
   }
 
@@ -203,8 +207,8 @@ class AppBar extends React.Component {
             })}
             placeholder='请输入关键词'
             inputRef={this.setSearchInputDom.bind(this)}
-            onBlur={this.setSearchInputVisibility.bind(this)}// reset input value
             value={searchInputValue}
+            onBlur={this.hideSearchInput.bind(this)}
             onChange={this.handleSearchInputChange.bind(this)}
           />
         </Toolbar>
