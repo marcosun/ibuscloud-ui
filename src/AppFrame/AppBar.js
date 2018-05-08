@@ -78,6 +78,12 @@ const styles = (theme) => ({
  * icon is clicked.
  * Signature:
  * function() => void
+ * @param {Function} [props.onSearch] - Callback fired when user clicks enter
+ * inside text field.
+ * Signature:
+ * function(keyword, event) => void
+ * keyword: search input value.
+ * event: The event source of the callback.
  */
 @withStyles(styles, {name: 'IBusUiAppBar'})
 class AppBar extends React.Component {
@@ -87,6 +93,7 @@ class AppBar extends React.Component {
     shrinkedOffsetWidth: number,
     isExpanded: bool,
     onExpandToggle: func,
+    onSearch: func,
   };
 
   static defaultProps = {
@@ -109,6 +116,26 @@ class AppBar extends React.Component {
     } = this.props;
 
     typeof onExpandToggle === 'function' && onExpandToggle();
+  }
+
+  /**
+   * Hide search input and call props.onSearch function.
+   * @param  {Object} event - The event source of the callback
+   */
+  handleSearch(event) {
+    const {
+      onSearch,
+    } = this.props;
+
+    const {
+      searchInputValue: keyword,
+    } = this.state;
+
+    event.preventDefault();
+
+    this.hideSearchInput();
+
+    typeof onSearch === 'function' && onSearch(keyword, event);
   }
 
   /**
@@ -203,17 +230,19 @@ class AppBar extends React.Component {
               <use href="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
-          <TextField
-            className={classNames(classes.searchInput, {
-              [classes.searchInputVisible]: isSearchInputVisible,
-              [classes.searchInputHidden]: !isSearchInputVisible,
-            })}
-            placeholder='请输入关键词'
-            inputRef={this.setSearchInputDom.bind(this)}
-            value={searchInputValue}
-            onBlur={this.hideSearchInput.bind(this)}
-            onChange={this.handleSearchInputChange.bind(this)}
-          />
+          <form onSubmit={this.handleSearch.bind(this)}>
+            <TextField
+              className={classNames(classes.searchInput, {
+                [classes.searchInputVisible]: isSearchInputVisible,
+                [classes.searchInputHidden]: !isSearchInputVisible,
+              })}
+              placeholder='请输入关键词'
+              inputRef={this.setSearchInputDom.bind(this)}
+              value={searchInputValue}
+              onBlur={this.hideSearchInput.bind(this)}
+              onChange={this.handleSearchInputChange.bind(this)}
+            />
+          </form>
         </Toolbar>
       </MuiAppBar>
     );
