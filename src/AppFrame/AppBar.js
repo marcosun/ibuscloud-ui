@@ -94,6 +94,7 @@ class AppBar extends React.Component {
 
   state = {
     isSearchInputVisible: false,
+    searchInputValue: '', // Search input is a controlled TextField component
   };
 
   /**
@@ -113,6 +114,17 @@ class AppBar extends React.Component {
   handleSearchIconClick() {
     this.setSearchInputVisibility();
     this.searchInputDom.focus();
+  }
+
+  /**
+   * Update searchInputValue
+   * @param  {Object} event - The event source of the callback
+   */
+  handleSearchInputChange(event) {
+    this.setState({
+      ...this.state,
+      searchInputValue: event.target.value,
+    });
   }
 
   /**
@@ -146,6 +158,7 @@ class AppBar extends React.Component {
 
     const {
       isSearchInputVisible,
+      searchInputValue,
     } = this.state;
 
     return (
@@ -191,6 +204,8 @@ class AppBar extends React.Component {
             placeholder='请输入关键词'
             inputRef={this.setSearchInputDom.bind(this)}
             onBlur={this.setSearchInputVisibility.bind(this)}// reset input value
+            value={searchInputValue}
+            onChange={this.handleSearchInputChange.bind(this)}
           />
         </Toolbar>
       </MuiAppBar>
