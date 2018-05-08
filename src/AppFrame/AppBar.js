@@ -13,14 +13,14 @@ import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'material-ui/SvgIcon';
 
 const styles = (theme) => ({
-  appBar: {
+  appBarExpanded: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
-  appBarShrink: {
+  appBarShrinked: {
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -104,8 +104,8 @@ class AppBar extends React.Component {
     return (
       <MuiAppBar
         classes={{
-          root: classNames(classes.appBar, {
-            [classes.appBarShrink]: isExpanded === false,
+          root: classNames(classes.appBarExpanded, {
+            [classes.appBarShrinked]: isExpanded === false,
           }),
         }}
         style={{
