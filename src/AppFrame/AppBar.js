@@ -11,6 +11,7 @@ import {default as MuiAppBar} from 'material-ui/AppBar';
 import Toolbar from 'material-ui/Toolbar';
 import IconButton from 'material-ui/IconButton';
 import SvgIcon from 'material-ui/SvgIcon';
+import TextField from 'material-ui/TextField';
 
 const styles = (theme) => ({
   appBarExpanded: {
@@ -136,6 +137,7 @@ class AppBar extends React.Component {
               <use href="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
+          <TextField placeholder='请输入关键词' />
         </Toolbar>
       </MuiAppBar>
     );
