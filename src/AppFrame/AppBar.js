@@ -74,7 +74,10 @@ const styles = (theme) => ({
  * @param {Number} [props.expandedOffsetWidth=0] - Expanded offset width in pixel.
  * @param {Number} [props.shrinkedOffsetWidth=0] - Shrinked offset width in pixel.
  * @param {Boolean} [props.isExpanded=true] - Expand status
- * @param {Function} [props.onExpandToggle] - Expand status change callback
+ * @param {Function} [props.onExpandToggle] - Callback fired when toggle
+ * icon is clicked.
+ * Signature:
+ * function() => void
  */
 @withStyles(styles, {name: 'IBusUiAppBar'})
 class AppBar extends React.Component {
