@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   object,
+  func,
   array,
   node,
 } from 'prop-types';
@@ -16,12 +17,15 @@ import Main from './Main';
  * AppBar.
  * @param {Component} [props.children] - Node that will be placed on the
  * main screen area
+ * @param {Function} [props.onSearch] - Callback fired when user clicks enter
+ * inside text field. See {@link AppBar}
  */
 class AppFrame extends React.Component {
   static propTypes = {
     classes: object,
     navs: array,
     children: node,
+    onSearch: func,
   };
 
   state = {
@@ -47,6 +51,7 @@ class AppFrame extends React.Component {
     const {
       navs,
       children,
+      onSearch,
     } = this.props;
 
     const {
@@ -62,6 +67,7 @@ class AppFrame extends React.Component {
           shrinkedOffsetWidth={drawerCloseWidth}
           isExpanded={!isOpen}
           onExpandToggle={this.handleDrawerToggle.bind(this)}
+          onSearch={onSearch}
         />
         <Drawer
           width={isOpen === true ? drawerOpenWidth : drawerCloseWidth}
