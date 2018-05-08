@@ -80,7 +80,7 @@ const styles = (theme) => ({
  * @param {Function} [props.onSearch] - Callback fired when user clicks enter
  * inside text field.
  * Signature:
- * function(keyword, event) => void
+ * function(keyword: string, event: object) => void
  * keyword: search input value.
  * event: The event source of the callback.
  * @param {Number} [props.shrinkedOffsetWidth=0] - Shrinked offset width in pixel.
