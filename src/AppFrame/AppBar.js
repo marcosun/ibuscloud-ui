@@ -72,7 +72,6 @@ const styles = (theme) => ({
  * AppBar provides a clickable icon to toggle expand status.
  * AppBar expands or shrinks according to isExpanded and expandedOffsetWidth.
  * @param {Number} [props.expandedOffsetWidth=0] - Expanded offset width in pixel.
- * @param {Number} [props.shrinkedOffsetWidth=0] - Shrinked offset width in pixel.
  * @param {Boolean} [props.isExpanded=true] - Expand status
  * @param {Function} [props.onExpandToggle] - Callback fired when toggle
  * icon is clicked.
@@ -84,22 +83,23 @@ const styles = (theme) => ({
  * function(keyword, event) => void
  * keyword: search input value.
  * event: The event source of the callback.
+ * @param {Number} [props.shrinkedOffsetWidth=0] - Shrinked offset width in pixel.
  */
 @withStyles(styles, {name: 'IBusUiAppBar'})
 class AppBar extends React.Component {
   static propTypes = {
     classes: object,
     expandedOffsetWidth: number,
-    shrinkedOffsetWidth: number,
     isExpanded: bool,
     onExpandToggle: func,
     onSearch: func,
+    shrinkedOffsetWidth: number,
   };
 
   static defaultProps = {
     expandedOffsetWidth: 0,
-    shrinkedOffsetWidth: 0,
     isExpanded: true,
+    shrinkedOffsetWidth: 0,
   };
 
   state = {
