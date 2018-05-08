@@ -45,6 +45,11 @@ const styles = (theme) => ({
     height: 17,
     fontSize: 17,
   },
+  searchIcon: {
+    width: 16,
+    height: 16,
+    fontSize: 16,
+  },
 });
 
 /**
@@ -118,6 +123,13 @@ class AppBar extends React.Component {
               root: classes.icon,
             }}>
               <use href="#icon-icon_menu"></use>
+            </SvgIcon>
+          </IconButton>
+          <IconButton>
+            <SvgIcon classes={{
+              root: classes.searchIcon,
+            }}>
+              <use href="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
         </Toolbar>
