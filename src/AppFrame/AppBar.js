@@ -50,6 +50,9 @@ const styles = (theme) => ({
     height: 16,
     fontSize: 16,
   },
+  whiteSpace: {
+    flex: 1,
+  },
 });
 
 /**
@@ -125,6 +128,7 @@ class AppBar extends React.Component {
               <use href="#icon-icon_menu"></use>
             </SvgIcon>
           </IconButton>
+          <div className={classes.whiteSpace}></div>
           <IconButton>
             <SvgIcon classes={{
               root: classes.searchIcon,
