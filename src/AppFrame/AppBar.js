@@ -26,6 +26,11 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
+  searchIcon: {
+    width: 16,
+    height: 16,
+    fontSize: 16,
+  },
   toggleIcon: {
     width: 17,
     height: 17,
@@ -44,11 +49,6 @@ const styles = (theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  },
-  searchIcon: {
-    width: 16,
-    height: 16,
-    fontSize: 16,
   },
   whiteSpace: {
     flex: 1,
