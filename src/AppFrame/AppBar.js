@@ -38,10 +38,10 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  searchInputOpen: {
+  searchInputVisible: {
     width: 170,
   },
-  searchInputClose: {
+  searchInputHidden: {
     width: 0,
   },
   toggleIcon: {
@@ -120,7 +120,7 @@ class AppBar extends React.Component {
   }
 
   /**
-   * Update searchInputValue
+   * Update search input text field value
    * @param  {Object} event - The event source of the callback
    */
   handleSearchInputChange(event) {
@@ -202,8 +202,8 @@ class AppBar extends React.Component {
           </IconButton>
           <TextField
             className={classNames(classes.searchInput, {
-              [classes.searchInputOpen]: isSearchInputVisible,
-              [classes.searchInputClose]: !isSearchInputVisible,
+              [classes.searchInputVisible]: isSearchInputVisible,
+              [classes.searchInputHidden]: !isSearchInputVisible,
             })}
             placeholder='请输入关键词'
             inputRef={this.setSearchInputDom.bind(this)}
