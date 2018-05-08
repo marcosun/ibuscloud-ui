@@ -16,12 +16,12 @@ import {default as IBusUiAppFrame} from 'ibuscloud-ui/AppFrame';
 @hot(module)
 class AppFrame extends React.Component {
   static propTypes = {
+    children: node,
     navs: arrayOf(shape({
-      text: string.isRequired,
       icon: element.isRequired,
       path: string,
+      text: string.isRequired,
     })),
-    children: node,
   };
 
   /**
@@ -38,8 +38,8 @@ class AppFrame extends React.Component {
    */
   render() {
     const {
-      navs,
       children,
+      navs,
     } = this.props;
 
     return (
