@@ -118,6 +118,14 @@ class AppBar extends React.Component {
   }
 
   /**
+   * Save ref to searchInputDom
+   * @param {Element} element - React element
+   */
+  setSearchInputDom(element) {
+    this.searchInputDom = element;
+  }
+
+  /**
    * @return {Component}
    */
   render() {
@@ -173,6 +181,7 @@ class AppBar extends React.Component {
               [classes.searchInputClose]: !isSearchInputVisible,
             })}
             placeholder='请输入关键词'
+            inputRef={this.setSearchInputDom.bind(this)}
           />
         </Toolbar>
       </MuiAppBar>
