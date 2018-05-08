@@ -26,24 +26,24 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  iconButton: {
+  toggleIcon: {
+    width: 17,
+    height: 17,
+    fontSize: 17,
+  },
+  toggleNormalPosition: {
     transform: 'rotate3d(0, 1, 0, 180deg)',
     transition: theme.transitions.create('transform', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  iconButtonFlip: {
+  toggleFlipPosition: {
     transform: 'rotate3d(0, 1, 0, 0deg)',
     transition: theme.transitions.create('transform', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-  },
-  icon: {
-    width: 17,
-    height: 17,
-    fontSize: 17,
   },
   searchIcon: {
     width: 16,
@@ -117,13 +117,13 @@ class AppBar extends React.Component {
       >
         <Toolbar>
           <IconButton
-            className={classNames(classes.iconButton, {
-              [classes.iconButtonFlip]: isExpanded === true,
+            className={classNames(classes.toggleNormalPosition, {
+              [classes.toggleFlipPosition]: isExpanded === true,
             })}
             onClick={this.handleExpandToggle.bind(this)}
           >
             <SvgIcon classes={{
-              root: classes.icon,
+              root: classes.toggleIcon,
             }}>
               <use href="#icon-icon_menu"></use>
             </SvgIcon>
