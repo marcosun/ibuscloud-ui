@@ -27,21 +27,23 @@ const styles = (theme) => ({
     }),
   },
   iconButton: {
-    transform: 'rotate3d(0, 1, 0, 0deg)',
+    transform: 'rotate3d(0, 1, 0, 180deg)',
     transition: theme.transitions.create('transform', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
   iconButtonFlip: {
-    transform: 'rotate3d(0, 1, 0, 180deg)',
+    transform: 'rotate3d(0, 1, 0, 0deg)',
     transition: theme.transitions.create('transform', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
   icon: {
-    fill: '#999',
+    width: 17,
+    height: 17,
+    fontSize: 17,
   },
 });
 
@@ -112,8 +114,10 @@ class AppBar extends React.Component {
             })}
             onClick={this.handleExpandToggle.bind(this)}
           >
-            <SvgIcon viewBox='-3 -3 24 24'>
-              <path className={classes.icon} d="M-3417.062-5247a.938.938,0,0,1-.938-.938.938.938,0,0,1,.938-.937h15.625a.938.938,0,0,1,.938.938.938.938,0,0,1-.937.938Zm2.554-4.455-3.226-2.81a.357.357,0,0,1-.031-.03.312.312,0,0,1,.031-.441l3.225-2.819a.164.164,0,0,1,.1-.038.156.156,0,0,1,.157.156v5.866a.156.156,0,0,1-.04.1.155.155,0,0,1-.117.053A.155.155,0,0,1-3414.508-5251.454Zm3.7-2.109a.937.937,0,0,1-.937-.937.937.937,0,0,1,.938-.937h9.375a.938.938,0,0,1,.938.937.938.938,0,0,1-.937.938Zm-6.25-6.562a.938.938,0,0,1-.938-.937.938.938,0,0,1,.938-.938h15.625a.938.938,0,0,1,.938.938.938.938,0,0,1-.937.938Z" transform="translate(3418 5262)"/>
+            <SvgIcon classes={{
+              root: classes.icon,
+            }}>
+              <use href="#icon-icon_menu"></use>
             </SvgIcon>
           </IconButton>
         </Toolbar>
