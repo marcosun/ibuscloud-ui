@@ -25,6 +25,14 @@ class AppFrame extends React.Component {
   };
 
   /**
+   * Search input press enter callback
+   * @param  {String} keyword
+   */
+  handleSearch(keyword) {
+    alert(`Search keywords: ${keyword}`);
+  }
+
+  /**
    * Render a form sending post data
    * @return {Component}
    */
@@ -35,7 +43,7 @@ class AppFrame extends React.Component {
     } = this.props;
 
     return (
-      <IBusUiAppFrame navs={navs}>
+      <IBusUiAppFrame onSearch={this.handleSearch.bind(this)} navs={navs} >
         {children}
       </IBusUiAppFrame>
     );
