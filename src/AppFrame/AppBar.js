@@ -108,9 +108,17 @@ class AppBar extends React.Component {
   }
 
   /**
-   * Toggle search input visibility
+   * Toggle search input visibility and focus search input
    */
   handleSearchIconClick() {
+    this.setSearchInputVisibility();
+    this.searchInputDom.focus();
+  }
+
+  /**
+   * Toggle search input visibility
+   */
+  setSearchInputVisibility() {
     this.setState({
       ...this.state,
       isSearchInputVisible: !this.state.isSearchInputVisible,
@@ -182,6 +190,7 @@ class AppBar extends React.Component {
             })}
             placeholder='请输入关键词'
             inputRef={this.setSearchInputDom.bind(this)}
+            onBlur={this.setSearchInputVisibility.bind(this)}// reset input value
           />
         </Toolbar>
       </MuiAppBar>
