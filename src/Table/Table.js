@@ -74,6 +74,7 @@ const styles = (theme) => ({
  * @param {string|number} props.rows[].id - Unique id
  * @param {number[]} [props.rowsPerPageOptions=[5, 7, 10]] - The number of rows
  * per page.
+ * @param {number} [props.total] - total number of rows.
  * @param {function} props.onChangePage - Callback fired when the page changes.
  * Signature:
  * function(event: object, page: number) => void
@@ -102,7 +103,6 @@ const styles = (theme) => ({
 class Table extends React.PureComponent {
   static propTypes = {
     classes: object,
-    total: number.isRequired,
     columns: arrayOf(shape({
       id: oneOfType([string, number]).isRequired,
       isNumeric: bool,
@@ -120,6 +120,7 @@ class Table extends React.PureComponent {
       id: oneOfType([string, number]).isRequired,
     })),
     rowsPerPageOptions: arrayOf(number),
+    total: number,
     onChangePage: func,
     onChangeRowsPerPage: func,
     onOrderChange: func,
@@ -350,7 +351,7 @@ class Table extends React.PureComponent {
       <div className={classes.tablePagination}>
         <TablePagination
           Actions={TablePaginationActions}
-          component="div"
+          component='div'
           count={total}
           page={currentPage}
           rowsPerPage={rowsPerPage}
