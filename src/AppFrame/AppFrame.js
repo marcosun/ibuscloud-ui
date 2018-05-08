@@ -17,14 +17,16 @@ import Main from './Main';
  * AppBar.
  * @param {Component} [props.children] - Node that will be placed on the
  * main screen area
+ * @param {Object[]} props.navs - Structured array of objects represents NavList.
+ * See {@link NavList}
  * @param {Function} [props.onSearch] - Callback fired when user clicks enter
  * inside text field. See {@link AppBar}
  */
 class AppFrame extends React.Component {
   static propTypes = {
+    children: node,
     classes: object,
     navs: array,
-    children: node,
     onSearch: func,
   };
 
@@ -49,8 +51,8 @@ class AppFrame extends React.Component {
    */
   render() {
     const {
-      navs,
       children,
+      navs,
       onSearch,
     } = this.props;
 
@@ -64,10 +66,10 @@ class AppFrame extends React.Component {
       <div>
         <AppBar
           expandedOffsetWidth={drawerOpenWidth}
-          shrinkedOffsetWidth={drawerCloseWidth}
           isExpanded={!isOpen}
           onExpandToggle={this.handleDrawerToggle.bind(this)}
           onSearch={onSearch}
+          shrinkedOffsetWidth={drawerCloseWidth}
         />
         <Drawer
           width={isOpen === true ? drawerOpenWidth : drawerCloseWidth}
