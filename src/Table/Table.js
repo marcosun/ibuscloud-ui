@@ -58,9 +58,9 @@ const styles = (theme) => ({
  * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
  * @param {boolean} [props.isPaginable=false] - Enable
- * or disable to be paginable
+ * or disable pagination.
  * @param {boolean} [props.isSelectable=false] - Enable
- * or disable to be selectable
+ * or disable to be Selection.
  * @param {Object} [props.order] - Describes how table column should be ordered.
  * Table component accepts order at the initialisation process,
  * and Table maintains its status (columnId and orderBy) since after.
