@@ -32,6 +32,18 @@ const styles = (theme) => ({
     height: 16,
     fontSize: 16,
   },
+  searchInput: {
+    transition: theme.transitions.create('width', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  },
+  searchInputOpen: {
+    width: 170,
+  },
+  searchInputClose: {
+    width: 0,
+  },
   toggleIcon: {
     width: 17,
     height: 17,
@@ -80,6 +92,10 @@ class AppBar extends React.Component {
     isExpanded: true,
   };
 
+  state = {
+    isSearchInputVisible: false,
+  };
+
   /**
    * Call props.onExpandToggle
    */
@@ -92,6 +108,16 @@ class AppBar extends React.Component {
   }
 
   /**
+   * Toggle search input visibility
+   */
+  handleSearchIconClick() {
+    this.setState({
+      ...this.state,
+      isSearchInputVisible: !this.state.isSearchInputVisible,
+    });
+  }
+
+  /**
    * @return {Component}
    */
   render() {
@@ -101,6 +127,10 @@ class AppBar extends React.Component {
       shrinkedOffsetWidth,
       isExpanded,
     } = this.props;
+
+    const {
+      isSearchInputVisible,
+    } = this.state;
 
     return (
       <MuiAppBar
@@ -130,14 +160,20 @@ class AppBar extends React.Component {
             </SvgIcon>
           </IconButton>
           <div className={classes.whiteSpace}></div>
-          <IconButton>
+          <IconButton onClick={this.handleSearchIconClick.bind(this)}>
             <SvgIcon classes={{
               root: classes.searchIcon,
             }}>
               <use href="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
-          <TextField placeholder='请输入关键词' />
+          <TextField
+            className={classNames(classes.searchInput, {
+              [classes.searchInputOpen]: isSearchInputVisible,
+              [classes.searchInputClose]: !isSearchInputVisible,
+            })}
+            placeholder='请输入关键词'
+          />
         </Toolbar>
       </MuiAppBar>
     );
