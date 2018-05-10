@@ -7,7 +7,7 @@ import {
   func,
   shape,
   arrayOf,
-  oneOf,
+  oneOfType,
 } from 'prop-types';
 
 import ButtonGroupDummy from '../ButtonGroupDummy';
@@ -30,12 +30,12 @@ class ButtonGroup extends React.Component {
     classes: object,
     isMultiple: bool,
     buttons: arrayOf(shape({
-      id: oneOf([string, number]),
+      id: oneOfType([string, number]),
       name: string,
       isActive: bool,
     })),
     buttonAll: shape({
-      id: oneOf([string, number]),
+      id: oneOfType([string, number]),
       name: string,
       isActive: bool,
     }),
