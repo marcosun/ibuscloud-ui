@@ -36,6 +36,9 @@ class ThemeProvider extends React.Component {
         primary: {
           main: '#3B86FF',
         },
+        background: {
+          default: '#f0f0f7',
+        },
         text: {
           primary: '#43425D',
         },
