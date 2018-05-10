@@ -72,10 +72,7 @@ class Chip extends React.Component {
       <MuiChip
         classes={{...classes}}
         {...others}
-        deleteIcon={
-          typeof others.onDelete === 'function' &&
-            <SvgIcon>{deleteIcon}</SvgIcon>
-        }
+        deleteIcon={<SvgIcon>{deleteIcon}</SvgIcon>}
       />
     );
   }
