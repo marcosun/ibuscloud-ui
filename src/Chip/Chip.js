@@ -55,7 +55,7 @@ class Chip extends React.Component {
   };
 
   static defaultProps = {
-    deleteIcon: <use href="#icon-icon_close"></use>,
+    deleteIcon: <use xlinkHref="#icon-icon_close"></use>,
   };
 
   /**

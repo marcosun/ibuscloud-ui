@@ -77,7 +77,7 @@ class Drawer extends React.Component {
     isOpen: true,
     logo: {
       text: '公交云平台',
-      icon: <use href="#icon-logo_gjy"></use>,
+      icon: <use xlinkHref="#icon-logo_gjy"></use>,
     },
   };
 

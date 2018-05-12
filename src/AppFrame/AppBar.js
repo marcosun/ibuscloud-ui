@@ -219,7 +219,7 @@ class AppBar extends React.Component {
             <SvgIcon classes={{
               root: classes.toggleIcon,
             }}>
-              <use href="#icon-icon_menu"></use>
+              <use xlinkHref="#icon-icon_menu"></use>
             </SvgIcon>
           </IconButton>
           <div className={classes.whiteSpace}></div>
@@ -227,7 +227,7 @@ class AppBar extends React.Component {
             <SvgIcon classes={{
               root: classes.searchIcon,
             }}>
-              <use href="#icon-icon_search"></use>
+              <use xlinkHref="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
           <form onSubmit={this.handleSearch.bind(this)}>

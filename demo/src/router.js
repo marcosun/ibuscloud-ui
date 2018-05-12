@@ -85,27 +85,27 @@ export default class Router extends React.Component {
           <AppFrame
             navs={[{
               text: 'ButtonGroup',
-              icon: <use href="#icon-icon_line"></use>,
+              icon: <use xlinkHref="#icon-icon_line"></use>,
               path: '/buttonGroup',
             }, {
               text: 'Chip',
-              icon: <use href="#icon-icon_board"></use>,
+              icon: <use xlinkHref="#icon-icon_board"></use>,
               path: '/chip',
             }, {
               text: 'Dialog',
-              icon: <use href="#icon-icon_board"></use>,
+              icon: <use xlinkHref="#icon-icon_board"></use>,
               path: '/dialog',
             }, {
               text: 'Stepper',
-              icon: <use href="#icon-icon_board"></use>,
+              icon: <use xlinkHref="#icon-icon_board"></use>,
               path: '/stepper',
             }, {
               text: 'Table',
-              icon: <use href="#icon-icon_car"></use>,
+              icon: <use xlinkHref="#icon-icon_car"></use>,
               path: '/table',
             }, {
               text: 'Theme',
-              icon: <use href="#icon-icon_changz"></use>,
+              icon: <use xlinkHref="#icon-icon_changz"></use>,
               path: '/theme',
             }]}
           >
