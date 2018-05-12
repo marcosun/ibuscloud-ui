@@ -32,7 +32,8 @@ const styles = (theme) => ({
     height: 16,
     fontSize: 16,
   },
-  searchInput: {
+  searchInputContainer: {
+    overflow: 'hidden',
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -230,12 +231,22 @@ class AppBar extends React.Component {
               <use xlinkHref="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
-          <form onSubmit={this.handleSearch.bind(this)}>
+          <form
+            /**
+             * Initially, I gave the following styles to TextField.
+             * But then it came with two compatibility issue on Safari.
+             * 1. HTML form element took space even though TextField
+             * had zero width.
+             * 2. Failed to focus HTML input element when TextField expanded
+             * from zero width.
+             */
+            className={classNames(classes.searchInputContainer, {
+              [classes.searchInputVisible]: isSearchInputVisible,
+              [classes.searchInputHidden]: !isSearchInputVisible,
+            })}
+            onSubmit={this.handleSearch.bind(this)}
+          >
             <TextField
-              className={classNames(classes.searchInput, {
-                [classes.searchInputVisible]: isSearchInputVisible,
-                [classes.searchInputHidden]: !isSearchInputVisible,
-              })}
               placeholder='请输入关键词'
               inputRef={this.setSearchInputDom.bind(this)}
               value={searchInputValue}
