@@ -35,11 +35,6 @@ const styles = (theme) => ({
     // Has the same height as AppBar
     ...theme.mixins.toolbar,
   },
-  logoIcon: {
-    width: 22,
-    height: 22,
-    fontSize: 22,
-  },
   logoText: {
     overflow: 'hidden',
     fontWeight: 800,
@@ -132,9 +127,7 @@ class Drawer extends React.Component {
           className={classes.logo}
           component='div'
         >
-          <SvgIcon classes={{
-            root: classes.logoIcon,
-          }}>
+          <SvgIcon>
             {logo.icon}
           </SvgIcon>
           <ListItemText classes={{

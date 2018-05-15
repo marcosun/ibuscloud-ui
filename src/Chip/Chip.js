@@ -33,11 +33,8 @@ const styles = (theme) => {
       },
     },
     deleteIcon: {
-      width: 18,
-      height: 18,
       margin: '0 4px 0 -12px',
       padding: 6,
-      fontSize: 6,
       '&:hover': {
       },
     },

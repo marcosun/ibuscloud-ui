@@ -27,11 +27,6 @@ const styles = (theme) => ({
       duration: theme.transitions.duration.enteringScreen,
     }),
   },
-  searchIcon: {
-    width: 16,
-    height: 16,
-    fontSize: 16,
-  },
   searchInputContainer: {
     overflow: 'hidden',
     transition: theme.transitions.create('width', {
@@ -44,11 +39,6 @@ const styles = (theme) => ({
   },
   searchInputHidden: {
     width: 0,
-  },
-  toggleIcon: {
-    width: 17,
-    height: 17,
-    fontSize: 17,
   },
   toggleNormalPosition: {
     transform: 'rotate3d(0, 1, 0, 180deg)',
@@ -217,17 +207,13 @@ class AppBar extends React.Component {
             })}
             onClick={this.handleExpandToggle.bind(this)}
           >
-            <SvgIcon classes={{
-              root: classes.toggleIcon,
-            }}>
+            <SvgIcon>
               <use xlinkHref="#icon-icon_menu"></use>
             </SvgIcon>
           </IconButton>
           <div className={classes.whiteSpace}></div>
           <IconButton onClick={this.handleSearchIconClick.bind(this)}>
-            <SvgIcon classes={{
-              root: classes.searchIcon,
-            }}>
+            <SvgIcon>
               <use xlinkHref="#icon-icon_search"></use>
             </SvgIcon>
           </IconButton>
