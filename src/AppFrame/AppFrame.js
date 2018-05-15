@@ -32,7 +32,7 @@ class AppFrame extends React.Component {
 
   state = {
     drawerOpenWidth: 260,
-    drawerCloseWidth: 68,
+    drawerCloseWidth: 78,
     isOpen: true,
   };
 
