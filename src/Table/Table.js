@@ -22,6 +22,10 @@ import Checkbox from 'material-ui/Checkbox';
 
 import TableHead from './TableHead';
 import TablePaginationActions from './TablePaginationActions';
+import {
+  createInternalSetState,
+  mergePropsToState,
+} from '../Util/toBeControlledComponent';
 
 const styles = (theme) => ({
   root: {
@@ -45,10 +49,14 @@ const styles = (theme) => ({
 });
 
 /**
- * currentPage is set to 0 at the initialisation process and
- * Table maintains its status since after.
- * rowsPerPage is set to the first value in the props.rowsPerPageOptions
+ * This module manages its own state internally. CurrentPage is set to 0 at the
+ * initialisation process and table maintains its status since after.
+ * RowsPerPage is set to the first value in the props.rowsPerPageOptions
  * at the initialisation process and Table maintains its status since after.
+ * However, if more control is needed,  you can pass state as a prop and that state
+ * becomes controlled. The state includes: currentPage, order and selectedRowIds.
+ * As soon as this.props[statePropKey] !== undefined, internally, table will determine
+ * its state based on your prop's value rather than its own internal state.
  * @param {Object[]} props.columns - See {@link TableHead}
  * @param {string|number} props.columns[].id - Unique id
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
@@ -57,6 +65,14 @@ const styles = (theme) => ({
  * or disable ordering on this column.
  * @param {string} props.columns[].label - Display column name
  * @param {string} [props.columns[].tooltip] - Tooltip
+ * @param {number} [props.currentPage] - The current page, required for a controlled component.
+ * @param {number} [props.defaultCurrentPage=0] - The initial current page, useful when not
+ * controlling the component. This is not used when the currentPage is used.
+ * @param {Object} [props.defaultOrder] - Pass an object that should be ordered by default.
+ * This is not used when the order is used.
+ * @param {number} [props.defaultRowsPerPage] - The number of rows per page by default.
+ * @param {Array} [props.defaultSelectedRowIds=[]] - Pass an array of rowIds that should be
+ * selected by default. This is not used when the selectedRowIds is used.
  * @param {boolean} [props.isPaginable=false] - Enable
  * or disable pagination.
  * @param {boolean} [props.isSelectable=false] - Enable
@@ -68,13 +84,6 @@ const styles = (theme) => ({
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
  * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
- * @param {Object[]} [props.rows] - Represents rows of the current page in
- * the table body. Property names defined in props.columns will be looked for
- * and values will be displayed on the corresponding column.
- * @param {string|number} props.rows[].id - Unique id
- * @param {number[]} [props.rowsPerPageOptions=[5, 7, 10]] - The number of rows
- * per page.
- * @param {number} [props.total] - total number of rows.
  * @param {function} props.onChangePage - Callback fired when the page changes.
  * Signature:
  * function(event: object, page: number) => void
@@ -96,6 +105,14 @@ const styles = (theme) => ({
  * function(row, selectedRowIds, event, isChecked) => void
  * row: Clicked row data.
  * selectedRowIds: An array of selected row ids.
+ * @param {Object[]} [props.rows] - Represents rows of the current page in
+ * the table body. Property names defined in props.columns will be looked for
+ * and values will be displayed on the corresponding column.
+ * @param {string|number} props.rows[].id - Unique id
+ * @param {number[]} [props.rowsPerPageOptions=[5, 7, 10]] - The number of rows
+ * per page.
+ * @param {(number|string)} [props.selectedRowIds] - Pass an array of rowIds that should be selected
+ * @param {number} [props.total] - Total number of rows.
  */
 @withStyles(styles, {
   name: 'IBusUiTable',
@@ -110,24 +127,35 @@ class Table extends React.PureComponent {
       label: string.isRequired,
       tooltip: string,
     })).isRequired,
+    currentPage: number,
+    defaultCurrentPage: number,
+    defaultOrder: shape({
+      columnId: string.isRequired,
+      orderBy: oneOf(['asc', 'desc', false]).isRequired,
+    }),
+    defaultRowsPerPage: number,
+    defaultSelectedRowIds: arrayOf(oneOfType([number, string])),
     isPaginable: bool,
     isSelectable: bool,
     order: shape({
       columnId: string.isRequired,
       orderBy: oneOf(['asc', 'desc', false]).isRequired,
     }),
-    rows: arrayOf(shape({
-      id: oneOfType([string, number]).isRequired,
-    })),
-    rowsPerPageOptions: arrayOf(number),
-    total: number,
     onChangePage: func,
     onChangeRowsPerPage: func,
     onOrderChange: func,
     onRowSelect: func,
+    rows: arrayOf(shape({
+      id: oneOfType([string, number]).isRequired,
+    })),
+    rowsPerPageOptions: arrayOf(number),
+    selectedRowIds: arrayOf(oneOfType([number, string])),
+    total: number,
   };
 
   static defaultProps = {
+    defaultCurrentPage: 0,
+    defaultSelectedRowIds: [],
     isPaginable: false,
     isSelectable: false,
     rows: [],
@@ -145,16 +173,34 @@ class Table extends React.PureComponent {
     super(props);
 
     const {
-      order,
+      defaultCurrentPage,
+      defaultOrder,
+      defaultRowsPerPage,
+      defaultSelectedRowIds,
       rowsPerPageOptions,
     } = this.props;
 
+    const state = mergePropsToState({
+      currentPage: defaultCurrentPage,
+      order: defaultOrder,
+      selectedRowIds: defaultSelectedRowIds,
+    }, this.props);
+
     this.state = {
-      currentPage: 0, // Set initial page number as page 0
-      order,
-      rowsPerPage: rowsPerPageOptions[0],
-      selectedRowIds: [],
+      ...state,
+      rowsPerPage: defaultRowsPerPage === void 0 ? rowsPerPageOptions[0] : defaultRowsPerPage,
     };
+
+    this.internalSetState = createInternalSetState();
+  }
+
+  /**
+   * @param  {Object} nextProps
+   * @param  {Object} prevState
+   * @return {Object}
+   */
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return mergePropsToState(prevState, nextProps);
   }
 
   /**
@@ -166,8 +212,7 @@ class Table extends React.PureComponent {
 
     const {onChangePage} = this.props;
 
-    this.setState({
-      ...this.state,
+    this.internalSetState({
       currentPage,
     });
 
@@ -181,64 +226,68 @@ class Table extends React.PureComponent {
   handleRowsPerPageChange(event) {
     const {onChangeRowsPerPage} = this.props;
 
-    this.setState({
-      ...this.state,
+    this.internalSetState({
       rowsPerPage: event.target.value,
-      currentPage: 0, // This might be unappropriate, feel free to modify
-      // how currentPage behave in the future if your logic satisfy general
-      // requriments.
+      currentPage: 0, // Default to return to first page if rowsPerPage is changed
     });
 
     typeof onChangeRowsPerPage === 'function' && onChangeRowsPerPage(event);
   }
 
   /**
+   * Uncontrolled:
    * Add selected row index into nextSelectedRowIds if isChecked === true.
    * Delete selected row index from nextSelectedRowIds if isChecked === false.
    * Call props.onRowSelect with selected row id, all selected row ids, event
    * and isChecked.
+   * Controlled:
+   * Update state based on props.
    * @param {Object} row - Table row
    * @param {string|number} row.id - Table row id
    * @param {Array} params - Two parameters defined in MuiCheckBox
    */
   handleRowSelect(row, ...params) {
-    const isChecked = params[1];
-
     const {onRowSelect} = this.props;
 
-    const {
-      selectedRowIds,
-    } = this.state;
+    const newState = this.internalSetState({
+      selectedRowIds: () => {
+        const isChecked = params[1];
 
-    let nextSelectedRowIds;
+        const {
+          selectedRowIds,
+        } = this.state;
 
-    if (isChecked === true) {
-      // Add selected row index into nextSelectedRowIds
-      nextSelectedRowIds = [...selectedRowIds, row.id];
-    } else {
-      // Delete selected row index from nextSelectedRowIds
-      const deleteIndex = selectedRowIds.findIndex((rowId) => {
-        return rowId === row.id;
-      });
-      nextSelectedRowIds = [
-        ...selectedRowIds.slice(0, deleteIndex),
-        ...selectedRowIds.slice(deleteIndex + 1, selectedRowIds.length),
-      ];
-    }
+        let nextSelectedRowIds;
 
-    this.setState({
-      ...this.state,
-      selectedRowIds: nextSelectedRowIds,
+        if (isChecked === true) {
+          // Add selected row index into nextSelectedRowIds
+          nextSelectedRowIds = [...selectedRowIds, row.id];
+        } else {
+          // Delete selected row index from nextSelectedRowIds
+          const deleteIndex = selectedRowIds.findIndex((rowId) => {
+            return rowId === row.id;
+          });
+          nextSelectedRowIds = [
+            ...selectedRowIds.slice(0, deleteIndex),
+            ...selectedRowIds.slice(deleteIndex + 1, selectedRowIds.length),
+          ];
+        }
+
+        return nextSelectedRowIds;
+      },
     });
 
     typeof onRowSelect === 'function' &&
-    onRowSelect(row, nextSelectedRowIds, ...params);
+    onRowSelect(row, newState.selectedRowIds, ...params);
   }
 
   /**
+   * Uncontrolled:
    * Table handles internal status of order(columnId and orderBy) and expose
    * order event by calling onOrderChange with order object.
-   * Change orderBy in the following order: asc, desc, false
+   * Change orderBy in the following order: asc, desc, false.
+   * Controlled:
+   * Update state based on props.
    * @param {Object} order
    * @param {string} order.columnId
    * @param {string|boolean} order.orderBy - Enum: 'asc', 'desc', false
@@ -246,26 +295,25 @@ class Table extends React.PureComponent {
   handleOrderChange({columnId, orderBy}) {
     const {onOrderChange} = this.props;
 
-    const order = {
-      columnId,
-      orderBy: (() => {
-        switch (orderBy) {
-          case false:
-            return 'asc';
-          case 'asc':
-            return 'desc';
-          case 'desc':
-            return false;
-        }
-      })(),
-    };
-
-    this.setState({
-      ...this.state,
-      order,
+    const newState = this.internalSetState({
+      order: () => {
+        return {
+          columnId,
+          orderBy: (() => {
+            switch (orderBy) {
+              case false:
+                return 'asc';
+              case 'asc':
+                return 'desc';
+              case 'desc':
+                return false;
+            }
+          })(),
+        };
+      },
     });
 
-    typeof onOrderChange === 'function' && onOrderChange(order);
+    typeof onOrderChange === 'function' && onOrderChange(newState.order);
   }
 
   /**
