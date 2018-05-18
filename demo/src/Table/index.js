@@ -179,10 +179,10 @@ export default class table extends React.Component {
         <Table
           total={this.total}
           columns={this.columns}
+          defaultOrder={this.order}
           isPaginable={true}
           isSelectable={true}
           rows={rows}
-          order={this.order}
           onChangePage={this.handleChangePage.bind(this)}
           onChangeRowsPerPage={this.handleChangeRowsPerPage.bind(this)}
           onRowSelect={this.handleRowSelect.bind(this)}
