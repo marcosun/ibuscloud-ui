@@ -22,27 +22,32 @@ export default class table extends React.Component {
 
     this.columns = [
       {
+        colSpan: 2,
         id: 'name',
         isOrderable: true,
         label: 'Dessert (100g serving)',
         tooltip: 'name',
       },
       {
+        colSpan: 3,
         id: 'calories',
         isNumeric: false,
         label: 'Calories',
         tooltip: 'calories',
       },
       {
+        colSpan: 4,
         id: 'fat',
         label: 'Fat (g)',
         isNumeric: false,
       },
       {
+        colSpan: 2,
         id: 'carbs',
         label: 'Carbs (g)',
       },
       {
+        colSpan: 2,
         id: 'protein',
         label: 'Protein (g)',
       },

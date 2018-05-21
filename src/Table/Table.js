@@ -60,6 +60,7 @@ const styles = (theme) => ({
  * As soon as this.props[statePropKey] !== undefined, internally, table will determine
  * its state based on your prop's value rather than its own internal state.
  * @param {Object[]} props.columns - See {@link TableHead}
+ * @param {number} [props.columns[].colSpan] - colSpan property of td element
  * @param {string|number} props.columns[].id - Unique id
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
@@ -123,6 +124,7 @@ class Table extends React.PureComponent {
   static propTypes = {
     classes: object,
     columns: arrayOf(shape({
+      colSpan: number,
       id: oneOfType([string, number]).isRequired,
       isNumeric: bool,
       isOrderable: bool,
@@ -367,11 +369,12 @@ class Table extends React.PureComponent {
                     columns.map((column) => {
                       return (
                         <TableCell
-                          key={`${row.id}${column.id}`}
-                          numeric={column.isNumeric === true}
                           classes={{
                             root: classes.tableCellRoot,
                           }}
+                          colSpan={column.colSpan}
+                          key={`${row.id}${column.id}`}
+                          numeric={column.isNumeric === true}
                         >
                           {row[column.id]}
                         </TableCell>

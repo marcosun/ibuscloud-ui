@@ -1,12 +1,13 @@
 import React from 'react';
 import {
-  bool,
-  string,
-  object,
-  func,
-  shape,
-  oneOf,
   arrayOf,
+  bool,
+  func,
+  number,
+  object,
+  oneOf,
+  shape,
+  string,
 } from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 import MuiTableHead from '@material-ui/core/TableHead';
@@ -55,6 +56,7 @@ const styles = (theme) => ({
  * the logics, feel free to have it a go.
  * Relevant code has been deleted since commit b19d710
  * @param {Object[]} props.columns
+ * @param {number} [props.columns[].colSpan] - colSpan property of td element
  * @param {string} props.columns[].id - Unique id
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right
@@ -76,6 +78,7 @@ class TableHead extends React.PureComponent {
   static propTypes = {
     classes: object,
     columns: arrayOf(shape({
+      colSpan: number,
       id: string.isRequired,
       isNumeric: bool,
       isOrderable: bool,
@@ -195,6 +198,7 @@ class TableHead extends React.PureComponent {
                   classes={{
                     root: classes.tableCellRoot,
                   }}
+                  colSpan={column.colSpan}
                   key={column.id}
                   numeric={column.isNumeric === true}
                   sortDirection={
