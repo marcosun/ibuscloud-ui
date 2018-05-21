@@ -111,15 +111,16 @@ class TablePaginationActions extends React.Component {
       // insert ellipsis in the middle of the 2D array.
       const digitalList = (() => {
         if (this.maxDigitalButtonNum < totalPageNum) {
-          if (currentPage < 2) {
+          if (currentPage < 4) {
             return [
               [0, 1, 2, 3, 4],
               [totalPageNum - 1],
             ];
           }
 
-          if (currentPage >= 2 && currentPage <= totalPageNum - 5) {
+          if (currentPage >= 4 && currentPage <= totalPageNum - 5) {
             return [
+              [0],
               [currentPage - 2, currentPage - 1, currentPage, currentPage + 1, currentPage + 2],
               [totalPageNum - 1],
             ];
@@ -165,21 +166,20 @@ class TablePaginationActions extends React.Component {
         return digitalList[0].map((digital) => {
           return getDigitalButtonElement('button', digital);
         });
-      } else {
-        const preButtonList = digitalList[0].map((digital) => {
-          return getDigitalButtonElement('button', digital);
-        });
-
-        const nextButtonList = digitalList[1].map((digital) => {
-          return getDigitalButtonElement('button', digital);
-        });
-
-        return [].concat(
-          preButtonList,
-          getDigitalButtonElement('ellipsis'),
-          nextButtonList
-        );
       }
+
+      return digitalList.map((digitalArray, index) => {
+        const digitalButtonElement = digitalArray.map((digital, innerIndex) => {
+          return getDigitalButtonElement('button', digital);
+        });
+        if (index === digitalList.length - 1) {
+          return digitalButtonElement;
+        }
+        return [
+          ...digitalButtonElement,
+          getDigitalButtonElement('ellipsis'),
+        ];
+      });
     })();
 
     return (
