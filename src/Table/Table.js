@@ -41,6 +41,9 @@ const styles = (theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  checkBoxCell: {
+    background: theme.palette.background.paper,
+  },
   tablePagination: {
     paddingTop: '40px',
   },
@@ -345,8 +348,9 @@ class Table extends React.PureComponent {
               const checkBoxElement = isSelectable === true &&
               <TableCell
                 classes={{
-                  root: classes.tableCellRoot,
+                  root: classes.checkBoxCell,
                 }}
+                padding='checkbox'
               >
                 <Checkbox
                   color='primary'

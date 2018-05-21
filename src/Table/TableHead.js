@@ -27,6 +27,9 @@ const styles = (theme) => ({
     overflow: 'hidden',
     textOverflow: 'ellipsis',
   },
+  checkBoxCell: {
+    background: '#F5F6FA',
+  },
   sortLabelActive: {
     color: '#A3A6B4',
   },
@@ -115,8 +118,9 @@ class TableHead extends React.PureComponent {
     const checkBoxElement = isSelectable === true &&
         <TableCell
           classes={{
-            root: classes.tableCellRoot,
+            root: classes.checkBoxCell,
           }}
+          padding='checkbox'
         />;
 
     const cellElement = (column) => {
