@@ -29,6 +29,7 @@ const styles = (theme) => ({
   },
   checkBoxCell: {
     background: '#F5F6FA',
+    borderBottom: '1px solid #F5F6FA',
   },
   sortLabelActive: {
     color: '#A3A6B4',

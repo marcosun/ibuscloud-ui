@@ -43,6 +43,7 @@ const styles = (theme) => ({
   },
   checkBoxCell: {
     background: theme.palette.background.paper,
+    borderBottom: '1px solid #F5F6FA',
   },
   tablePagination: {
     paddingTop: '40px',
