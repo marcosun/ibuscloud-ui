@@ -47,6 +47,15 @@ export default class Router extends React.Component {
       },
     });
 
+    this.Snackbar = lodable({
+      loader: () => {
+        return import('./Snackbar');
+      },
+      loading: () => {
+        return <div>Loading...</div>;
+      },
+    });
+
     this.Stepper = lodable({
       loader: () => {
         return import('./Stepper');
@@ -96,6 +105,10 @@ export default class Router extends React.Component {
               icon: <use xlinkHref="#icon-icon_board"></use>,
               path: '/dialog',
             }, {
+              text: 'Snackbar',
+              icon: <use xlinkHref="#icon-icon_board"></use>,
+              path: '/snackbar',
+            }, {
               text: 'Stepper',
               icon: <use xlinkHref="#icon-icon_board"></use>,
               path: '/stepper',
@@ -115,6 +128,7 @@ export default class Router extends React.Component {
             <Route exact path='/buttonGroup' component={this.ButtonGroup} />
             <Route exact path='/chip' component={this.Chip} />
             <Route exact path='/dialog' component={this.Dialog} />
+            <Route exact path='/snackbar' component={this.Snackbar} />
             <Route exact path='/stepper' component={this.Stepper} />
             <Route exact path="/table" component={this.Table}></Route>
             <Route exact path="/theme" component={this.Theme}></Route>
