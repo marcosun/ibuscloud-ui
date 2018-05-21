@@ -22,7 +22,7 @@
   "license": "MIT",
   "peerDependencies": {
     "@material-ui/icons": "^1.0.0",
-    "material-ui": ">1.0.0-beta.39",
+    "@material-ui/core": "^1.0.0",
     "react": ">16.0.0",
     "react-router-dom": "*"
   },
