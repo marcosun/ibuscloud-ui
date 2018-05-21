@@ -7,9 +7,10 @@ import {
   func,
 } from 'prop-types';
 import classNames from 'classnames';
-import {withStyles} from 'material-ui/styles';
-import {ListItem, ListItemText} from 'material-ui/List';
-import SvgIcon from 'material-ui/SvgIcon';
+import {withStyles} from '@material-ui/core/styles';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import SvgIcon from '@material-ui/core/SvgIcon';
 import color from 'color';
 
 const styles = (theme) => ({

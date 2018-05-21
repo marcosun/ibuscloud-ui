@@ -6,12 +6,12 @@ import {
   func,
 } from 'prop-types';
 import classNames from 'classnames';
-import {withStyles} from 'material-ui/styles';
-import {default as MuiAppBar} from 'material-ui/AppBar';
-import Toolbar from 'material-ui/Toolbar';
-import IconButton from 'material-ui/IconButton';
-import SvgIcon from 'material-ui/SvgIcon';
-import TextField from 'material-ui/TextField';
+import {withStyles} from '@material-ui/core/styles';
+import MuiAppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import SvgIcon from '@material-ui/core/SvgIcon';
+import TextField from '@material-ui/core/TextField';
 
 const styles = (theme) => ({
   appBarExpanded: {

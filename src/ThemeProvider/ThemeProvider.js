@@ -6,7 +6,7 @@ import {
   withStyles,
   MuiThemeProvider,
   createMuiTheme,
-} from 'material-ui/styles';
+} from '@material-ui/core/styles';
 
 import '../iconfont';
 

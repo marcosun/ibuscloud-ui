@@ -3,9 +3,9 @@ import {
   object,
   element,
 } from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-import {default as MuiChip} from 'material-ui/Chip';
-import SvgIcon from 'material-ui/SvgIcon';
+import {withStyles} from '@material-ui/core/styles';
+import MuiChip from '@material-ui/core/Chip';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 const styles = (theme) => {
   const color = theme.palette.text.primary;

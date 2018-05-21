@@ -8,14 +8,12 @@ import {
   oneOf,
   arrayOf,
 } from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-import {
-  TableHead as MuiTableHead,
-  TableRow,
-  TableCell,
-  TableSortLabel,
-} from 'material-ui/Table';
-import Tooltip from 'material-ui/Tooltip';
+import {withStyles} from '@material-ui/core/styles';
+import MuiTableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
+import Tooltip from '@material-ui/core/Tooltip';
 
 const styles = (theme) => ({
    tableCellRoot: {

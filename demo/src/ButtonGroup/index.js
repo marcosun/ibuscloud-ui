@@ -1,7 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import {withStyles} from 'material-ui/styles';
-import Typography from 'material-ui/Typography';
+import {withStyles} from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
 import {default as IBusUiButtonGroup} from 'ibuscloud-ui/ButtonGroup';
 

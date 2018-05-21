@@ -10,10 +10,11 @@ import {
 } from 'prop-types';
 import classNames from 'classnames';
 import jss from 'jss';
-import {withStyles} from 'material-ui/styles';
-import {default as MuiDrawer} from 'material-ui/Drawer';
-import {ListItem, ListItemText} from 'material-ui/List';
-import SvgIcon from 'material-ui/SvgIcon';
+import {withStyles} from '@material-ui/core/styles';
+import MuiDrawer from '@material-ui/core/Drawer';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import SvgIcon from '@material-ui/core/SvgIcon';
 
 import NavList from './NavList';
 

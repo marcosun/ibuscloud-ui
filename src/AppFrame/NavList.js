@@ -6,7 +6,7 @@ import {
   shape,
   arrayOf,
 } from 'prop-types';
-import List from 'material-ui/List';
+import List from '@material-ui/core/List';
 import {withRouter, matchPath} from 'react-router';
 
 import NavLink from './NavLink';

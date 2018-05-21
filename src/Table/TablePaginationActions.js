@@ -4,8 +4,8 @@ import {
   number,
   func,
 } from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import {withStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import KeyboardArrowRight from '@material-ui/icons/KeyboardArrowRight';
 

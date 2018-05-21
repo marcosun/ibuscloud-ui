@@ -7,12 +7,10 @@ import {
   arrayOf,
 } from 'prop-types';
 import {withRouter} from 'react-router';
-import {
-  default as MuiStepper,
-  Step,
-  StepButton,
-  StepLabel,
-} from 'material-ui/Stepper';
+import MuiStepper from '@material-ui/core/Stepper';
+import Step from '@material-ui/core/Step';
+import StepButton from '@material-ui/core/StepButton';
+import StepLabel from '@material-ui/core/StepLabel';
 
 /**
  * Horizontal steppers only.

@@ -1,7 +1,7 @@
 import React from 'react';
 import {hot} from 'react-hot-loader';
-import {withStyles} from 'material-ui/styles';
-import Button from 'material-ui/Button';
+import {withStyles} from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
 
 import {default as IBusUiDialog} from 'ibuscloud-ui/Dialog';
 

@@ -10,15 +10,13 @@ import {
   shape,
   arrayOf,
 } from 'prop-types';
-import {withStyles} from 'material-ui/styles';
-import {
-  default as MuiTable,
-  TableBody,
-  TableRow,
-  TableCell,
-  TablePagination,
-} from 'material-ui/Table';
-import Checkbox from 'material-ui/Checkbox';
+import {withStyles} from '@material-ui/core/styles';
+import MuiTable from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TablePagination from '@material-ui/core/TablePagination';
+import Checkbox from '@material-ui/core/Checkbox';
 
 import TableHead from './TableHead';
 import TablePaginationActions from './TablePaginationActions';
@@ -398,7 +396,7 @@ class Table extends React.PureComponent {
     const paginationElement = isPaginable === true &&
       <div className={classes.tablePagination}>
         <TablePagination
-          Actions={TablePaginationActions}
+          ActionsComponent={TablePaginationActions}
           component='div'
           count={total}
           page={currentPage}
