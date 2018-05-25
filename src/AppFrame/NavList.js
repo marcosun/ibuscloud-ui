@@ -7,7 +7,7 @@ import {
   arrayOf,
 } from 'prop-types';
 import List from '@material-ui/core/List';
-import {withRouter, matchPath} from 'react-router';
+import {withRouter} from 'react-router';
 
 import NavLink from './NavLink';
 
@@ -15,10 +15,14 @@ import NavLink from './NavLink';
  * NavList manages a bunch of {@link NavLink}.
  * NavList tests router path against current location to highlight NavLink.
  * Click on NavLink will redirect to the corresponding address.
- * @param {Object[]} [props.navs=[]] - Structured array of objects represents NavList
- * @param {string} props.navs[].text - NavList text content
+ * @param {Object[]} [props.navs=[]] - Structured array of objects
+ * represents NavList
  * @param {Element} props.navs[].icon - Svg icon
- * @param {string} props.navs[].path - NavList path address
+ * @param {string} props.navs[].matchPath - RegExp that will be matched against
+ * current path.
+ * Match against current location.path to highlight NavLink.
+ * @param {string} props.navs[].path - NavList redirect to address.
+ * @param {string} props.navs[].text - NavList text content.
  */
 @withRouter
 class NavList extends React.Component {
@@ -26,9 +30,10 @@ class NavList extends React.Component {
     location: object,
     history: object,
     navs: arrayOf(shape({
-      text: string,
-      icon: element,
-      path: string,
+      icon: element.isRequired,
+      matchPath: string.isRequired,
+      path: string.isRequired,
+      text: string.isRequired,
     })),
   };
 
@@ -38,18 +43,34 @@ class NavList extends React.Component {
 
   /**
    * Redirect to page specified by nav.path.
-   * @param {Object} nav - Structured object representing clicked NavLink
+   * @param {string} path - Path to redirect to.
+   * @param {boolean} preventRedirect - Will not redirect if value is true.
    */
-  handleClick(nav) {
+  handleClick(path, preventRedirect) {
     const {
-      location,
       history,
     } = this.props;
 
-    // Click on NavLink of current page
-    if (RegExp(nav.path).test(location.pathname)) return;
+    // Redirect only if currnt path does not match matchPath
+    if (preventRedirect) return;
 
-    history.push(nav.path);
+    history.push(path);
+  }
+
+  /**
+   * Match matchPath against current path.
+   * Return true if matchPath and current path matches,
+   * return false if not.
+   * @param  {string} matchPath - RegExp that will be matched against
+   * current path.
+   * @return {boolean}
+   */
+  matchAgainstCurrentPath(matchPath) {
+    const {
+      location,
+    } = this.props;
+
+    return RegExp(matchPath).test(location.pathname);
   }
 
   /**
@@ -57,27 +78,25 @@ class NavList extends React.Component {
    */
   render() {
     const {
-      location,
       navs,
     } = this.props;
 
     return (
       <List>
         {
-          navs.map((nav) => (
-            <NavLink
-              key={nav.text}
-              text={nav.text}
-              icon={nav.icon}
-              isActive={
-                matchPath(location.pathname, {
-                  path: nav.path,
-                  exact: true,
-                }) !== null
-              }
-              onClick={this.handleClick.bind(this, nav)}
-            />
-          ))
+          navs.map((nav) => {
+            const isOnCurrentPage = this.matchAgainstCurrentPath(nav.matchPath);
+
+            return (
+              <NavLink
+                key={nav.text}
+                text={nav.text}
+                icon={nav.icon}
+                isActive={isOnCurrentPage}
+                onClick={this.handleClick.bind(this, nav.path, isOnCurrentPage)}
+              />
+            );
+          })
         }
       </List>
     );

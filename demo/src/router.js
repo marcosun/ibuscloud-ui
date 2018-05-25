@@ -93,33 +93,40 @@ export default class Router extends React.Component {
         <Switch>
           <AppFrame
             navs={[{
-              text: 'ButtonGroup',
               icon: <use xlinkHref="#icon-icon_line"></use>,
+              matchPath: '/buttonGroup',
               path: '/buttonGroup',
+              text: 'ButtonGroup',
             }, {
-              text: 'Chip',
               icon: <use xlinkHref="#icon-icon_board"></use>,
+              matchPath: '/chip',
               path: '/chip',
+              text: 'Chip',
             }, {
-              text: 'Dialog',
               icon: <use xlinkHref="#icon-icon_board"></use>,
+              matchPath: '/dialog',
               path: '/dialog',
+              text: 'Dialog',
             }, {
-              text: 'Snackbar',
               icon: <use xlinkHref="#icon-icon_board"></use>,
+              matchPath: '/snackbar',
               path: '/snackbar',
+              text: 'Snackbar',
             }, {
-              text: 'Stepper',
               icon: <use xlinkHref="#icon-icon_board"></use>,
+              matchPath: '/stepper',
               path: '/stepper',
+              text: 'Stepper',
             }, {
-              text: 'Table',
               icon: <use xlinkHref="#icon-icon_car"></use>,
+              matchPath: '/table',
               path: '/table',
+              text: 'Table',
             }, {
-              text: 'Theme',
               icon: <use xlinkHref="#icon-icon_changz"></use>,
+              matchPath: '/theme',
               path: '/theme',
+              text: 'Theme',
             }]}
           >
             <Route exact path='/' render={() => (
