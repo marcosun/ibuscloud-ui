@@ -1,10 +1,13 @@
 import React from 'react';
 import {
-  string,
-  object,
-  element,
-  shape,
   arrayOf,
+  element,
+  instanceOf,
+  number,
+  object,
+  oneOfType,
+  shape,
+  string,
 } from 'prop-types';
 import List from '@material-ui/core/List';
 import {withRouter} from 'react-router';
@@ -18,8 +21,8 @@ import NavLink from './NavLink';
  * @param {Object[]} [props.navs=[]] - Structured array of objects
  * represents NavList
  * @param {Element} props.navs[].icon - Svg icon
- * @param {string} props.navs[].matchPath - RegExp that will be matched against
- * current path.
+ * @param {(number|RegExp|string)} props.navs[].matchPath - RegExp that will be
+ * matched against current path.
  * Match against current location.path to highlight NavLink.
  * @param {string} props.navs[].path - NavList redirect to address.
  * @param {string} props.navs[].text - NavList text content.
@@ -31,7 +34,7 @@ class NavList extends React.Component {
     history: object,
     navs: arrayOf(shape({
       icon: element.isRequired,
-      matchPath: string.isRequired,
+      matchPath: oneOfType([number, instanceOf(RegExp), string]).isRequired,
       path: string.isRequired,
       text: string.isRequired,
     })),
@@ -61,8 +64,8 @@ class NavList extends React.Component {
    * Match matchPath against current path.
    * Return true if matchPath and current path matches,
    * return false if not.
-   * @param  {string} matchPath - RegExp that will be matched against
-   * current path.
+   * @param  {(number|RegExp|string)} matchPath - RegExp that will be matched
+   * against current path.
    * @return {boolean}
    */
   matchAgainstCurrentPath(matchPath) {
