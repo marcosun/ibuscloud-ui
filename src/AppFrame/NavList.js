@@ -13,6 +13,7 @@ import List from '@material-ui/core/List';
 import {withRouter} from 'react-router';
 
 import NavLink from './NavLink';
+import doesPathMatch from '../Util/doesPathMatch';
 
 /**
  * NavList manages a bunch of {@link NavLink}.
@@ -61,26 +62,11 @@ class NavList extends React.Component {
   }
 
   /**
-   * Match matchPath against current path.
-   * Return true if matchPath and current path matches,
-   * return false if not.
-   * @param  {(number|RegExp|string)} matchPath - RegExp that will be matched
-   * against current path.
-   * @return {boolean}
-   */
-  matchAgainstCurrentPath(matchPath) {
-    const {
-      location,
-    } = this.props;
-
-    return RegExp(matchPath).test(location.pathname);
-  }
-
-  /**
    * @return {Component}
    */
   render() {
     const {
+      location,
       navs,
     } = this.props;
 
@@ -88,7 +74,7 @@ class NavList extends React.Component {
       <List>
         {
           navs.map((nav) => {
-            const isOnCurrentPage = this.matchAgainstCurrentPath(nav.matchPath);
+            const isOnCurrentPage = doesPathMatch(nav.matchPath, location.pathname);
 
             return (
               <NavLink
