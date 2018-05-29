@@ -20,11 +20,13 @@ import Main from './Main';
  * and an area for the page to display.
  * Sidebar can be toggled to be expanded or shrinked by clicking an icon on the
  * AppBar.
- * @param {Component} [props.children] - Node that will be placed on the
+ * @param {*} [props.children] - Node that will be placed on the
  * main screen area
  * @param {Object[]} props.navs - Structured array of objects represents NavList.
  * See {@link NavList}
- * @param {Function} [props.onSearch] - Callback fired when user clicks enter
+ * @param {function} [props.onLogout] - Callback fired when user clicks logout
+ * button. See {@link AppBar}
+ * @param {function} [props.onSearch] - Callback fired when user clicks enter
  * inside text field. See {@link AppBar}
  * @param {Object} [props.rootUrl] - App root url.
  * @param {(number|RegExp|string)} [props.rootUrl.matchPath] - RegExp that will
@@ -36,6 +38,7 @@ class AppFrame extends React.Component {
     children: node,
     classes: object,
     navs: array,
+    onLogout: func,
     onSearch: func,
     rootUrl: shape({
       matchPath: oneOfType([number, instanceOf(RegExp), string]),
@@ -66,6 +69,7 @@ class AppFrame extends React.Component {
     const {
       children,
       navs,
+      onLogout,
       onSearch,
       rootUrl,
     } = this.props;
@@ -82,6 +86,7 @@ class AppFrame extends React.Component {
           expandedOffsetWidth={drawerOpenWidth}
           isExpanded={!isOpen}
           onExpandToggle={this.handleDrawerToggle.bind(this)}
+          onLogout={onLogout}
           onSearch={onSearch}
           shrinkedOffsetWidth={drawerCloseWidth}
         />

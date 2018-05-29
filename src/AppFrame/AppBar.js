@@ -6,12 +6,13 @@ import {
   func,
 } from 'prop-types';
 import classNames from 'classnames';
-import {withStyles} from '@material-ui/core/styles';
-import MuiAppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
+import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
+import MuiAppBar from '@material-ui/core/AppBar';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import Toolbar from '@material-ui/core/Toolbar';
 import TextField from '@material-ui/core/TextField';
+import {withStyles} from '@material-ui/core/styles';
 
 const styles = (theme) => ({
   appBarExpanded: {
@@ -68,6 +69,10 @@ const styles = (theme) => ({
  * icon is clicked.
  * Signature:
  * function() => void
+ * @param {Function} [props.onLogout] - Callback fired when logout
+ * button is clicked.
+ * Signature:
+ * function() => void
  * @param {Function} [props.onSearch] - Callback fired when user clicks enter
  * inside text field.
  * Signature:
@@ -83,6 +88,7 @@ class AppBar extends React.Component {
     expandedOffsetWidth: number,
     isExpanded: bool,
     onExpandToggle: func,
+    onLogout: func,
     onSearch: func,
     shrinkedOffsetWidth: number,
   };
@@ -107,6 +113,17 @@ class AppBar extends React.Component {
     } = this.props;
 
     typeof onExpandToggle === 'function' && onExpandToggle();
+  }
+
+  /**
+   * Call props.onLogout.
+   */
+  handleLogout() {
+    const {
+      onLogout,
+    } = this.props;
+
+    typeof onLogout === 'function' && onLogout();
   }
 
   /**
@@ -240,6 +257,7 @@ class AppBar extends React.Component {
               onChange={this.handleSearchInputChange.bind(this)}
             />
           </form>
+          <Button onClick={this.handleLogout.bind(this)}>退出</Button>
         </Toolbar>
       </MuiAppBar>
     );
