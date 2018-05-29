@@ -1,10 +1,13 @@
 import React from 'react';
 import {
-  string,
-  node,
-  shape,
   arrayOf,
   element,
+  instanceOf,
+  node,
+  number,
+  oneOfType,
+  shape,
+  string,
 } from 'prop-types';
 import {hot} from 'react-hot-loader';
 
@@ -12,6 +15,7 @@ import {default as IBusUiAppFrame} from 'ibuscloud-ui/AppFrame';
 
 /**
  * Provides an AppBar and a navigational Drawer
+ * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
  */
 @hot(module)
 class AppFrame extends React.Component {
@@ -22,6 +26,7 @@ class AppFrame extends React.Component {
       path: string,
       text: string.isRequired,
     })),
+    rootUrl: oneOfType([number, instanceOf(RegExp), string]),
   };
 
   /**
@@ -40,10 +45,11 @@ class AppFrame extends React.Component {
     const {
       children,
       navs,
+      rootUrl,
     } = this.props;
 
     return (
-      <IBusUiAppFrame onSearch={this.handleSearch.bind(this)} navs={navs} >
+      <IBusUiAppFrame onSearch={this.handleSearch.bind(this)} navs={navs} rootUrl={rootUrl} >
         {children}
       </IBusUiAppFrame>
     );
