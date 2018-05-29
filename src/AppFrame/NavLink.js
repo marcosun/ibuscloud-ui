@@ -15,6 +15,8 @@ import color from 'color';
 
 const styles = (theme) => ({
   navLinkButton: {
+    paddingRight: 16,
+    paddingLeft: 16,
     borderLeft: `${theme.typography.pxToRem(5)} solid transparent`,
     backgroundColor: 'transparent',
     '&:hover': {
