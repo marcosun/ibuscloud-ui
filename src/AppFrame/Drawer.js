@@ -1,12 +1,14 @@
 import React from 'react';
 import {
-  number,
-  bool,
-  string,
-  object,
-  element,
   array,
+  bool,
+  element,
+  instanceOf,
+  number,
+  object,
+  oneOfType,
   shape,
+  string,
 } from 'prop-types';
 import classNames from 'classnames';
 import jss from 'jss';
@@ -57,6 +59,7 @@ const styles = (theme) => ({
  * @param {Object} [props.logo] - Contains logo icon and logo text
  * @param {string} [props.logo.text=公交云平台] - Logo text
  * @param {Element} [props.logo.icon=ibuscloud logo] - Svg logo icon
+ * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
  */
 @withStyles(styles, {name: 'IBusUiDrawer'})
 class Drawer extends React.Component {
@@ -69,6 +72,7 @@ class Drawer extends React.Component {
       text: string,
       icon: element,
     }),
+    rootUrl: oneOfType([number, instanceOf(RegExp), string]),
   };
 
   static defaultProps = {

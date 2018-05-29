@@ -1,9 +1,13 @@
 import React from 'react';
 import {
-  object,
-  func,
   array,
+  func,
+  instanceOf,
   node,
+  number,
+  object,
+  oneOfType,
+  string,
 } from 'prop-types';
 
 import AppBar from './AppBar';
@@ -21,6 +25,7 @@ import Main from './Main';
  * See {@link NavList}
  * @param {Function} [props.onSearch] - Callback fired when user clicks enter
  * inside text field. See {@link AppBar}
+ * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
  */
 class AppFrame extends React.Component {
   static propTypes = {
@@ -28,6 +33,7 @@ class AppFrame extends React.Component {
     classes: object,
     navs: array,
     onSearch: func,
+    rootUrl: oneOfType([number, instanceOf(RegExp), string]),
   };
 
   state = {
@@ -54,6 +60,7 @@ class AppFrame extends React.Component {
       children,
       navs,
       onSearch,
+      rootUrl,
     } = this.props;
 
     const {
@@ -75,6 +82,7 @@ class AppFrame extends React.Component {
           width={isOpen === true ? drawerOpenWidth : drawerCloseWidth}
           isOpen={isOpen}
           navs={navs}
+          rootUrl={rootUrl}
         />
         <Main
           marginLeft={isOpen === true ? drawerOpenWidth : drawerCloseWidth}
