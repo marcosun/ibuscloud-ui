@@ -23,24 +23,74 @@ const styles = (theme) => ({
   },
   '@media (min-width: 0px)': {
     content: {
-      width: 1106, // Screen width minus drawer width, 1366 - 260
+      width: 716, // Screen width minus drawer width minus margin, 1024 - 260 - 24 * 2
+      margin: '0 24px',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    expandedContent: {
+      width: 910, // Screen width minus drawer width minus margin, 1024 - 66 - 24 * 2
+      margin: '0 24px',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
     },
   },
-  '@media (min-width: 1366px)': {
+  '@media (min-width: 1024px)': {
     content: { // Fixed width with flexible margin
       margin: '0 auto',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    expandedContent: { // Fixed width with flexible margin
+      margin: '0 auto',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
     },
   },
-  '@media (min-width: 1516px)': {
+  '@media (min-width: 1120px)': {
     content: { // Fixed margin with flexible width
       width: 'auto',
-      margin: '0 75px',
+      margin: '0 72px',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+    },
+    expandedContent: { // Fixed margin with flexible width
+      width: 'auto',
+      margin: '0 72px',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
     },
   },
-  '@media (min-width: 1600px)': {
-    content: {
-      width: 1190, // Screen width minus drawer width minus margin, 1600 - 260 - 75 * 2
+  '@media (min-width: 1730px)': {
+    expandedContent: { // Fixed width with flexible margin
+      width: 1520,
       margin: '0 auto',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+    },
+  },
+  '@media (min-width: 1924px)': {
+    content: { // Fixed width with flexible margin
+      width: 1520,
+      margin: '0 auto',
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
     },
   },
   toolbar: {
@@ -82,12 +132,16 @@ class Main extends React.Component {
 
     return (
       <main
-        className={classNames(classes.root, {
+        className={classNames({
+          [classes.root]: !isExpanded,
           [classes.expanded]: isExpanded,
         })}
         style={{marginLeft}}
       >
-        <div className={classes.content}>
+        <div className={classNames({
+          [classes.content]: !isExpanded,
+          [classes.expandedContent]: isExpanded,
+        })}>
           <div className={classes.toolbar}></div>
           {children}
         </div>
