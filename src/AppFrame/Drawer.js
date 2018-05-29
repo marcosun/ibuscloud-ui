@@ -42,6 +42,9 @@ const styles = (theme) => ({
     paddingRight: 21,
     paddingLeft: 21,
   },
+  logoTextContainer: {
+    padding: '0 10px',
+  },
   logoText: {
     overflow: 'hidden',
     fontWeight: 800,
@@ -167,6 +170,7 @@ class Drawer extends React.Component {
         >
           <SvgIcon>{logo.icon}</SvgIcon>
           <ListItemText classes={{
+              root: classes.logoTextContainer,
               secondary: classes.logoText,
             }}
             secondary={logo.text}

@@ -27,6 +27,9 @@ const styles = (theme) => ({
     borderLeft: `${theme.typography.pxToRem(5)} solid ${theme.palette.primary.main}`,
     backgroundColor: `${color(theme.palette.primary.main).alpha(0.1)}`,
   },
+  navLinkTextContainer: {
+    padding: '0 10px',
+  },
   navLinkText: {
     overflow: 'hidden',
     color: theme.palette.common.white,
@@ -86,11 +89,10 @@ class NavLink extends React.Component {
         }}
         onClick={this.handleClick.bind(this)}
       >
-        <SvgIcon>
-          {icon}
-        </SvgIcon>
+        <SvgIcon>{icon}</SvgIcon>
         <ListItemText
           classes={{
+            root: classes.navLinkTextContainer,
             secondary: classes.navLinkText,
           }}
           secondary={text}
