@@ -36,6 +36,13 @@ class AppFrame extends React.Component {
   };
 
   /**
+   * Handle logout button click.
+   */
+  handleLogout() {
+    alert('Logout button clicked');
+  }
+
+  /**
    * Search input press enter callback
    * @param  {String} keyword
    */
@@ -55,7 +62,12 @@ class AppFrame extends React.Component {
     } = this.props;
 
     return (
-      <IBusUiAppFrame onSearch={this.handleSearch.bind(this)} navs={navs} rootUrl={rootUrl} >
+      <IBusUiAppFrame
+        onSearch={this.handleSearch.bind(this)}
+        navs={navs}
+        onLogout={this.handleLogout.bind(this)}
+        rootUrl={rootUrl}
+      >
         {children}
       </IBusUiAppFrame>
     );
