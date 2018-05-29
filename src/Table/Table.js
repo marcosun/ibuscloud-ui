@@ -163,7 +163,7 @@ class Table extends React.PureComponent {
     isPaginable: false,
     isSelectable: false,
     rows: [],
-    rowsPerPageOptions: [5, 10, 15],
+    rowsPerPageOptions: [5, 10, 25],
   };
 
   /**
