@@ -112,7 +112,7 @@ const styles = (theme) => ({
  * the table body. Property names defined in props.columns will be looked for
  * and values will be displayed on the corresponding column.
  * @param {string|number} props.rows[].id - Unique id
- * @param {number[]} [props.rowsPerPageOptions=[5, 7, 10]] - The number of rows
+ * @param {number[]} [props.rowsPerPageOptions=[5, 10, 15]] - The number of rows
  * per page.
  * @param {(number|string)} [props.selectedRowIds] - Pass an array of rowIds that should be selected
  * @param {number} [props.total] - Total number of rows.
@@ -163,7 +163,7 @@ class Table extends React.PureComponent {
     isPaginable: false,
     isSelectable: false,
     rows: [],
-    rowsPerPageOptions: [5, 7, 10],
+    rowsPerPageOptions: [5, 10, 15],
   };
 
   /**
