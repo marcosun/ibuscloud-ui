@@ -128,7 +128,10 @@ export default class Router extends React.Component {
               path: '/theme',
               text: 'Theme',
             }]}
-            rootUrl='/buttonGroup'
+            rootUrl={{
+              matchPath: '/buttonGroup',
+              path: '/buttonGroup',
+            }}
           >
             <Route exact path='/' render={() => (
               <Redirect to='/buttonGroup' />

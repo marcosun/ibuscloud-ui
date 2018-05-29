@@ -15,7 +15,10 @@ import {default as IBusUiAppFrame} from 'ibuscloud-ui/AppFrame';
 
 /**
  * Provides an AppBar and a navigational Drawer
- * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
+ * @param {Object} [props.rootUrl] - App root url.
+ * @param {(number|RegExp|string)} [props.rootUrl.matchPath] - RegExp that will
+ * be matched against with current path.
+ * @param {string} [props.rootUrl.path] - App root url.
  */
 @hot(module)
 class AppFrame extends React.Component {
@@ -26,7 +29,10 @@ class AppFrame extends React.Component {
       path: string,
       text: string.isRequired,
     })),
-    rootUrl: oneOfType([number, instanceOf(RegExp), string]),
+    rootUrl: shape({
+      matchPath: oneOfType([number, instanceOf(RegExp), string]),
+      path: string,
+    }),
   };
 
   /**
