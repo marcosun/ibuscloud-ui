@@ -17,8 +17,10 @@ import MuiDrawer from '@material-ui/core/Drawer';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import {withRouter} from 'react-router';
 
 import NavList from './NavList';
+import doesPathMatch from '../Util/doesPathMatch';
 
 const styles = (theme) => ({
   drawerPaper: {
@@ -52,36 +54,39 @@ const styles = (theme) => ({
 /**
  * Drawer can be toggled between expanded and shrinked status changing two
  * properties: isOpen and width
- * @param {number} [width=0] - Drawer width
  * @param {boolean} [props.isOpen=true] - Drawer open status
+ * @param {Object} [props.logo] - Contains logo icon and logo text
+ * @param {Element} [props.logo.icon=ibuscloud logo] - Svg logo icon
+ * @param {string} [props.logo.text=公交云平台] - Logo text
  * @param {Object[]} props.navs - Structured array of objects represents NavList.
  * See {@link NavList}
- * @param {Object} [props.logo] - Contains logo icon and logo text
- * @param {string} [props.logo.text=公交云平台] - Logo text
- * @param {Element} [props.logo.icon=ibuscloud logo] - Svg logo icon
  * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
+ * @param {number} [props.width=0] - Drawer width
  */
+@withRouter
 @withStyles(styles, {name: 'IBusUiDrawer'})
 class Drawer extends React.Component {
   static propTypes = {
     classes: object,
-    width: number,
+    history: object,
     isOpen: bool,
-    navs: array,
+    location: object,
     logo: shape({
-      text: string,
       icon: element,
+      text: string,
     }),
+    navs: array,
     rootUrl: oneOfType([number, instanceOf(RegExp), string]),
+    width: number,
   };
 
   static defaultProps = {
-    width: 0,
     isOpen: true,
     logo: {
-      text: '公交云平台',
       icon: <use xlinkHref="#icon-logo_gjy"></use>,
+      text: '公交云平台',
     },
+    width: 0,
   };
 
   /**
@@ -102,8 +107,22 @@ class Drawer extends React.Component {
     }).attach();
   }
 
+  /**
+   * Click on logo will redirect to root url.
+   */
   handleClick() {
-    
+    const {
+      history,
+      location,
+      rootUrl,
+    } = this.props;
+
+    const preventRedirect = doesPathMatch(rootUrl, location.pathname);
+
+    // Redirect only if currnt path does not match rootUrl
+    if (preventRedirect || rootUrl === void 0) return;
+
+    history.push(rootUrl);
   }
 
   /**
