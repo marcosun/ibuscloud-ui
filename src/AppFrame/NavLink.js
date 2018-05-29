@@ -76,12 +76,12 @@ class NavLink extends React.Component {
 
     return (
       <ListItem
+        button
         classes={{
           root: classNames(classes.navLinkButton, {
             [classes.activeNavLink]: isActive,
           }),
         }}
-        button
         onClick={this.handleClick.bind(this)}
       >
         <SvgIcon>

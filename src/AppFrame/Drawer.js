@@ -98,6 +98,10 @@ class Drawer extends React.Component {
     }).attach();
   }
 
+  handleClick() {
+    
+  }
+
   /**
    * @return {Component}
    */
@@ -128,8 +132,9 @@ class Drawer extends React.Component {
         open={isOpen === true}
       >
         <ListItem
+          button
           className={classes.logo}
-          component='div'
+          onClick={this.handleClick.bind(this)}
         >
           <SvgIcon classes={{
             root: classes.logoIcon,
