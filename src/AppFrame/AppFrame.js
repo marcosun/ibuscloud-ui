@@ -7,6 +7,7 @@ import {
   number,
   object,
   oneOfType,
+  shape,
   string,
 } from 'prop-types';
 
@@ -25,7 +26,10 @@ import Main from './Main';
  * See {@link NavList}
  * @param {Function} [props.onSearch] - Callback fired when user clicks enter
  * inside text field. See {@link AppBar}
- * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
+ * @param {Object} [props.rootUrl] - App root url.
+ * @param {(number|RegExp|string)} [props.rootUrl.matchPath] - RegExp that will
+ * be matched against with current path.
+ * @param {string} [props.rootUrl.path] - App root url.
  */
 class AppFrame extends React.Component {
   static propTypes = {
@@ -33,7 +37,10 @@ class AppFrame extends React.Component {
     classes: object,
     navs: array,
     onSearch: func,
-    rootUrl: oneOfType([number, instanceOf(RegExp), string]),
+    rootUrl: shape({
+      matchPath: oneOfType([number, instanceOf(RegExp), string]),
+      path: string,
+    }),
   };
 
   state = {

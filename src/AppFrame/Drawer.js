@@ -60,7 +60,10 @@ const styles = (theme) => ({
  * @param {string} [props.logo.text=公交云平台] - Logo text
  * @param {Object[]} props.navs - Structured array of objects represents NavList.
  * See {@link NavList}
- * @param {(number|RegExp|string)} [props.rootUrl] - App root url.
+ * @param {Object} [props.rootUrl={}] - App root url.
+ * @param {(number|RegExp|string)} [props.rootUrl.matchPath] - RegExp that will
+ * be matched against with current path.
+ * @param {string} [props.rootUrl.path] - App root url.
  * @param {number} [props.width=0] - Drawer width
  */
 @withRouter
@@ -76,7 +79,10 @@ class Drawer extends React.Component {
       text: string,
     }),
     navs: array,
-    rootUrl: oneOfType([number, instanceOf(RegExp), string]),
+    rootUrl: shape({
+      matchPath: oneOfType([number, instanceOf(RegExp), string]),
+      path: string,
+    }),
     width: number,
   };
 
@@ -86,6 +92,7 @@ class Drawer extends React.Component {
       icon: <use xlinkHref="#icon-logo_gjy"></use>,
       text: '公交云平台',
     },
+    rootUrl: {},
     width: 0,
   };
 
@@ -117,12 +124,12 @@ class Drawer extends React.Component {
       rootUrl,
     } = this.props;
 
-    const preventRedirect = doesPathMatch(rootUrl, location.pathname);
+    const preventRedirect = doesPathMatch(rootUrl.matchPath, location.pathname);
 
     // Redirect only if currnt path does not match rootUrl
-    if (preventRedirect || rootUrl === void 0) return;
+    if (preventRedirect || rootUrl.path === void 0) return;
 
-    history.push(rootUrl);
+    history.push(rootUrl.path);
   }
 
   /**
