@@ -1,10 +1,11 @@
 import React from 'react';
 import {
+  arrayOf,
   bool,
-  string,
+  func,
   object,
   shape,
-  arrayOf,
+  string,
 } from 'prop-types';
 import {withRouter} from 'react-router';
 import MuiStepper from '@material-ui/core/Stepper';
@@ -19,6 +20,8 @@ import StepLabel from '@material-ui/core/StepLabel';
  * current step.
  * Step with isCompleted = true can be clicked to redirect to the
  * corresponding address.
+ * @param {function} [onClick] - Fire callback when step item is clicked.
+ * If function is defined, default router redirect will be disabled.
  * @param {Object[]} [props.steps=[]] - An aray of steps
  * @param {boolean} [props.steps.isActive=false] - Is current step
  * @param {boolean} [props.steps.isCompleted=false] - Is this step completed
@@ -29,6 +32,7 @@ import StepLabel from '@material-ui/core/StepLabel';
 class Stepper extends React.PureComponent {
   static propTypes = {
     history: object,
+    onClick: func,
     steps: arrayOf(shape({
       isActive: bool,
       isCompleted: bool,
@@ -44,14 +48,26 @@ class Stepper extends React.PureComponent {
   /**
    * If clicked step is not equal to current step,
    * redirect to address specified by path.
-   * @param {boolean} [step.isActive] - Is current step
-   * @param {string} [step.path] - Path to redirect
+   * If props.onClick is defined, default router redirect will be disabled.
+   * @param {object} step - Clicked step.
    */
-  handleStepClick({isActive, path}) {
-    const {history} = this.props;
+  handleStepClick(step) {
+    const {
+      history,
+      onClick,
+    } = this.props;
 
-    if (typeof path === 'string' && isActive !== true) {
-      history.push(path);
+    const {
+      isActive,
+      path,
+    } = step;
+
+    if (isActive === false) {
+      if (typeof onClick === 'function') {
+        onClick(step);
+      } else {
+        typeof path === 'string' && history.push(path);
+      }
     }
   }
 
