@@ -62,7 +62,7 @@ class Stepper extends React.PureComponent {
       path,
     } = step;
 
-    if (isActive === false) {
+    if (isActive !== true) {
       if (typeof onClick === 'function') {
         onClick(step);
       } else {
