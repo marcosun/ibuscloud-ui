@@ -407,6 +407,8 @@ class Table extends React.PureComponent {
           ActionsComponent={TablePaginationActions}
           component='div'
           count={total}
+          labelDisplayedRows={() => {}}
+          labelRowsPerPage={'每页展示条数'}
           page={currentPage}
           rowsPerPage={rowsPerPage}
           rowsPerPageOptions={rowsPerPageOptions}
