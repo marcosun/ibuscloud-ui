@@ -392,10 +392,11 @@ class Table extends React.PureComponent {
                 colSpan={
                   isSelectable === true ?
                   columns.reduce((total, column) => (
-                    total + column.colSpan
+                    // If colSpan is not defined, give it colSpan value 1.
+                    total + (column.colSpan || 1)
                   ), 0) + 1 :
                   columns.reduce((total, column) => (
-                    total + column.colSpan
+                    total + (column.colSpan || 1)
                   ), 0)
                 }
               />
