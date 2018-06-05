@@ -342,8 +342,6 @@ class Table extends React.PureComponent {
     } = this.state;
 
     const bodyElement = (() => {
-      const emptyRows = rowsPerPage - rows.length;
-
       return (
           <TableBody>
           {
@@ -384,23 +382,6 @@ class Table extends React.PureComponent {
                 </TableRow>
               );
             })
-          }
-          {
-            emptyRows > 0 &&
-            <TableRow style={{height: 57 * emptyRows}}>
-              <TableCell
-                colSpan={
-                  isSelectable === true ?
-                  columns.reduce((total, column) => (
-                    // If colSpan is not defined, give it colSpan value 1.
-                    total + (column.colSpan || 1)
-                  ), 0) + 1 :
-                  columns.reduce((total, column) => (
-                    total + (column.colSpan || 1)
-                  ), 0)
-                }
-              />
-            </TableRow>
           }
         </TableBody>
       );
