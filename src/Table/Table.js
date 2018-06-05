@@ -393,7 +393,7 @@ class Table extends React.PureComponent {
           ActionsComponent={TablePaginationActions}
           component='div'
           count={total}
-          labelDisplayedRows={() => {}}
+          labelDisplayedRows={({from, to, count}) => (`${from}-${to}条 共${count}条`)}
           labelRowsPerPage={'每页展示条数'}
           page={currentPage}
           rowsPerPage={rowsPerPage}
