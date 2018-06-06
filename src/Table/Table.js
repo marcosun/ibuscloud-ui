@@ -61,7 +61,7 @@ const styles = (theme) => ({
  * its state based on your prop's value rather than its own internal state.
  * @param {Object[]} props.columns - See {@link TableHead}
  * @param {number} [props.columns[].colSpan] - colSpan property of td element
- * @param {string|number} props.columns[].id - Unique id
+ * @param {(number|string)} props.columns[].id - Unique id
  * @param {boolean} [props.columns[].isNumeric=false] - If true,
  * content will align to the right.
  * @param {boolean} props.columns[].isOrderable - Enable
@@ -86,7 +86,7 @@ const styles = (theme) => ({
  * See {@link TableHead}
  * @param {string} props.order.columnId - Column id.
  * The label will have the active styling.
- * @param {string|boolean} props.order.orderBy - Enum: 'asc', 'desc', false.
+ * @param {(boolean|string)} props.order.orderBy - Enum: 'asc', 'desc', false.
  * @param {function} props.onChangePage - Callback fired when the page changes.
  * Signature:
  * function(event: object, page: number) => void
@@ -111,7 +111,9 @@ const styles = (theme) => ({
  * @param {Object[]} [props.rows] - Represents rows of the current page in
  * the table body. Property names defined in props.columns will be looked for
  * and values will be displayed on the corresponding column.
- * @param {string|number} props.rows[].id - Unique id
+ * @param {(number|string)} props.rows[].id - Unique id
+ * @param {boolean} [props.rows[].isCheckboxDisabled=false] - If true,
+ * the checkbox of row will be disabled.
  * @param {number[]} [props.rowsPerPageOptions=[5, 10, 15]] - The number of rows
  * per page.
  * @param {(number|string)} [props.selectedRowIds] - Pass an array of rowIds that should be selected
@@ -151,6 +153,7 @@ class Table extends React.PureComponent {
     onRowSelect: func,
     rows: arrayOf(shape({
       id: oneOfType([string, number]).isRequired,
+      isCheckboxDisabled: bool,
     })),
     rowsPerPageOptions: arrayOf(number),
     selectedRowIds: arrayOf(oneOfType([number, string])),
@@ -356,6 +359,7 @@ class Table extends React.PureComponent {
                 <Checkbox
                   color='primary'
                   checked={selectedRowIds.includes(row.id)}
+                  disabled={row.isCheckboxDisabled === true}
                   onChange={this.handleRowSelect.bind(this, row)}
                 />
               </TableCell>;
