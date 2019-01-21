@@ -1,6 +1,17 @@
 {
-  "presets": ["./script/babel-preset", "stage-0", "react"],
+  "presets": ["./script/babel-preset", "@babel/preset-react"],
   "plugins": [
-    "transform-decorators-legacy"
+    [
+      "@babel/plugin-proposal-decorators",
+      {
+        "legacy": true
+      }
+    ],
+    [
+      "@babel/plugin-proposal-class-properties",
+      { 
+        "loose": true
+      }
+    ],
   ]
 }

@@ -7,7 +7,7 @@ if (ENV === 'es') {
   config = {
     presets: [
       [
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             ie: 11,
@@ -24,4 +24,4 @@ if (ENV === 'es') {
   };
 }
 
-module.exports = config;
+module.exports = () => config;
