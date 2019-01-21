@@ -5,6 +5,33 @@
   ],
   "plugins": [
     "react-hot-loader/babel",
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/core",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false,
+      },
+      "@material-ui/core"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "@material-ui/icons",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false,
+      },
+      "@material-ui/icons"
+    ],
+    [
+      "import",
+      {
+        "libraryName": "react-router-dom",
+        "libraryDirectory": "",
+        "camel2DashComponentName": false,
+      },
+      "react-router-dom"
+    ],
     "@babel/plugin-syntax-dynamic-import",
     "@babel/plugin-syntax-import-meta",
     [
