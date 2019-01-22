@@ -8,27 +8,17 @@
     [
       "import",
       {
-        "libraryName": "@material-ui/core",
-        "libraryDirectory": "",
-        "camel2DashComponentName": false,
+        "libraryName": "antd",
+        "style": true
       },
-      "@material-ui/core"
-    ],
-    [
-      "import",
-      {
-        "libraryName": "@material-ui/icons",
-        "libraryDirectory": "",
-        "camel2DashComponentName": false,
-      },
-      "@material-ui/icons"
+      "ant",
     ],
     [
       "import",
       {
         "libraryName": "react-router-dom",
         "libraryDirectory": "",
-        "camel2DashComponentName": false,
+        "camel2DashComponentName": false
       },
       "react-router-dom"
     ],
