@@ -51,7 +51,7 @@ module.exports = {
 
       {
         test: /\.less$/,
-        include: path.appSrc,
+        include: [path.appSrc, path.ibuscloudUi],
         use: [
           {
             loader: 'style-loader',
@@ -81,7 +81,7 @@ module.exports = {
 
       {
         test: /\.less$/,
-        exclude: path.appSrc,
+        exclude: [path.appSrc, path.ibuscloudUi],
         use: [
           {
             loader: 'style-loader',
@@ -89,10 +89,7 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
-              camelCase: true,
               importLoaders: 2,
-              localIdentName: '[path][name]__[local]--[hash:base64:6]',
-              modules: true,
             },
           },
           {
