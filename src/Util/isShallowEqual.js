@@ -11,7 +11,8 @@ export default function(objA, objB) {
   }
 
   // Test case: NaN
-  if (objA !== objA && objB !== objB) {
+  if (typeof objA === 'number' && Number.isNaN(objA)
+    && typeof objB === 'number' && Number.isNaN(objB)) {
     return true;
   }
 
@@ -29,7 +30,7 @@ export default function(objA, objB) {
   }
 
   // Test for A's keys different from B.
-  for (let i = 0; i < keysA.length; i++) {
+  for (let i = 0; i < keysA.length; i += 1) {
     if (!objB.hasOwnProperty(keysA[i]) ||
       !Object.is(objA[keysA[i]], objB[keysA[i]])) {
       return false;

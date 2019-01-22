@@ -1,20 +1,4 @@
 /**
- * @return {function}
- */
-export const createInternalSetState = () => {
-  return function(state = this.state, props = this.props) {
-    const nextState = {
-      ...this.state,
-      ...mergePropsToState(state, props),
-    };
-
-    this.setState(nextState);
-
-    return nextState;
-  };
-};
-
-/**
  * Check prop whether it is a controlled prop
  * @param  {Object}  props - Props value
  * @param  {string}  key - Need checked key
@@ -43,4 +27,21 @@ export const mergePropsToState = (state, props) => {
       })();
     return accumulator;
   }, {});
+};
+
+
+/**
+ * @return {function}
+ */
+export const createInternalSetState = () => {
+  return function internalSetState(state = this.state, props = this.props) {
+    const nextState = {
+      ...this.state,
+      ...mergePropsToState(state, props),
+    };
+
+    this.setState(nextState);
+
+    return nextState;
+  };
 };
