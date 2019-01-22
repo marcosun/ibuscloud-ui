@@ -89,7 +89,10 @@ module.exports = {
           {
             loader: 'css-loader',
             options: {
+              camelCase: true,
               importLoaders: 2,
+              localIdentName: '[path][name]__[local]--[hash:base64:6]',
+              modules: true,
             },
           },
           {
