@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Icon,
-  Layout as AntLayout,
-} from 'antd';
+import Icon from 'antd/lib/icon';
+import AntLayout from 'antd/lib/layout';
+import 'antd/lib/icon/style';
+import 'antd/lib/layout/style';
 import classes from './index.less';
 
 const { Header, Content, Footer, Sider } = AntLayout;

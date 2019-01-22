@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  Skeleton,
-} from 'antd';
+import Skeleton from 'antd/lib/skeleton';
+import 'antd/lib/skeleton/style';
 import ReactEcharts from 'echarts-for-react/lib/core';
 import echarts from 'echarts/lib/echarts';
 import 'echarts/lib/chart/bar';
