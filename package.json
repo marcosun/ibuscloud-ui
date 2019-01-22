@@ -21,6 +21,9 @@
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
+    "antd": "^3.12.4",
+    "echarts": "^4.2.0-rc.2",
+    "echarts-for-react": "^2.0.15-beta.0",
     "react": ">16.0.0",
     "react-router-dom": "*"
   },
