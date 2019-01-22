@@ -1,12 +1,9 @@
 import React from 'react';
-import {CssBaseline} from '@material-ui/core';
-
-import Router from './router';
+import AppFrame from './AppFrame';
 
 const App = () => (
   <div>
-    <CssBaseline />
-    <Router />
+    <AppFrame />
   </div>
 );
 
