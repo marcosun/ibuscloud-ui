@@ -21,14 +21,10 @@
   "author": "marcosun <marcoinbristol@gmail.com>",
   "license": "MIT",
   "peerDependencies": {
-    "@material-ui/core": "^1.0.0",
-    "@material-ui/icons": "^1.0.0",
     "react": ">16.0.0",
     "react-router-dom": "*"
   },
-  "dependencies": {
-    "color": "^3.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "^7.0.0",
     "@babel/core": "^7.0.0",
