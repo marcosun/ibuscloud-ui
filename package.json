@@ -6,7 +6,9 @@
   "module": "es/index.js",
   "scripts": {
     "start": "nodemon --exec yarn run dev",
-    "dev": "cross-env NODE_ENV=production babel src -d demo/node_modules/ibuscloud-ui --ignore *.test.js",
+    "dev:less": "cross-env NODE_ENV=production babel src --out-dir demo/node_modules/ibuscloud-ui --copy-files --ignore *.test.js",
+    "dev:es2015": "cross-env NODE_ENV=production babel src -d demo/node_modules/ibuscloud-ui --ignore *.test.js",
+    "dev": "yarn dev:less && yarn dev:es2015",
     "prebuild": "rimraf build",
     "build:es2015": "cross-env NODE_ENV=production babel src -d build --ignore *.test.js",
     "build:es": "cross-env NODE_ENV=production BABEL_ENV=es babel src -d build/es --ignore *.test.js",
@@ -24,6 +26,7 @@
     "antd": "^3.12.4",
     "echarts": "^4.2.0-rc.2",
     "echarts-for-react": "^2.0.15-beta.0",
+    "less": "^3.9.0",
     "react": ">16.0.0",
     "react-router-dom": "*"
   },
