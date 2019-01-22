@@ -1,0 +1,62 @@
+@import "~antd/es/style/themes/default";
+
+:global(#app) {
+  height: 100%;
+};
+
+.root {
+  height: 100%;
+}
+
+.sider {
+  color: white;
+}
+
+.siderRight {
+  position: relative;
+}
+
+.header {
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  padding: 0;
+  background: white;
+  /* Segment line under header. */
+  border-bottom: 1px solid @border-color-base;
+  /* Shadow under header. */
+  box-shadow: @box-shadow-base;
+}
+
+.headerBottom {
+  overflow: auto;
+  height: 100%;
+  margin-top: 64px;
+}
+
+/* Allow height to expand such that page will become scrollable. */
+.content {
+}
+
+/**
+ * Don't fix footer at the bottom of the page because it will be very difficult to calculate
+ * height of the content in order not to overflow root html when page our user mannually sets
+ * margin of the content, i.e. in order to offset margin, content children's margin is set to
+ * -24px.
+ */
+.footer {
+  width: 100%;
+  text-align: center;
+}
+
+.toggleSiderIcon {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+}
+
+.toggleSiderIcon:hover {
+  color: #1890ff;
+}
