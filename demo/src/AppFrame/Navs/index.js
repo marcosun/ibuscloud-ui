@@ -15,6 +15,10 @@ const navs = [{
   icon: 'down-circle',
   name: 'CollapsePanel',
   path: 'collapsePanel',
+}, {
+  icon: 'download',
+  name: 'Download',
+  path: 'download',
 }];
 
 /* Test path against current pathname. */
