@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader';
 import {
   BarChart as IbusBarChart,
   Board,
@@ -6,7 +7,8 @@ import {
   Panel,
 } from 'ibuscloud-ui';
 
-export default class BarChart extends React.PureComponent {
+@hot(module)
+class BarChart extends React.PureComponent {
   state={
     data: [],
   }
@@ -45,3 +47,5 @@ export default class BarChart extends React.PureComponent {
     );
   }
 }
+
+export default BarChart;
