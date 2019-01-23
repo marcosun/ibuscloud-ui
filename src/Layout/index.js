@@ -27,6 +27,7 @@ class Layout extends React.PureComponent {
   render() {
     const {
       contentComponent,
+      footerComponent,
       headerComponent,
       siderComponent,
     } = this.props;
@@ -59,7 +60,7 @@ class Layout extends React.PureComponent {
               {contentComponent}
             </Content>
             <Footer className={classes.footer}>
-              公交云 DTCHUXING ©2018
+              {footerComponent}
             </Footer>
           </div>
         </AntLayout>
@@ -71,6 +72,8 @@ class Layout extends React.PureComponent {
 Layout.propTypes = {
   /* Page Content. */
   contentComponent: PropTypes.node,
+  /* Page Footer. */
+  footerComponent: PropTypes.node,
   /* Page Header. */
   headerComponent: PropTypes.node,
   /* Page Sider. Navigate menu. */
