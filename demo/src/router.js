@@ -36,6 +36,15 @@ export default class Router extends React.Component {
         return <div>loading</div>;
       },
     });
+
+    this.ErrorBoundary = loadable({
+      loader: () => {
+        return import('./ErrorBoundary');
+      },
+      loading: () => {
+        return <div>loading</div>;
+      },
+    });
   }
 
   render() {
@@ -45,6 +54,7 @@ export default class Router extends React.Component {
         <Route exact path="/barChart" component={this.BarChart} />
         <Route exact path="/collapsePanel" component={this.CollapsePanel} />
         <Route exact path="/download" component={this.Download} />
+        <Route exact path="/errorBoundary" component={this.ErrorBoundary} />
       </Switch>
     );
   }

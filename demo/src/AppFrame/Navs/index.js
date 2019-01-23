@@ -19,6 +19,10 @@ const navs = [{
   icon: 'download',
   name: 'Download',
   path: 'download',
+}, {
+  icon: 'warning',
+  name: 'ErrorBoundary',
+  path: 'errorBoundary',
 }];
 
 /* Test path against current pathname. */
