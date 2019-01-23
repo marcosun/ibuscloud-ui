@@ -1,13 +1,31 @@
 import React from 'react';
 import {
-  BrowserRouter,
+  Redirect,
+  Route,
   Switch,
 } from 'react-router-dom';
+import loadable from 'react-loadable';
 
 export default class Router extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.BarChart = loadable({
+      loader: () => {
+        return import('./BarChart');
+      },
+      loading: () => {
+        return <div>loading</div>;
+      },
+    });
+  }
+
   render() {
     return (
-        <Switch></Switch>
+      <Switch>
+        <Route exact path="/" render={() => <Redirect to="/barChart" />} />
+        <Route exact path="/barChart" component={this.BarChart} />
+      </Switch>
     );
   }
 }

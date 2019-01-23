@@ -16,6 +16,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "antd": "^3.12.4",
+    "echarts": "^4.2.0-rc.2",
+    "echarts-for-react": "^2.0.15-beta.0",
     "less": "^3.9.0",
     "prop-types": "^15.6.1",
     "react": "^16.2.0",

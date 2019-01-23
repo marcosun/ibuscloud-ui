@@ -7,7 +7,11 @@ import classes from './index.less';
 import logo from './logo.png';
 
 /* Navigate items configuration. */
-const navs = [];
+const navs = [{
+  icon: 'bar-chart',
+  name: 'BarChart',
+  path: '/barChart',
+}];
 
 /* Test path against current pathname. */
 function isPathMatchCurrentLocation(path) {
