@@ -8,7 +8,7 @@ import 'echarts/lib/chart/bar';
 import 'echarts/lib/component/dataZoom';
 import 'echarts/lib/component/legend';
 import 'echarts/lib/component/title';
-import 'echarts/lib/component/tooltip'; 
+import 'echarts/lib/component/tooltip';
 
 const builtInOptions = {
   /* The label color of XAxis and yAxis */
