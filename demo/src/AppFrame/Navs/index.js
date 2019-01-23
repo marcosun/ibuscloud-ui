@@ -11,6 +11,10 @@ const navs = [{
   icon: 'bar-chart',
   name: 'BarChart',
   path: '/barChart',
+}, {
+  icon: 'down-circle',
+  name: 'CollapsePanel',
+  path: 'collapsePanel',
 }];
 
 /* Test path against current pathname. */

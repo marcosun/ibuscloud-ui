@@ -18,6 +18,15 @@ export default class Router extends React.Component {
         return <div>loading</div>;
       },
     });
+
+    this.CollapsePanel = loadable({
+      loader: () => {
+        return import('./CollapsePanel');
+      },
+      loading: () => {
+        return <div>loading</div>;
+      },
+    });
   }
 
   render() {
@@ -25,6 +34,7 @@ export default class Router extends React.Component {
       <Switch>
         <Route exact path="/" render={() => <Redirect to="/barChart" />} />
         <Route exact path="/barChart" component={this.BarChart} />
+        <Route exact path="/collapsePanel" component={this.CollapsePanel} />
       </Switch>
     );
   }
