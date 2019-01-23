@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import AppFrame from './AppFrame';
 
 const App = () => (
@@ -6,7 +7,9 @@ const App = () => (
     width: '100vw',
     height: '100vh',
   }}>
-    <AppFrame />
+    <BrowserRouter>
+      <AppFrame />
+    </BrowserRouter>
   </div>
 );
 

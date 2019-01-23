@@ -7,9 +7,7 @@ import {
 export default class Router extends React.Component {
   render() {
     return (
-      <BrowserRouter>
         <Switch></Switch>
-      </BrowserRouter>
     );
   }
 }
