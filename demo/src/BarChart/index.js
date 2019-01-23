@@ -1,5 +1,10 @@
 import React from 'react';
-import IbusBarChart from 'ibuscloud-ui/BarChart';
+import {
+  BarChart as IbusBarChart,
+  Board,
+  BreadcrumbWithTitle,
+  Panel,
+} from 'ibuscloud-ui';
 
 export default class BarChart extends React.PureComponent {
   state={
@@ -24,12 +29,19 @@ export default class BarChart extends React.PureComponent {
 
   render() {
     return (
-      <IbusBarChart
-        loading={this.state.data.length === 0}
-        series={[{
-          data: this.state.data,
-        }]}
-      />
+      <div>
+        <Board>
+          <BreadcrumbWithTitle breadCrumbPaths={['ibuscloud-ui', 'barChart']} title="BarChart" />
+        </Board>
+        <Panel title="BarChart">
+          <IbusBarChart
+            loading={this.state.data.length === 0}
+            series={[{
+              data: this.state.data,
+            }]}
+          />
+        </Panel>
+      </div>
     );
   }
 }
