@@ -27,6 +27,10 @@ const navs = [{
   icon: 'fund',
   name: 'GraphChart',
   path: 'graphChart',
+}, {
+  icon: 'line-chart',
+  name: 'LineChart',
+  path: 'lineChart',
 }];
 
 /* Test path against current pathname. */

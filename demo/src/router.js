@@ -54,6 +54,15 @@ export default class Router extends React.Component {
         return <div>loading</div>;
       },
     });
+
+    this.LineChart = loadable({
+      loader: () => {
+        return import('./LineChart');
+      },
+      loading: () => {
+        return <div>loading</div>;
+      },
+    });
   }
 
   render() {
@@ -65,6 +74,7 @@ export default class Router extends React.Component {
         <Route exact path="/download" component={this.Download} />
         <Route exact path="/errorBoundary" component={this.ErrorBoundary} />
         <Route exact path="/graphChart" component={this.GraphChart} />
+        <Route exact path="/lineChart" component={this.LineChart} />
       </Switch>
     );
   }
