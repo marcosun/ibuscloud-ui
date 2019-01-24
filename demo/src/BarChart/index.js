@@ -14,7 +14,7 @@ class BarChart extends React.PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.setState(() => ({
         data: [
           ['Mon', 10],
@@ -27,6 +27,10 @@ class BarChart extends React.PureComponent {
         ],
       }));
     }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
   }
 
   render() {

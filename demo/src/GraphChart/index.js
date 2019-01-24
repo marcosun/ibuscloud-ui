@@ -16,7 +16,7 @@ class GraphChart extends React.PureComponent {
   }
 
   componentDidMount() {
-    setTimeout(() => {
+    this.timeoutId = setTimeout(() => {
       this.setState(() => ({
         data: [{
           name: '节点1',
@@ -63,6 +63,10 @@ class GraphChart extends React.PureComponent {
         }],
       }));
     }, 5000);
+  }
+
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId);
   }
 
   render() {
