@@ -146,7 +146,7 @@ class GraphChart extends React.PureComponent {
       loading,
       series,
       title,
-      ...other
+      ...others
     } = this.props;
 
     const option = {
@@ -163,7 +163,7 @@ class GraphChart extends React.PureComponent {
           notMerge
           option={option}
           style={{ height }}
-          {...other}
+          {...others}
         />
       </Skeleton>
     );

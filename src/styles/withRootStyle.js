@@ -12,11 +12,11 @@ function withRootStyle(className) {
     const {
       className: classNameProp,
       component: Component,
-      ...other
+      ...others
     } = props;
 
     return (
-      <Component className={classNames(className, classNameProp)} {...other} />
+      <Component className={classNames(className, classNameProp)} {...others} />
     );
   };
 

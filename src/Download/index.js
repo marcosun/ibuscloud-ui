@@ -4,14 +4,14 @@ import qs from 'qs';
 
 class Download extends React.PureComponent {
   render() {
-    const { children, className, query, queryFormatter, url, ...other } = this.props;
+    const { children, className, query, queryFormatter, url, ...others } = this.props;
     const stringifiedQuery = queryFormatter(query);
 
     return (
       <a
         className={className}
         href={`${url}${stringifiedQuery !== '' ? `?${stringifiedQuery}` : ''}`}
-        {...other}
+        {...others}
       >
         {children}
       </a>
