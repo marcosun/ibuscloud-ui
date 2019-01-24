@@ -63,6 +63,15 @@ export default class Router extends React.Component {
         return <div>loading</div>;
       },
     });
+
+    this.MatrixChart = loadable({
+      loader: () => {
+        return import('./MatrixChart');
+      },
+      loading: () => {
+        return <div>loading</div>;
+      },
+    });
   }
 
   render() {
@@ -75,6 +84,7 @@ export default class Router extends React.Component {
         <Route exact path="/errorBoundary" component={this.ErrorBoundary} />
         <Route exact path="/graphChart" component={this.GraphChart} />
         <Route exact path="/lineChart" component={this.LineChart} />
+        <Route exact path="/matrixChart" component={this.MatrixChart} />
       </Switch>
     );
   }

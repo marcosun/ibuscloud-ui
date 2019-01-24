@@ -31,6 +31,10 @@ const navs = [{
   icon: 'line-chart',
   name: 'LineChart',
   path: 'lineChart',
+}, {
+  icon: 'sliders',
+  name: 'MatrixChart',
+  path: 'matrixChart',
 }];
 
 /* Test path against current pathname. */
