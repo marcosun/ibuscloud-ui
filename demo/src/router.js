@@ -45,6 +45,15 @@ export default class Router extends React.Component {
         return <div>loading</div>;
       },
     });
+
+    this.GraphChart = loadable({
+      loader: () => {
+        return import('./GraphChart');
+      },
+      loading: () => {
+        return <div>loading</div>;
+      },
+    });
   }
 
   render() {
@@ -55,6 +64,7 @@ export default class Router extends React.Component {
         <Route exact path="/collapsePanel" component={this.CollapsePanel} />
         <Route exact path="/download" component={this.Download} />
         <Route exact path="/errorBoundary" component={this.ErrorBoundary} />
+        <Route exact path="/graphChart" component={this.GraphChart} />
       </Switch>
     );
   }

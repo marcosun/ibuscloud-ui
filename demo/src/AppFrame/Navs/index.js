@@ -23,6 +23,10 @@ const navs = [{
   icon: 'warning',
   name: 'ErrorBoundary',
   path: 'errorBoundary',
+}, {
+  icon: 'fund',
+  name: 'GraphChart',
+  path: 'graphChart',
 }];
 
 /* Test path against current pathname. */
