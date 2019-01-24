@@ -7,4 +7,5 @@ export { default as ErrorBoundary } from './ErrorBoundary';
 export { default as GraphChart } from './GraphChart';
 export { default as Layout } from './Layout';
 export { default as LineChart } from './LineChart';
+export { default as MatrixChart } from './MatrixChart';
 export { default as Panel } from './Panel';
