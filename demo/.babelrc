@@ -42,5 +42,7 @@
 
     // HMR
     "react-hot-loader/babel",
+    // Preval
+    "babel-plugin-preval"
   ]
 }
