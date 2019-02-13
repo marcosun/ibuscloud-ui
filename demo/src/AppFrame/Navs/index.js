@@ -14,27 +14,27 @@ const navs = [{
 }, {
   icon: 'down-circle',
   name: 'CollapsePanel',
-  path: 'collapsePanel',
+  path: '/collapsePanel',
 }, {
   icon: 'download',
   name: 'Download',
-  path: 'download',
+  path: '/download',
 }, {
   icon: 'warning',
   name: 'ErrorBoundary',
-  path: 'errorBoundary',
+  path: '/errorBoundary',
 }, {
   icon: 'fund',
   name: 'GraphChart',
-  path: 'graphChart',
+  path: '/graphChart',
 }, {
   icon: 'line-chart',
   name: 'LineChart',
-  path: 'lineChart',
+  path: '/lineChart',
 }, {
   icon: 'sliders',
   name: 'MatrixChart',
-  path: 'matrixChart',
+  path: '/matrixChart',
 }];
 
 /* Test path against current pathname. */
