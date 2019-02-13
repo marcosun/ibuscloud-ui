@@ -11,5 +11,6 @@ module.exports = {
   appPath: resolveApp('.'),
   appDist: resolveApp('dist'),
   appSrc: resolveApp('src'),
-  ibuscloudUi: resolveApp('node_modules/ibuscloud-ui')
+  ibuscloudUi: resolveApp('node_modules/ibuscloud-ui'),
+  nodeModules: resolveApp('node_modules'),
 };
