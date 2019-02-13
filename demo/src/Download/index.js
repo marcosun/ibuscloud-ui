@@ -18,15 +18,9 @@ class Download extends React.PureComponent {
           <BreadcrumbWithTitle breadCrumbPaths={['ibuscloud-ui', 'download']} title="Download" />
         </Board>
         <Panel>
-          <Button icon="download" type="primary">
-            <IbusDownload
-              download="logo"
-              style={{ color: '#fff' }}
-              url={logoIcon}
-            >
-              Download
-            </IbusDownload>
-          </Button>
+          <IbusDownload download="logo" url={logoIcon}>
+            <Button icon="download" type="primary">Download</Button>
+          </IbusDownload>
         </Panel>
       </div>
     );
