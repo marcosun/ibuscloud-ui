@@ -11,8 +11,12 @@ import BarChartDemo from './BarChart';
 @hot(module)
 class BarChart extends React.PureComponent {
   render() {
+    const props =  preval`
+      module.exports = require('fs').readFileSync(require.resolve('./BarChart.md'), 'utf8')
+    `;
+
     const raw = preval`
-      module.exports = require('fs').readFileSync(require.resolve('./BarChart'), 'utf8')
+    module.exports = require('fs').readFileSync(require.resolve('./BarChart.js'), 'utf8')
     `;
 
     return (
@@ -24,7 +28,7 @@ class BarChart extends React.PureComponent {
           <React.Fragment>
             <BarChartDemo />
             <PrismMarked
-              text={`\`\`\`jsx\n${raw}\n\`\`\``}
+              text={`## Source\n\`\`\`jsx\n${raw}\n\`\`\`\n${props}`}
             />
           </React.Fragment>
         </Panel>
