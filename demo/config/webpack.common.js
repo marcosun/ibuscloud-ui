@@ -103,7 +103,7 @@ module.exports = {
 
       {
         test: /\.css$/,
-        include: path.nodeModules,
+        // include: path.nodeModules,
         use: [
           {
             loader: 'style-loader',

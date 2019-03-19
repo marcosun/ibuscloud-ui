@@ -6,6 +6,7 @@ import {
   Panel,
 } from 'ibuscloud-ui';
 import PrismMarked from 'react-prism-marked';
+import 'react-prism-marked/markdown.css';
 import BarChartDemo from './BarChart';
 
 @hot(module)
