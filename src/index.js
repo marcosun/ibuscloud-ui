@@ -9,3 +9,5 @@ export { default as Layout } from './Layout';
 export { default as LineChart } from './LineChart';
 export { default as MatrixChart } from './MatrixChart';
 export { default as Panel } from './Panel';
+export { default as Radio } from './Radio';
+export { default as Select } from './Select';
